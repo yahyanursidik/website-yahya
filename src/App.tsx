@@ -40,21 +40,8 @@ const ProfileBrief: FC = () => (
         <h2 className="font-headline text-3xl text-primary">Mengenal Yahya Nursidik</h2>
         <div className="w-12 h-1 bg-primary-container/30"></div>
         <p className="text-on-surface-variant leading-relaxed">
-          Seorang edukator dan peneliti yang mendedikasikan diri pada pengembangan kurikulum pendidikan Islam yang relevan dengan tantangan zaman. Fokus utamanya terletak pada integrasi nilai-nilai manhaj salaf dengan metodologi pembelajaran modern yang humanis.
+          Perjalanan saya banyak dekat dengan dunia pendidikan, keluarga, dan pembelajaran berbasis nilai-nilai Islam. Saya belajar bahwa setiap anak, orang tua, guru, dan lembaga memiliki kebutuhan yang unik. Dari pengalaman itulah saya terus terlibat dalam pengembangan kurikulum, desain pembelajaran dan desain pengalaman pembelajaran, program belajar, parenting, dan berbagai ruang pembelajaran yang diharapkan bisa memberi manfaat yang nyata dan berkelanjutan, ditambah keyakinan bahwa pendidikan semestinya membantu menyiapkan generasi rabbani—generasi yang dibina dengan ilmu, adab, dan proses yang bertahap. Sebagaimana para ulama menjelaskan, pribadi rabbani adalah pribadi yang berilmu, bijak, dan membimbing manusia sedikit demi sedikit menuju kebaikan.
         </p>
-        <p className="text-on-surface-variant leading-relaxed">
-          Sebagai pengembang sistem pembelajaran, ia aktif merancang ekosistem edukasi yang tidak hanya mentransfer ilmu, tetapi juga membentuk karakter kokoh bagi generasi mendatang.
-        </p>
-        <div className="flex gap-6 pt-4">
-          <div className="flex flex-col">
-            <span className="text-primary font-bold text-xl font-headline">10+</span>
-            <span className="text-xs text-on-surface-variant uppercase tracking-wider font-medium">Tahun Dedikasi</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-primary font-bold text-xl font-headline">50+</span>
-            <span className="text-xs text-on-surface-variant uppercase tracking-wider font-medium">Proyek Riset</span>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -173,25 +160,9 @@ const InstagramFeed: FC = () => (
         <h2 className="font-headline text-3xl text-primary mb-2">Dari Instagram</h2>
         <p className="text-on-surface-variant text-sm">@yahya_nursidik — Insights harian seputar pendidikan.</p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-        <a href="https://www.instagram.com/yahyanursidik/" target="_blank" rel="noreferrer" className="block aspect-[4/5] bg-surface-dim overflow-hidden rounded-lg group relative focus:outline-none">
-          <img alt="Pengelolaan Kelas Sekolah Islam" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/images/instagram/post-1.webp" />
-          <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <span className="material-symbols-outlined text-white text-3xl">open_in_new</span>
-          </div>
-        </a>
-        <a href="https://www.instagram.com/yahyanursidik/" target="_blank" rel="noreferrer" className="block aspect-[4/5] bg-surface-dim overflow-hidden rounded-lg group relative focus:outline-none">
-          <img alt="Taksonomi Bloom" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/images/instagram/post-2.webp" />
-          <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <span className="material-symbols-outlined text-white text-3xl">open_in_new</span>
-          </div>
-        </a>
-        <a href="https://www.instagram.com/yahyanursidik/" target="_blank" rel="noreferrer" className="block aspect-[4/5] bg-surface-dim overflow-hidden rounded-lg group relative focus:outline-none">
-          <img alt="Kurikulum Khas Sekolah Islam" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/images/instagram/post-3.webp" />
-          <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-            <span className="material-symbols-outlined text-white text-3xl">open_in_new</span>
-          </div>
-        </a>
+      <div className="w-full mb-10 min-h-[400px]">
+        {/* Kontainer untuk Widget Instagram Elfsight */}
+        <div className="elfsight-app-1f2388b2-5089-44c4-be9f-c0d3812ad4c9" data-elfsight-app-lazy></div>
       </div>
       <div className="flex justify-center gap-4">
         <a className="flex items-center gap-2 border border-primary/20 text-primary px-6 py-2.5 rounded-lg font-medium text-sm hover:bg-surface-container transition-all" href="https://www.instagram.com/yahyanursidik/" target="_blank" rel="noreferrer">
