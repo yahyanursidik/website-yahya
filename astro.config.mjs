@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import keystatic from '@keystatic/astro';
-import node from '@astrojs/node';
+import netlify from '@astrojs/netlify';
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,5 +12,5 @@ export default defineConfig({
     keystatic()
   ],
   output: 'server',
-  adapter: node({ mode: 'standalone' }),
+  adapter: netlify(),
 });
