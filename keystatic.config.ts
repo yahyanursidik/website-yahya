@@ -1,8 +1,12 @@
 import { config, fields, collection } from '@keystatic/core';
 
 export default config({
-  storage: {
+  storage: process.env.NODE_ENV === 'development' ? {
     kind: 'local',
+  } : {
+    kind: 'github',
+    repo: 'yahyanursidik/website-yahya',
+    pathPrefix: 'apps/website-yahya',
   },
   collections: {
     jadwal: collection({
