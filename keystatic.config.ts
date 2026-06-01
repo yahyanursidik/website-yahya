@@ -6,7 +6,6 @@ export default config({
   } : {
     kind: 'github',
     repo: 'yahyanursidik/website-yahya',
-    pathPrefix: 'apps/website-yahya',
   },
   collections: {
     jadwal: collection({
