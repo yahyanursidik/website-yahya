@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+
+const reader = createReader(process.cwd(), keystaticConfig);
+const jadwal = await reader.collections.jadwal.all();
+const buku = await reader.collections.buku.all();
+---
+
+<Layout title="Yahya Nursidik | Edukator & Akademisi">
+  <section class="pt-40 pb-20 px-8 max-w-5xl mx-auto text-center">
+    <span class="text-primary-container font-medium tracking-[0.3em] text-[10px] uppercase mb-4 block">Edukator &amp; Akademisi</span>
+    <h1 class="font-headline text-5xl md:text-6xl text-primary leading-tight mb-8">Yahya Nursidik</h1>
+    <p class="text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-10 font-body">
+      Mentransformasi ekosistem pembelajaran melalui pendekatan kurikulum berbasis nilai dan teknologi humanis.
+    </p>
+    <div class="flex justify-center gap-4">
+      <button class="bg-primary-container text-on-primary px-8 py-3.5 rounded-lg font-medium hover:opacity-90 transition-all">
+        Lihat Jadwal Kegiatan
+      </button>
+    </div>
+  </section>
+
+  <section class="py-24 px-8 max-w-5xl mx-auto scroll-mt-20" id="profil">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
+        <img alt="Atmospheric study space with a wooden desk, ancient books, and soft morning light through a window" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm6YcQ1zyJhG-ePeRSC5PcmzHDLT0txoMENlerWZYYfVz88WOEtbU4XSKMlEQ8OO313q_dXCumelEhKaYKMs9PIhR7UI08FaNUitooLSyZbGgI7oF5JbC_wXsvK-BMc4TBBBHA6AXO2gcKIvsyhwx-0maZsFMISSW3Met45usEZ5sGjnCyoMXq8Kz8pXxx_f8hWQ3Yowha9YCWL5bQkGhY_H5SfOV6SSALYSMJsN9Ph2x4TkLQTOBqapeFX9YEN-ohpJuYnx8SqtuP" />
+        <div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
+      </div>
+      <div class="space-y-6">
+        <h2 class="font-headline text-3xl text-primary">Mengenal Yahya Nursidik</h2>
+        <div class="w-12 h-1 bg-primary-container/30"></div>
+        <p class="text-on-surface-variant leading-relaxed">
+          Perjalanan saya banyak dekat dengan dunia pendidikan, keluarga, dan pembelajaran berbasis nilai-nilai Islam. Saya belajar bahwa setiap anak, orang tua, guru, dan lembaga memiliki kebutuhan yang unik. Dari pengalaman itulah saya terus terlibat dalam pengembangan kurikulum, desain pembelajaran dan desain pengalaman pembelajaran, program belajar, parenting, dan berbagai ruang pembelajaran yang diharapkan bisa memberi manfaat yang nyata dan berkelanjutan, ditambah keyakinan bahwa pendidikan semestinya membantu menyiapkan generasi rabbani—generasi yang dibina dengan ilmu, adab, dan proses yang bertahap. Sebagaimana para ulama menjelaskan, pribadi rabbani adalah pribadi yang berilmu, bijak, dan membimbing manusia sedikit demi sedikit menuju kebaikan.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 px-8 max-w-3xl mx-auto text-center border-y border-outline-variant/20">
+    <p class="text-xl text-on-surface leading-relaxed font-headline italic">
+      "Pendidikan bukan hanya tentang transfer informasi, melainkan pembentukan karakter yang berakar pada nilai luhur dan adaptif terhadap masa depan."
+    </p>
+    <div class="mt-8">
+      <a class="text-primary font-medium text-sm border-b border-primary/20 hover:border-primary transition-all pb-1" href="#">
+        Baca Profil Selengkapnya
+      </a>
+    </div>
+  </section>
+
+  <section class="py-24 px-8 max-w-5xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="font-headline text-3xl text-primary mb-4">Kelas / Seminar yang Sedang Dibuka</h2>
+      <div class="w-12 h-0.5 bg-primary-container/30 mx-auto"></div>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {jadwal.length > 0 ? jadwal.map((item) => (
+        <div class="bg-surface-container-lowest border border-outline-variant/30 p-6 rounded-xl flex flex-col h-full hover:shadow-md transition-shadow">
+          <div class="flex justify-between items-start mb-4">
+            <span class="bg-primary-fixed text-on-primary-fixed-variant text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">{item.entry.type}</span>
+            <span class="text-on-surface-variant text-[10px] uppercase font-medium">{item.entry.format}</span>
+          </div>
+          <h3 class="font-headline text-lg mb-4 text-primary leading-snug flex-grow">{item.entry.title}</h3>
+          <div class="flex items-center gap-2 text-xs text-on-surface-variant mb-6">
+            <span class="material-symbols-outlined text-sm">calendar_today</span>
+            <span>{item.entry.status}</span>
+          </div>
+          <a href={item.entry.link || '#'} target="_blank" rel="noreferrer" class="block text-center w-full bg-primary-container text-on-primary py-2.5 rounded-lg font-medium text-sm hover:opacity-90 transition-opacity">
+            Daftar
+          </a>
+        </div>
+      )) : (
+        <div class="col-span-3 text-center text-on-surface-variant italic py-10">
+          Belum ada jadwal yang tersedia saat ini.
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="py-24 px-8 max-w-5xl mx-auto border-t border-outline-variant/10">
+    <div class="text-center mb-16">
+      <h2 class="font-headline text-3xl text-primary mb-4">Karya Pilihan</h2>
+      <div class="w-12 h-0.5 bg-primary-container/30 mx-auto"></div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      {buku.length > 0 ? buku.map((item) => (
+        <div class="group">
+          <div class="aspect-[3/4] rounded-lg overflow-hidden mb-6 shadow-lg bg-surface-container transition-transform duration-500 group-hover:-translate-y-2">
+            <img alt={item.entry.title} class="w-full h-full object-cover" src={item.entry.coverUrl} />
+          </div>
+          <h3 class="font-headline text-xl text-primary mb-2">{item.entry.title}</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-4">{item.entry.description}</p>
+        </div>
+      )) : (
+        <div class="col-span-3 text-center text-on-surface-variant italic py-10">
+          Koleksi buku belum ditambahkan.
+        </div>
+      )}
+    </div>
+    <div class="text-center">
+      <a class="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all border-b border-primary/20 pb-1" href="#">
+        Lihat Semua Buku
+        <span class="material-symbols-outlined text-base">arrow_forward</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="bg-surface-container-low py-24 px-8">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="font-headline text-3xl text-primary mb-2">Dari Instagram</h2>
+        <p class="text-on-surface-variant text-sm">@yahya_nursidik — Insights harian seputar pendidikan.</p>
+      </div>
+      <div class="w-full mb-10 min-h-[400px]">
+        <div class="elfsight-app-1f2388b2-5089-44c4-be9f-c0d3812ad4c9" data-elfsight-app-lazy></div>
+      </div>
+      <div class="flex justify-center gap-4">
+        <a class="flex items-center gap-2 border border-primary/20 text-primary px-6 py-2.5 rounded-lg font-medium text-sm hover:bg-surface-container transition-all" href="https://www.instagram.com/yahyanursidik/" target="_blank" rel="noreferrer">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 px-8 max-w-3xl mx-auto text-center">
+    <h2 class="font-headline text-3xl text-primary mb-8">Mulai Kolaborasi Bermakna</h2>
+    <button class="bg-primary-container text-on-primary px-10 py-4 rounded-lg font-medium text-lg hover:opacity-90 transition-all shadow-lg shadow-primary-container/10">
+      Hubungi via WhatsApp
+    </button>
+  </section>
+</Layout>
