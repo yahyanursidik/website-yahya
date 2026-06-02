@@ -8,26 +8,21 @@ export default config({
     repo: 'yahyanursidik/website-yahya',
   },
   singletons: {
-    quoteBeranda: singleton({
-      label: 'Kutipan Beranda (Slider)',
-      path: 'src/content/quote-beranda/data',
-      format: { data: 'json' },
-      schema: {
-        quotes: fields.array(
-          fields.object({
-            quote: fields.text({ label: 'Teks Kutipan', multiline: true }),
-            linkText: fields.text({ label: 'Teks Link', defaultValue: 'Baca Profil Selengkapnya' }),
-            linkUrl: fields.url({ label: 'URL Link (Opsional)' }),
-          }),
-          {
-            label: 'Daftar Kutipan',
-            itemLabel: props => props.fields.quote.value || 'Kutipan Baru'
-          }
-        )
-      },
-    }),
   },
   collections: {
+    kutipan: collection({
+      label: 'Kutipan (Quotes)',
+      slugField: 'author',
+      path: 'src/content/kutipan/*',
+      format: { data: 'json' },
+      schema: {
+        author: fields.slug({ name: { label: 'Sumber / Tokoh (Gunakan nama tanpa spasi untuk ID)', description: 'Contoh: yahya-nursidik' } }),
+        authorName: fields.text({ label: 'Nama Penulis Tampil', defaultValue: 'Yahya Nursidik' }),
+        quote: fields.text({ label: 'Teks Kutipan', multiline: true }),
+        linkText: fields.text({ label: 'Teks Link (Opsional)', defaultValue: 'Baca Profil Selengkapnya' }),
+        linkUrl: fields.url({ label: 'URL Link (Opsional)' }),
+      },
+    }),
     jadwal: collection({
       label: 'Jadwal Kelas / Seminar',
       slugField: 'title',

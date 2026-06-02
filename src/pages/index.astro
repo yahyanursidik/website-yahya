@@ -6,9 +6,15 @@ import keystaticConfig from '../../keystatic.config';
 const reader = createReader(process.cwd(), keystaticConfig);
 const jadwal = await reader.collections.jadwal.all();
 const buku = await reader.collections.buku.all();
-const quoteBerandaData = await reader.singletons.quoteBeranda.read();
-const quotes = quoteBerandaData?.quotes || [{
+const kutipanData = await reader.collections.kutipan.all();
+const quotes = kutipanData.length > 0 ? kutipanData.map(item => ({
+  quote: item.entry.quote,
+  authorName: item.entry.authorName,
+  linkText: item.entry.linkText,
+  linkUrl: item.entry.linkUrl
+})) : [{
   quote: '"Pendidikan bukan hanya tentang transfer informasi, melainkan pembentukan karakter yang berakar pada nilai luhur dan adaptif terhadap masa depan."',
+  authorName: 'Yahya Nursidik',
   linkText: 'Baca Profil Selengkapnya',
   linkUrl: '#'
 }];
@@ -60,18 +66,23 @@ const quotes = quoteBerandaData?.quotes || [{
   </section>
 
   <!-- Section 2: Brief About (Slider) -->
-  <section class="py-20 px-8 max-w-3xl mx-auto text-center border-y border-outline-variant/20 scroll-reveal fade-in-up">
+  <section class="py-24 px-8 max-w-4xl mx-auto text-center border-y border-outline-variant/20 scroll-reveal fade-in-up">
     <div class="overflow-hidden w-full">
       <div id="quote-slider-track" class="flex transition-transform duration-700 ease-in-out">
         {quotes.map(item => (
-          <div class="w-full flex-shrink-0 px-4 flex flex-col justify-center">
-            <p class="text-xl text-on-surface leading-relaxed font-headline italic">
+          <div class="w-full flex-shrink-0 px-6 flex flex-col justify-center items-center relative">
+            <span class="absolute top-0 md:-top-4 left-1/2 -translate-x-1/2 text-[120px] text-primary/5 font-serif leading-none select-none">"</span>
+            <p class="text-2xl md:text-3xl text-on-surface leading-relaxed font-headline italic relative z-10">
               {item.quote}
             </p>
-            <div class="mt-8">
-              <a class="inline-block text-primary font-medium text-sm border-b border-primary/20 hover:border-primary transition-all pb-1 hover-line-draw" href={item.linkUrl || '#'}>
-                {item.linkText}
-              </a>
+            <div class="mt-10 flex flex-col items-center gap-4 relative z-10">
+              <div class="w-12 h-0.5 bg-primary/40"></div>
+              <span class="font-bold text-primary tracking-widest uppercase text-xs md:text-sm">{item.authorName}</span>
+              {item.linkText && (
+                <a class="mt-4 inline-block text-primary font-medium text-sm border-b border-primary/20 hover:border-primary transition-all pb-1 hover-line-draw" href={item.linkUrl || '#'}>
+                  {item.linkText}
+                </a>
+              )}
             </div>
           </div>
         ))}
