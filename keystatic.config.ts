@@ -9,13 +9,21 @@ export default config({
   },
   singletons: {
     quoteBeranda: singleton({
-      label: 'Kutipan Beranda',
+      label: 'Kutipan Beranda (Slider)',
       path: 'src/content/quote-beranda/data',
       format: { data: 'json' },
       schema: {
-        quote: fields.text({ label: 'Teks Kutipan', multiline: true }),
-        linkText: fields.text({ label: 'Teks Link', defaultValue: 'Baca Profil Selengkapnya' }),
-        linkUrl: fields.url({ label: 'URL Link' }),
+        quotes: fields.array(
+          fields.object({
+            quote: fields.text({ label: 'Teks Kutipan', multiline: true }),
+            linkText: fields.text({ label: 'Teks Link', defaultValue: 'Baca Profil Selengkapnya' }),
+            linkUrl: fields.url({ label: 'URL Link (Opsional)' }),
+          }),
+          {
+            label: 'Daftar Kutipan',
+            itemLabel: props => props.fields.quote.value || 'Kutipan Baru'
+          }
+        )
       },
     }),
   },

@@ -7,11 +7,11 @@ const reader = createReader(process.cwd(), keystaticConfig);
 const jadwal = await reader.collections.jadwal.all();
 const buku = await reader.collections.buku.all();
 const quoteBerandaData = await reader.singletons.quoteBeranda.read();
-const quoteBeranda = quoteBerandaData || {
+const quotes = quoteBerandaData?.quotes || [{
   quote: '"Pendidikan bukan hanya tentang transfer informasi, melainkan pembentukan karakter yang berakar pada nilai luhur dan adaptif terhadap masa depan."',
   linkText: 'Baca Profil Selengkapnya',
   linkUrl: '#'
-};
+}];
 ---
 
 <Layout title="Yahya Nursidik | Edukator & Akademisi">
@@ -59,16 +59,32 @@ const quoteBeranda = quoteBerandaData || {
     </div>
   </section>
 
-  <!-- Section 2: Brief About -->
+  <!-- Section 2: Brief About (Slider) -->
   <section class="py-20 px-8 max-w-3xl mx-auto text-center border-y border-outline-variant/20 scroll-reveal fade-in-up">
-    <p class="text-xl text-on-surface leading-relaxed font-headline italic">
-      {quoteBeranda.quote}
-    </p>
-    <div class="mt-8">
-      <a class="text-primary font-medium text-sm border-b border-primary/20 hover:border-primary transition-all pb-1 hover-line-draw" href={quoteBeranda.linkUrl || '#'}>
-        {quoteBeranda.linkText}
-      </a>
+    <div class="overflow-hidden w-full">
+      <div id="quote-slider-track" class="flex transition-transform duration-700 ease-in-out">
+        {quotes.map(item => (
+          <div class="w-full flex-shrink-0 px-4 flex flex-col justify-center">
+            <p class="text-xl text-on-surface leading-relaxed font-headline italic">
+              {item.quote}
+            </p>
+            <div class="mt-8">
+              <a class="inline-block text-primary font-medium text-sm border-b border-primary/20 hover:border-primary transition-all pb-1 hover-line-draw" href={item.linkUrl || '#'}>
+                {item.linkText}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
+    
+    {quotes.length > 1 && (
+      <div class="flex justify-center gap-3 mt-8">
+        {quotes.map((_, i) => (
+          <button class={`w-2.5 h-2.5 rounded-full transition-all quote-dot ${i === 0 ? 'bg-primary scale-125' : 'bg-primary/30 hover:bg-primary/60'}`} data-index={i} aria-label={`Go to slide ${i + 1}`}></button>
+        ))}
+      </div>
+    )}
   </section>
 
   <!-- Section 3: Classes/Events -->
@@ -163,4 +179,46 @@ const quoteBeranda = quoteBerandaData || {
       Hubungi via WhatsApp
     </button>
   </section>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('quote-slider-track');
+      const dots = document.querySelectorAll('.quote-dot');
+      if (track && dots.length > 1) {
+        let current = 0;
+        const max = dots.length;
+        let interval;
+        
+        function update() {
+          track.style.transform = `translateX(-${current * 100}%)`;
+          dots.forEach((dot, i) => {
+            if (i === current) {
+              dot.classList.add('bg-primary', 'scale-125');
+              dot.classList.remove('bg-primary/30');
+            } else {
+              dot.classList.remove('bg-primary', 'scale-125');
+              dot.classList.add('bg-primary/30');
+            }
+          });
+        }
+        
+        function next() {
+          current = (current + 1) % max;
+          update();
+        }
+        
+        interval = setInterval(next, 6000);
+        
+        dots.forEach((dot, i) => {
+          dot.addEventListener('click', () => {
+            clearInterval(interval);
+            current = i;
+            update();
+            interval = setInterval(next, 6000);
+          });
+        });
+      }
+    });
+  </script>
 </Layout>
