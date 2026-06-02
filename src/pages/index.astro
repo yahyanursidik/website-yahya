@@ -6,6 +6,12 @@ import keystaticConfig from '../../keystatic.config';
 const reader = createReader(process.cwd(), keystaticConfig);
 const jadwal = await reader.collections.jadwal.all();
 const buku = await reader.collections.buku.all();
+const quoteBerandaData = await reader.singletons.quoteBeranda.read();
+const quoteBeranda = quoteBerandaData || {
+  quote: '"Pendidikan bukan hanya tentang transfer informasi, melainkan pembentukan karakter yang berakar pada nilai luhur dan adaptif terhadap masa depan."',
+  linkText: 'Baca Profil Selengkapnya',
+  linkUrl: '#'
+};
 ---
 
 <Layout title="Yahya Nursidik | Edukator & Akademisi">
@@ -56,11 +62,11 @@ const buku = await reader.collections.buku.all();
   <!-- Section 2: Brief About -->
   <section class="py-20 px-8 max-w-3xl mx-auto text-center border-y border-outline-variant/20 scroll-reveal fade-in-up">
     <p class="text-xl text-on-surface leading-relaxed font-headline italic">
-      "Pendidikan bukan hanya tentang transfer informasi, melainkan pembentukan karakter yang berakar pada nilai luhur dan adaptif terhadap masa depan."
+      {quoteBeranda.quote}
     </p>
     <div class="mt-8">
-      <a class="text-primary font-medium text-sm border-b border-primary/20 hover:border-primary transition-all pb-1 hover-line-draw" href="#">
-        Baca Profil Selengkapnya
+      <a class="text-primary font-medium text-sm border-b border-primary/20 hover:border-primary transition-all pb-1 hover-line-draw" href={quoteBeranda.linkUrl || '#'}>
+        {quoteBeranda.linkText}
       </a>
     </div>
   </section>

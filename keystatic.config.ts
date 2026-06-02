@@ -1,4 +1,4 @@
-import { config, fields, collection } from '@keystatic/core';
+import { config, fields, collection, singleton } from '@keystatic/core';
 
 export default config({
   storage: process.env.NODE_ENV === 'development' ? {
@@ -6,6 +6,18 @@ export default config({
   } : {
     kind: 'github',
     repo: 'yahyanursidik/website-yahya',
+  },
+  singletons: {
+    quoteBeranda: singleton({
+      label: 'Kutipan Beranda',
+      path: 'src/content/quote-beranda/data',
+      format: { data: 'json' },
+      schema: {
+        quote: fields.text({ label: 'Teks Kutipan', multiline: true }),
+        linkText: fields.text({ label: 'Teks Link', defaultValue: 'Baca Profil Selengkapnya' }),
+        linkUrl: fields.url({ label: 'URL Link' }),
+      },
+    }),
   },
   collections: {
     jadwal: collection({
