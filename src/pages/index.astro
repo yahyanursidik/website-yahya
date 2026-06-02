@@ -82,8 +82,9 @@ const buku = await reader.collections.buku.all();
             <span class="bg-primary-fixed text-on-primary-fixed-variant text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">{item.entry.type}</span>
             <span class="text-on-surface-variant text-[10px] uppercase font-medium animate-pulse-subtle">{item.entry.format}</span>
           </div>
-          <h3 class="font-headline text-lg mb-4 text-primary leading-snug flex-grow">{item.entry.title}</h3>
-          <div class="flex items-center gap-2 text-xs text-on-surface-variant mb-6">
+          <h3 class="font-headline text-lg mb-2 text-primary leading-snug">{item.entry.title}</h3>
+          {item.entry.description && <p class="text-on-surface-variant text-sm leading-relaxed mb-4 flex-grow">{item.entry.description}</p>}
+          <div class="flex items-center gap-2 text-xs text-on-surface-variant mb-6 mt-auto">
             <span class="material-symbols-outlined text-sm">calendar_today</span>
             <span>{item.entry.status}</span>
           </div>

@@ -15,6 +15,7 @@ export default config({
       format: { data: 'json' },
       schema: {
         title: fields.slug({ name: { label: 'Judul Kelas / Seminar' } }),
+        description: fields.text({ label: 'Deskripsi Singkat', multiline: true }),
         type: fields.select({
           label: 'Jenis',
           options: [
