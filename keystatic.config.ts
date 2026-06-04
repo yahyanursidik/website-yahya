@@ -4,8 +4,10 @@ export default config({
   storage: process.env.NODE_ENV === 'development' ? {
     kind: 'local',
   } : {
-    kind: 'github',
-    repo: 'yahyanursidik/website-yahya',
+    kind: 'cloud',
+  },
+  cloud: {
+    project: 'web-sendiri/website-yahya',
   },
   singletons: {
   },
