@@ -1,0 +1,16 @@
+{
+  "order": 5,
+  "arabicLetter": "ج",
+  "nameArabic": "جِيم",
+  "nameLatin": "Jim",
+  "audioPath": "/audio/jim.mp3",
+  "shortReadingGuide": "Dibaca Jim. Titiknya satu di tengah perut.",
+  "makhrajSimple": "Tengah lidah menempel pada langit-langit atas.",
+  "commonMistake": "Dicampur adukkan dengan huruf Zai atau terlalu berdesis.",
+  "similarLetters": [
+    "ha",
+    "kha"
+  ],
+  "levelGroup": 2,
+  "isPublished": true
+}

@@ -1,0 +1,16 @@
+{
+  "order": 6,
+  "arabicLetter": "ح",
+  "nameArabic": "حَاء",
+  "nameLatin": "Ha",
+  "audioPath": "/audio/ha.mp3",
+  "shortReadingGuide": "Dibaca Ha bersih, pedas di tenggorokan.",
+  "makhrajSimple": "Keluar dari tengah tenggorokan.",
+  "commonMistake": "Dibaca terlalu tebal (Kha) atau seperti Ha besar (H).",
+  "similarLetters": [
+    "jim",
+    "kha"
+  ],
+  "levelGroup": 2,
+  "isPublished": true
+}

@@ -1,0 +1,13 @@
+{
+  "order": 1,
+  "arabicLetter": "ا",
+  "nameArabic": "أَلِف",
+  "nameLatin": "Alif",
+  "audioPath": "/audio/alif.mp3",
+  "shortReadingGuide": "Dibaca A. Mulut dibuka lebar.",
+  "makhrajSimple": "Keluar dari rongga mulut sebelah dalam.",
+  "commonMistake": "Sering keliru dibaca miring.",
+  "similarLetters": [],
+  "levelGroup": 1,
+  "isPublished": true
+}

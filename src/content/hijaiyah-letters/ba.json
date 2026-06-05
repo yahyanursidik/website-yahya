@@ -1,0 +1,16 @@
+{
+  "order": 2,
+  "arabicLetter": "ب",
+  "nameArabic": "بَاء",
+  "nameLatin": "Ba",
+  "audioPath": "/audio/ba.mp3",
+  "shortReadingGuide": "Dibaca Ba. Ingat titik satu di bawah seperti perahu.",
+  "makhrajSimple": "Dari antara dua bibir yang tertutup.",
+  "commonMistake": "Lupa memantulkan (qalqalah) saat sukun.",
+  "similarLetters": [
+    "ta",
+    "tsa"
+  ],
+  "levelGroup": 1,
+  "isPublished": true
+}

@@ -1,0 +1,75 @@
+---
+import HijaiyahLayout from '../../../layouts/HijaiyahLayout.astro';
+import AudioButton from '../../../components/hijaiyah/react/AudioButton';
+import { getCollection } from 'astro:content';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+    const letters = await getCollection('hijaiyahLetters');
+    return letters.map(letter => ({
+        params: { slug: letter.id },
+        props: { letter },
+    }));
+}
+
+const { letter } = Astro.props;
+---
+
+<HijaiyahLayout title={`Huruf ${letter.data.nameLatin}`}>
+    <div class="px-4 py-8 max-w-lg mx-auto">
+        <div class="flex items-center mb-8">
+            <a href="/hijaiyah/letters" class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm text-[#0F4C5C] hover:bg-gray-50 mr-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="text-xl font-bold text-[#0F4C5C]">Detail Huruf</h1>
+        </div>
+
+        <div class="bg-white rounded-[2.5rem] p-8 shadow-sm border border-[#83C5BE]/20 mb-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-[#E3F0E5] rounded-full -mt-10 -mr-10 opacity-50"></div>
+            
+            <div class="relative z-10 flex flex-col items-center">
+                <div class="text-9xl font-arabic text-[#0F4C5C] mb-2 leading-none">
+                    {letter.data.arabicLetter}
+                </div>
+                <div class="text-2xl font-bold text-[#FFD166] mb-8">
+                    {letter.data.nameArabic}
+                </div>
+                
+                <AudioButton client:load audioPath={letter.data.audioPath} size="lg" />
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            {letter.data.shortReadingGuide && (
+                <div class="bg-[#FFFDF7] rounded-3xl p-6 border border-[#FFD166]/30">
+                    <h3 class="text-sm font-bold text-[#FFD166] mb-2 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Cara Membaca
+                    </h3>
+                    <p class="text-[#0F4C5C]/80 leading-relaxed">
+                        {letter.data.shortReadingGuide}
+                    </p>
+                </div>
+            )}
+
+            {letter.data.makhrajSimple && (
+                <div class="bg-[#E3F0E5] rounded-3xl p-6 border border-[#83C5BE]/30">
+                    <h3 class="text-sm font-bold text-[#83C5BE] mb-2 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Tempat Keluar (Makhraj)
+                    </h3>
+                    <p class="text-[#0F4C5C]/80 leading-relaxed">
+                        {letter.data.makhrajSimple}
+                    </p>
+                </div>
+            )}
+        </div>
+    </div>
+</HijaiyahLayout>

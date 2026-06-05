@@ -1,0 +1,16 @@
+{
+  "order": 7,
+  "arabicLetter": "خ",
+  "nameArabic": "خَاء",
+  "nameLatin": "Kha",
+  "audioPath": "/audio/kha.mp3",
+  "shortReadingGuide": "Dibaca Kha. Mengorok di ujung tenggorokan.",
+  "makhrajSimple": "Keluar dari ujung tenggorokan.",
+  "commonMistake": "Kurang ngorok atau dibaca tipis.",
+  "similarLetters": [
+    "jim",
+    "ha"
+  ],
+  "levelGroup": 2,
+  "isPublished": true
+}

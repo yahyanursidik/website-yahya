@@ -1,0 +1,13 @@
+{
+  "id": "level-6",
+  "levelNumber": 6,
+  "title": "Dhammah",
+  "description": "Mengenal harakat Dhammah",
+  "isPublished": true,
+  "letters": [
+    "waw",
+    "ha-besar",
+    "hamzah",
+    "ya"
+  ]
+}

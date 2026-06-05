@@ -1,0 +1,82 @@
+---
+import HijaiyahLayout from '../../../layouts/HijaiyahLayout.astro';
+import GameShell from '../../../components/hijaiyah/react/GameShell';
+import type { GameStep } from '../../../components/hijaiyah/react/GameShell';
+import { getCollection, getEntry } from 'astro:content';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+    const levels = await getCollection('hijaiyahLevels');
+    return levels.map(level => ({
+        params: { slug: level.id },
+        props: { level },
+    }));
+}
+
+const { level } = Astro.props;
+
+// Fetch letters for this level
+const allLetters = await getCollection('hijaiyahLetters');
+const levelLetters = level.data.letters 
+    ? allLetters.filter(l => level.data.letters.includes(l.id))
+    : [];
+
+// Generate game steps dynamically based on level letters
+const steps: GameStep[] = [];
+
+// For demo purposes, let's create a few steps per letter if there are letters
+if (levelLetters.length > 0) {
+    // 1. Listen and choose
+    const l1 = levelLetters[0];
+    steps.push({
+        type: 'listen-choose',
+        targetLetter: { slug: l1.id, arabicLetter: l1.data.arabicLetter },
+        options: levelLetters.map(l => ({ slug: l.id, arabicLetter: l.data.arabicLetter })).slice(0, 4),
+        audioPath: l1.data.audioPath || '',
+    });
+
+    // 2. Find letter
+    if (levelLetters.length > 1) {
+        const l2 = levelLetters[1];
+        steps.push({
+            type: 'find-letter',
+            targetLetter: { slug: l2.id, arabicLetter: l2.data.arabicLetter },
+            options: levelLetters.map(l => ({ slug: l.id, arabicLetter: l.data.arabicLetter })).slice(0, 4),
+            audioPath: '',
+        });
+    }
+
+    // 3. Similar letter game (only if it's level 3 or 4 based on title, or just generic fallback)
+    const targetSim = levelLetters[levelLetters.length - 1];
+    steps.push({
+        type: 'similar-letter',
+        targetLetter: { slug: targetSim.id, arabicLetter: targetSim.data.arabicLetter },
+        options: levelLetters.map(l => ({ slug: l.id, arabicLetter: l.data.arabicLetter })).slice(0, 4),
+        audioPath: targetSim.data.audioPath || '',
+    });
+}
+---
+
+<HijaiyahLayout title={level.data.title}>
+    <div class="px-4 py-8 max-w-lg mx-auto">
+        <div class="flex items-center mb-6">
+            <a href="/hijaiyah/levels" class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm text-[#0F4C5C] hover:bg-gray-50 mr-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <div>
+                <div class="text-sm font-bold text-[#83C5BE]">Level {level.data.levelNumber}</div>
+                <h1 class="text-xl font-bold text-[#0F4C5C]">{level.data.title}</h1>
+            </div>
+        </div>
+
+        <GameShell 
+            client:load 
+            levelSlug={level.id} 
+            levelTitle={level.data.title} 
+            steps={steps} 
+        />
+    </div>
+</HijaiyahLayout>

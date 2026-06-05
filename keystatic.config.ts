@@ -10,6 +10,19 @@ export default config({
     project: 'web-sendiri/website-yahya',
   },
   singletons: {
+    parentGuide: singleton({
+      label: 'Hijaiyah Play - Panduan Orang Tua',
+      path: 'src/content/hijaiyah/parent-guide',
+      format: { data: 'json' },
+      schema: {
+        title: fields.text({ label: 'Judul', defaultValue: 'Panduan Orang Tua & Pendidik' }),
+        content: fields.text({ 
+          label: 'Isi Panduan', 
+          multiline: true,
+          defaultValue: 'Aplikasi ini dirancang sebagai alat bantu belajar dan murojaah huruf Hijaiyah dasar. Penting untuk dicatat bahwa aplikasi ini TIDAK menggantikan posisi talaqqi (belajar tatap muka) dengan guru atau orang tua yang cakap dalam membaca Al-Quran.'
+        }),
+      },
+    }),
   },
   collections: {
     kutipan: collection({
@@ -57,6 +70,45 @@ export default config({
         description: fields.text({ label: 'Deskripsi Singkat', multiline: true }),
         coverUrl: fields.url({ label: 'URL Gambar Cover' }),
         link: fields.url({ label: 'Link Detail/Beli (Opsional)' }),
+      },
+    }),
+    hijaiyahLetters: collection({
+      label: 'Hijaiyah Play - Huruf',
+      slugField: 'slug',
+      path: 'src/content/hijaiyah-letters/*',
+      format: { data: 'json' },
+      schema: {
+        slug: fields.slug({ name: { label: 'Slug Huruf (e.g. alif)' } }),
+        order: fields.integer({ label: 'Urutan (1-28)' }),
+        arabicLetter: fields.text({ label: 'Huruf Arab' }),
+        nameArabic: fields.text({ label: 'Nama (Arab)' }),
+        nameLatin: fields.text({ label: 'Nama (Latin)' }),
+        audioPath: fields.text({ label: 'Path Audio (e.g. /audio/alif.mp3)' }),
+        shortReadingGuide: fields.text({ label: 'Panduan Baca Singkat', multiline: true }),
+        makhrajSimple: fields.text({ label: 'Makhraj Sederhana', multiline: true }),
+        commonMistake: fields.text({ label: 'Kesalahan Umum', multiline: true }),
+        similarLetters: fields.array(fields.text({ label: 'Huruf Mirip' }), {
+          label: 'Huruf Mirip (Array Teks)',
+          itemLabel: props => props.value
+        }),
+        levelGroup: fields.integer({ label: 'Grup Level (1, 2, dll)' }),
+        isPublished: fields.checkbox({ label: 'Published', defaultValue: true }),
+      },
+    }),
+    hijaiyahLevels: collection({
+      label: 'Hijaiyah Play - Level',
+      slugField: 'slug',
+      path: 'src/content/hijaiyah-levels/*',
+      format: { data: 'json' },
+      schema: {
+        slug: fields.slug({ name: { label: 'Slug Level (e.g. level-1)' } }),
+        levelNumber: fields.integer({ label: 'Nomor Level' }),
+        title: fields.text({ label: 'Judul Level' }),
+        description: fields.text({ label: 'Deskripsi Singkat' }),
+        letters: fields.array(fields.text({ label: 'Huruf yang dipelajari' }), {
+          label: 'Daftar Huruf (Array Slug)',
+          itemLabel: props => props.value
+        }),
       },
     }),
   },

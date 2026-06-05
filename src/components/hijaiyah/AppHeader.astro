@@ -1,0 +1,47 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+    { label: 'Home', href: '/hijaiyah' },
+    { label: 'Letters', href: '/hijaiyah/letters' },
+    { label: 'Levels', href: '/hijaiyah/levels' },
+    { label: 'Progress', href: '/hijaiyah/progress' },
+    { label: 'Guide', href: '/hijaiyah/parent-guide' },
+];
+---
+
+<header class="hidden md:block bg-transparent relative z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <div class="flex items-center w-1/4">
+                <a href="/hijaiyah" class="flex items-center gap-2">
+                    <span class="font-extrabold text-2xl text-[#114D4D] tracking-tight">Hijaiyah Play</span>
+                </a>
+            </div>
+            
+            <nav class="flex space-x-6 justify-center flex-1 h-full items-center pt-2">
+                {navItems.map(item => {
+                    const isActive = currentPath === item.href || (item.href !== '/hijaiyah' && currentPath.startsWith(item.href));
+                    return (
+                        <a 
+                            href={item.href}
+                            class={`px-2 py-4 text-sm transition-colors h-full flex items-center border-b-4 ${
+                                isActive 
+                                ? 'text-[#114D4D] font-bold border-[#D6A13B]' 
+                                : 'text-[#8F9B9B] font-medium border-transparent hover:text-[#114D4D]'
+                            }`}
+                        >
+                            {item.label}
+                        </a>
+                    );
+                })}
+            </nav>
+            
+            <div class="w-1/4 flex justify-end">
+                <button class="text-[#114D4D] hover:bg-[#114D4D]/5 p-2 rounded-full transition-colors flex items-center justify-center">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>

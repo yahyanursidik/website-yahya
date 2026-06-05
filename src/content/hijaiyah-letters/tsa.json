@@ -1,0 +1,16 @@
+{
+  "order": 4,
+  "arabicLetter": "ث",
+  "nameArabic": "ثَاء",
+  "nameLatin": "Tsa",
+  "audioPath": "/audio/tsa.mp3",
+  "shortReadingGuide": "Dibaca Tsa. Angin berhembus lembut di antara gigi.",
+  "makhrajSimple": "Ujung lidah menempel pada ujung gigi seri atas.",
+  "commonMistake": "Dibaca seperti Sa (S) biasa.",
+  "similarLetters": [
+    "ba",
+    "ta"
+  ],
+  "levelGroup": 1,
+  "isPublished": true
+}

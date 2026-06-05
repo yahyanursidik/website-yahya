@@ -1,0 +1,49 @@
+---
+import HijaiyahLayout from '../../layouts/HijaiyahLayout.astro';
+import ProgressSummary from '../../components/hijaiyah/react/ProgressSummary';
+import RewardBadge from '../../components/hijaiyah/RewardBadge.astro';
+---
+
+<HijaiyahLayout title="Progres Belajar">
+    <div class="px-4 py-8 max-w-lg mx-auto">
+        <h1 class="text-3xl font-bold text-[#0F4C5C] mb-2 text-center">Progres Belajar</h1>
+        <p class="text-center text-[#0F4C5C]/70 mb-8 max-w-sm mx-auto">
+            MasyaAllah, lihat perkembangan belajarmu di sini.
+        </p>
+
+        <ProgressSummary client:only="react" />
+
+        <div class="mt-12">
+            <h2 class="text-xl font-bold text-[#0F4C5C] mb-4">Lencana Pencapaian</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <RewardBadge 
+                    title="Pemula"
+                    description="Selesai 1 Level"
+                    icon="🌱"
+                    isEarned={true} 
+                />
+                <RewardBadge 
+                    title="Makin Jago"
+                    description="Selesai 3 Level"
+                    icon="⭐"
+                    isEarned={false}
+                />
+                <RewardBadge 
+                    title="Hafal 10 Huruf"
+                    description="Kenal 10 huruf"
+                    icon="🏆"
+                    isEarned={false}
+                />
+                <RewardBadge 
+                    title="Jagoan Hijaiyah"
+                    description="Selesai semua"
+                    icon="👑"
+                    isEarned={false}
+                />
+            </div>
+            <p class="text-xs text-center text-gray-400 mt-4">
+                *Tampilan lencana adalah demonstrasi (mockup).
+            </p>
+        </div>
+    </div>
+</HijaiyahLayout>

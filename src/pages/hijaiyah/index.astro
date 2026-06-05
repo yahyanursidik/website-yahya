@@ -1,0 +1,36 @@
+---
+import HijaiyahLayout from '../../layouts/HijaiyahLayout.astro';
+import HeroSection from '../../components/hijaiyah/HeroSection.astro';
+import LevelCard from '../../components/hijaiyah/LevelCard.astro';
+import { getCollection } from 'astro:content';
+
+const levels = await getCollection('hijaiyahLevels');
+const sortedLevels = levels.sort((a, b) => a.data.levelNumber - b.data.levelNumber).slice(0, 2);
+---
+
+<HijaiyahLayout title="Beranda">
+    <HeroSection />
+    
+    <div class="px-4 mt-12 mb-8">
+        <div class="flex justify-between items-end mb-6">
+            <h2 class="text-2xl font-bold text-[#0F4C5C]">Lanjutkan Belajar</h2>
+            <a href="/hijaiyah/levels" class="text-sm font-bold text-[#83C5BE] hover:text-[#0F4C5C]">Lihat Semua</a>
+        </div>
+        
+        <div class="grid gap-4">
+            {sortedLevels.map(level => (
+                <LevelCard 
+                    slug={level.id}
+                    levelNumber={level.data.levelNumber}
+                    title={level.data.title}
+                    description={level.data.description}
+                />
+            ))}
+            {levels.length === 0 && (
+                 <div class="text-center p-8 bg-gray-50 rounded-3xl border border-dashed border-gray-300">
+                    <p class="text-gray-500">Belum ada level tersedia.</p>
+                 </div>
+            )}
+        </div>
+    </div>
+</HijaiyahLayout>

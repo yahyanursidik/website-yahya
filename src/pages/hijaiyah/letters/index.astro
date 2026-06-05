@@ -1,0 +1,209 @@
+---
+import HijaiyahLayout from '../../../layouts/HijaiyahLayout.astro';
+import LetterCard from '../../../components/hijaiyah/LetterCard.astro';
+import { getCollection } from 'astro:content';
+
+const letters = await getCollection('hijaiyahLetters');
+const sortedLetters = letters.sort((a, b) => a.data.order - b.data.order);
+
+// For UI mockup purposes, we'll assign status based on order to match the screenshot
+const getStatus = (order: number) => {
+    if (order <= 2) return 'learned';  // Alif, Ba
+    if (order === 3) return 'review';  // Ta
+    return 'locked';                   // Tsa, Jim, Ha, Kha, Dal...
+};
+
+const getCategory = (slug: string) => {
+    switch (slug) {
+        case 'tsa':
+        case 'dzal':
+            return 'litsawiyyah';
+        case 'kha':
+        case 'shad':
+        case 'dhad':
+        case 'tha':
+        case 'ghain':
+        case 'qaf':
+            return 'tafkhim';
+        case 'ra':
+            return 'tafkhim-tarqiq';
+        case 'zha':
+            return 'litsawiyyah-tafkhim';
+        default:
+            return 'normal';
+    }
+};
+
+const miripGroups = [
+    { name: "Ba - Ta - Tsa", slugs: ["ba", "ta", "tsa"] },
+    { name: "Jim - Ha - Kha", slugs: ["jim", "ha", "kha"] },
+    { name: "Dal - Dzal", slugs: ["dal", "dzal"] },
+    { name: "Ra - Zay", slugs: ["ra", "zay"] },
+    { name: "Sin - Syin", slugs: ["sin", "syin"] },
+    { name: "Shad - Dhad", slugs: ["shad", "dhad"] },
+    { name: "Tha - Zha", slugs: ["tha", "zha"] },
+    { name: "Ain - Ghain", slugs: ["ain", "ghain"] },
+    { name: "Fa - Qaf", slugs: ["fa", "qaf"] },
+];
+---
+
+<HijaiyahLayout title="Pustaka Huruf">
+    <div class="min-h-screen relative overflow-hidden bg-white">
+        <!-- Background Pattern (Subtle 4-point stars) -->
+        <div class="absolute inset-0 z-0 opacity-30 pointer-events-none" style="background-image: url(&quot;data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 25 Q30 30 25 30 Q30 30 30 35 Q30 30 35 30 Q30 30 30 25' fill='%23114D4D' fill-opacity='0.15'/%3E%3C/svg%3E&quot;);"></div>
+        
+        <div class="relative z-10 px-4 py-8 md:py-12 max-w-4xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold text-[#114D4D] mb-3">Pustaka Huruf</h1>
+            <p class="text-[#114D4D]/70 mb-10 text-lg max-w-lg">
+                Mari belajar dan mengenal semua huruf hijaiyah dengan menyenangkan!
+            </p>
+
+            <!-- Filters -->
+            <div class="flex flex-wrap gap-3 mb-12" id="filter-tabs">
+                <button data-filter="all" class="tab-btn active bg-[#114D4D] text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-sm transition-colors">
+                    Semua
+                </button>
+                <button data-filter="learned" class="tab-btn bg-[#EBE5D9] text-[#5E5545] hover:bg-[#E0D8C8] px-6 py-2.5 rounded-full text-sm font-bold shadow-sm transition-colors">
+                    Sudah Dipelajari
+                </button>
+                <button data-filter="review" class="tab-btn bg-[#EBE5D9] text-[#5E5545] hover:bg-[#E0D8C8] px-6 py-2.5 rounded-full text-sm font-bold shadow-sm transition-colors">
+                    Perlu Diulang
+                </button>
+                <button data-filter="mirip" class="tab-btn bg-[#EBE5D9] text-[#5E5545] hover:bg-[#E0D8C8] px-6 py-2.5 rounded-full text-sm font-bold shadow-sm transition-colors">
+                    Huruf Mirip
+                </button>
+            </div>
+
+            <!-- Standard Grid -->
+            <div id="standard-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+                {sortedLetters.map(letter => (
+                    <div class="grid-item">
+                        <LetterCard 
+                            slug={letter.id}
+                            arabicLetter={letter.data.arabicLetter}
+                            nameLatin={letter.data.nameLatin}
+                            nameArabic={letter.data.nameArabic}
+                            status={getStatus(letter.data.order)}
+                            category={getCategory(letter.id)}
+                        />
+                    </div>
+                ))}
+                
+                {letters.length === 0 && (
+                    <div class="col-span-full text-center p-8 bg-[#EBE5D9]/50 rounded-3xl border border-dashed border-[#E0D8C8]">
+                        <p class="text-[#8F9B9B]">Belum ada huruf tersedia.</p>
+                    </div>
+                )}
+            </div>
+
+            <!-- Huruf Mirip Grid (Hidden by default) -->
+            <div id="mirip-grid" class="hidden space-y-8">
+                {miripGroups.map(group => (
+                    <div class="bg-[#FDF8F0] p-6 rounded-[2rem] border border-[#E5E0D8] shadow-sm">
+                        <h3 class="text-xl font-bold text-[#114D4D] mb-6 text-center">{group.name}</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 justify-center">
+                            {group.slugs.map(slug => {
+                                const letter = letters.find(l => l.id === slug);
+                                return letter ? (
+                                    <div class="col-span-1">
+                                        <LetterCard 
+                                            slug={letter.id}
+                                            arabicLetter={letter.data.arabicLetter}
+                                            nameLatin={letter.data.nameLatin}
+                                            nameArabic={letter.data.nameArabic}
+                                            status={getStatus(letter.data.order)}
+                                            category={getCategory(letter.id)}
+                                        />
+                                    </div>
+                                ) : null;
+                            })}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <!-- Legend Section -->
+            <div class="mt-16 bg-[#FDF8F0] rounded-[2rem] p-6 md:p-8 border border-[#E5E0D8] shadow-sm">
+                <h3 class="text-xl font-bold text-[#114D4D] mb-6 flex items-center gap-3">
+                    <svg class="w-6 h-6 text-[#114D4D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    Keterangan Warna Khusus
+                </h3>
+                <div class="space-y-5">
+                    <div class="flex items-start gap-4">
+                        <div class="w-6 h-6 rounded-md bg-[#FFF3B8] border border-[#F2D750] shadow-sm shrink-0 mt-1"></div>
+                        <p class="text-[#0F4C5C]/80 leading-relaxed text-sm md:text-base">
+                            <strong class="text-[#114D4D]">Huruf Litsawiyyah (Ujung Lidah):</strong> 
+                            Untuk huruf Tsa (ث) dan Dzal (ذ).
+                        </p>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-6 h-6 rounded-md bg-[#CBEFFF] border border-[#7ACFFB] shadow-sm shrink-0 mt-1"></div>
+                        <p class="text-[#0F4C5C]/80 leading-relaxed text-sm md:text-base">
+                            <strong class="text-[#114D4D]">Huruf Tafkhim (Tebal):</strong> 
+                            Untuk huruf Kha (خ), Shad (ص), Dhad (ض), Tha (ط), Ghain (غ), dan Qaf (ق).
+                        </p>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-6 h-6 rounded-md bg-[#FFCCE1] border border-[#FFA3CD] shadow-sm shrink-0 mt-1"></div>
+                        <p class="text-[#0F4C5C]/80 leading-relaxed text-sm md:text-base">
+                            <strong class="text-[#114D4D]">Bisa Tafkhim/Tarqiq:</strong> 
+                            Khusus untuk huruf Ra (ر).
+                        </p>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-6 h-6 rounded-md bg-gradient-to-b from-[#FFF3B8] to-[#CBEFFF] border border-[#9DDDFB] shadow-sm shrink-0 mt-1"></div>
+                        <p class="text-[#0F4C5C]/80 leading-relaxed text-sm md:text-base">
+                            <strong class="text-[#114D4D]">Litsawiyyah sekaligus Tafkhim:</strong> 
+                            Khusus untuk huruf Zha (ظ) karena masuk ke kedua kategori tersebut secara bersamaan.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</HijaiyahLayout>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabs = document.querySelectorAll('.tab-btn');
+        const standardGrid = document.getElementById('standard-grid');
+        const miripGrid = document.getElementById('mirip-grid');
+        const gridItems = document.querySelectorAll('.grid-item');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab styling
+                tabs.forEach(t => {
+                    t.classList.remove('bg-[#114D4D]', 'text-white');
+                    t.classList.add('bg-[#EBE5D9]', 'text-[#5E5545]');
+                });
+                tab.classList.remove('bg-[#EBE5D9]', 'text-[#5E5545]');
+                tab.classList.add('bg-[#114D4D]', 'text-white');
+
+                const filter = tab.getAttribute('data-filter');
+
+                if (filter === 'mirip') {
+                    standardGrid?.classList.add('hidden');
+                    miripGrid?.classList.remove('hidden');
+                } else {
+                    miripGrid?.classList.add('hidden');
+                    standardGrid?.classList.remove('hidden');
+
+                    gridItems.forEach(item => {
+                        const card = item.querySelector('.letter-card');
+                        if (!card) return;
+                        
+                        const status = card.getAttribute('data-status');
+                        if (filter === 'all') {
+                            (item as HTMLElement).style.display = 'block';
+                        } else if (filter === status) {
+                            (item as HTMLElement).style.display = 'block';
+                        } else {
+                            (item as HTMLElement).style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>

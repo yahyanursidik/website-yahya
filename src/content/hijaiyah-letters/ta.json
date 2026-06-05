@@ -1,0 +1,16 @@
+{
+  "order": 3,
+  "arabicLetter": "ت",
+  "nameArabic": "تَاء",
+  "nameLatin": "Ta",
+  "audioPath": "/audio/ta.mp3",
+  "shortReadingGuide": "Dibaca Ta. Ada senyum tipis, titiknya dua di atas.",
+  "makhrajSimple": "Ujung lidah menempel ke pangkal gigi seri atas.",
+  "commonMistake": "Dibaca terlalu tebal seperti Tho.",
+  "similarLetters": [
+    "ba",
+    "tsa"
+  ],
+  "levelGroup": 1,
+  "isPublished": true
+}

@@ -1,0 +1,42 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+    { label: 'Beranda', href: '/hijaiyah', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+    { label: 'Level', href: '/hijaiyah/levels', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
+    { label: 'Huruf', href: '/hijaiyah/letters', icon: 'M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 15h4.618M15 12h-3m4.048-9.5A18.022 18.022 0 0117.588 9' },
+    { label: 'Progres', href: '/hijaiyah/progress', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
+];
+---
+
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 px-2 pb-safe">
+    <div class="flex justify-around items-center h-16">
+        {navItems.map(item => {
+            const isActive = currentPath === item.href || (item.href !== '/hijaiyah' && currentPath.startsWith(item.href));
+            return (
+                <a 
+                    href={item.href}
+                    class={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors ${
+                        isActive ? 'text-[#0F4C5C]' : 'text-gray-400 hover:text-gray-600'
+                    }`}
+                >
+                    <div class={`p-1.5 rounded-2xl ${isActive ? 'bg-[#E3F0E5]' : ''}`}>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width={isActive ? "2.5" : "2"} d={item.icon}></path>
+                        </svg>
+                    </div>
+                    <span class={`text-[10px] font-medium ${isActive ? 'font-bold' : ''}`}>{item.label}</span>
+                </a>
+            );
+        })}
+    </div>
+</nav>
+
+<style>
+    /* Support for safe area inset on iOS devices */
+    @supports (padding-bottom: env(safe-area-inset-bottom)) {
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    }
+</style>

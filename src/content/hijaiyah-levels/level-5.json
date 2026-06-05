@@ -1,0 +1,13 @@
+{
+  "id": "level-5",
+  "levelNumber": 5,
+  "title": "Kasrah",
+  "description": "Mengenal harakat Kasrah",
+  "isPublished": true,
+  "letters": [
+    "kaf",
+    "lam",
+    "mim",
+    "nun"
+  ]
+}
