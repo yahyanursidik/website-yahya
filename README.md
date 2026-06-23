@@ -1,73 +1,59 @@
-# React + TypeScript + Vite
+# Website Yahya Nursidik
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Website Astro dengan Keystatic sebagai pengelola konten. Dalam pengembangan lokal, Keystatic menulis langsung ke filesystem. Pada production, Keystatic memakai GitHub dan menyimpan perubahan ke repository `yahyanursidik/website-yahya`.
 
-Currently, two official plugins are available:
+## Menjalankan website
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Website: `http://localhost:4321`
+- Keystatic: `http://localhost:4321/keystatic`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Autentikasi Keystatic melalui GitHub
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Salin `.env.example` menjadi `.env`, kemudian isi:
+
+```env
+KEYSTATIC_GITHUB_CLIENT_ID=
+KEYSTATIC_GITHUB_CLIENT_SECRET=
+KEYSTATIC_SECRET=
+PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=yahyanursidik-keystatic
+```
+
+`KEYSTATIC_SECRET` harus berupa nilai acak yang panjang. Jangan commit file `.env` atau menaruh secret di `netlify.toml`.
+
+Untuk menguji login GitHub pada server lokal, tambahkan sementara:
+
+```env
+KEYSTATIC_STORAGE=github
+```
+
+Callback URL yang harus terdaftar pada GitHub App:
+
+```text
+http://127.0.0.1:4321/api/keystatic/github/oauth/callback
+https://yahyanursidik.my.id/api/keystatic/github/oauth/callback
+```
+
+GitHub App juga harus terpasang dan diberi akses ke repository `yahyanursidik/website-yahya`.
+
+## Environment variable di Netlify
+
+Tambahkan empat variable berikut melalui **Site configuration → Environment variables**:
+
+- `KEYSTATIC_GITHUB_CLIENT_ID`
+- `KEYSTATIC_GITHUB_CLIENT_SECRET`
+- `KEYSTATIC_SECRET`
+- `PUBLIC_KEYSTATIC_GITHUB_APP_SLUG`
+
+Setelah variable tersimpan, jalankan deploy ulang. Panel dapat diakses melalui `https://yahyanursidik.my.id/keystatic` dan perubahan konten akan dibuat sebagai commit di GitHub.
+
+## Pemeriksaan
+
+```bash
+npm run astro -- check
+npm run build
 ```

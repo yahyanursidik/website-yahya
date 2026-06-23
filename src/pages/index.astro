@@ -6,230 +6,222 @@ import keystaticConfig from '../../keystatic.config';
 const reader = createReader(process.cwd(), keystaticConfig);
 const jadwal = await reader.collections.jadwal.all();
 const buku = await reader.collections.buku.all();
-const kutipanData = await reader.collections.kutipan.all();
-const quotes = kutipanData.length > 0 ? kutipanData.map(item => ({
-  quote: item.entry.quote,
-  authorName: item.entry.authorName,
-  linkText: item.entry.linkText,
-  linkUrl: item.entry.linkUrl
-})) : [{
-  quote: '"Pendidikan bukan hanya tentang transfer informasi, melainkan pembentukan karakter yang berakar pada nilai luhur dan adaptif terhadap masa depan."',
-  authorName: 'Yahya Nursidik',
-  linkText: 'Baca Profil Selengkapnya',
-  linkUrl: '#'
-}];
+
+const themes = [
+  { number: '01', title: 'Keluarga & pengasuhan', copy: 'Rutinitas keluarga, read-aloud, dan cara menemani tumbuh kembang anak dengan lebih sadar.' },
+  { number: '02', title: 'Pembelajaran anak', copy: 'Catatan praktis tentang homeschooling PAUD, perkembangan anak, dan pembelajaran yang dekat dengan keseharian.' },
+  { number: '03', title: 'Kepemimpinan pendidikan', copy: 'Gagasan untuk guru dan pengelola lembaga mengenai budaya belajar, tata kelola, dan perbaikan bertahap.' }
+];
+
+const systems = [
+  {
+    label: 'Aplikasi web · Publik',
+    title: 'Bermain Hijaiyah',
+    copy: 'Teman belajar huruf Hijaiyah dasar melalui aktivitas dengar, pilih, dan kenali. Dirancang sebagai alat bantu—bukan pengganti talaqqi bersama guru atau orang tua.',
+    link: '/hijaiyah',
+    action: 'Buka aplikasi',
+    accent: 'أ'
+  },
+  {
+    label: 'Eksperimen · Pendidikan',
+    title: 'Permainan Edukasi',
+    copy: 'Kumpulan prototipe permainan sederhana untuk membuat sesi belajar terasa lebih aktif dan ramah bagi anak.',
+    link: '/permainan',
+    action: 'Lihat kumpulan',
+    accent: '✦'
+  }
+];
+
+const writingAreas = [
+  { title: 'Pendidikan & sekolah', copy: 'Refleksi mengenai pembelajaran, budaya sekolah, dan praktik baik yang dapat dicoba secara bertahap.' },
+  { title: 'Keluarga & tumbuh kembang', copy: 'Tulisan untuk orang tua tentang kebiasaan kecil, pengasuhan, serta proses belajar anak di rumah.' },
+  { title: 'Teknologi pembelajaran', copy: 'Catatan dari proses merancang media, LMS, dan sistem digital yang tetap berpihak pada kebutuhan manusia.' }
+];
 ---
 
-<Layout title="Yahya Nursidik | Edukator & Akademisi">
-  <!-- Section 1: Hero -->
-  <section class="pt-40 pb-20 px-8 max-w-5xl mx-auto text-center">
-    <span class="text-primary-container font-medium tracking-[0.3em] text-[10px] uppercase mb-4 block fade-in-up">Edukator &amp; Akademisi</span>
-    <h1 class="font-headline text-5xl md:text-6xl text-primary leading-tight mb-8 fade-in-up delay-100">Yahya Nursidik</h1>
-    <p class="text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed mb-10 font-body fade-in-up delay-200">
-      Mentransformasi ekosistem pembelajaran melalui pendekatan kurikulum berbasis nilai dan teknologi humanis.
-    </p>
-    <div class="flex justify-center gap-4 fade-in-up delay-300">
-      <button class="bg-primary-container text-on-primary px-8 py-3.5 rounded-lg font-medium hover:opacity-90 transition-all">
-        Lihat Jadwal Kegiatan
-      </button>
-    </div>
-  </section>
-
-  <!-- Section 1.5: Profile Brief -->
-  <section class="py-24 px-8 max-w-5xl mx-auto scroll-mt-20 scroll-reveal" id="profil">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-      <div class="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl animate-float">
-        <img alt="Atmospheric study space with a wooden desk, ancient books, and soft morning light through a window" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm6YcQ1zyJhG-ePeRSC5PcmzHDLT0txoMENlerWZYYfVz88WOEtbU4XSKMlEQ8OO313q_dXCumelEhKaYKMs9PIhR7UI08FaNUitooLSyZbGgI7oF5JbC_wXsvK-BMc4TBBBHA6AXO2gcKIvsyhwx-0maZsFMISSW3Met45usEZ5sGjnCyoMXq8Kz8pXxx_f8hWQ3Yowha9YCWL5bQkGhY_H5SfOV6SSALYSMJsN9Ph2x4TkLQTOBqapeFX9YEN-ohpJuYnx8SqtuP" />
-        <div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
-      </div>
-      <div class="space-y-6 fade-in-up">
-        <h2 class="font-headline text-3xl text-primary">Mengenal Yahya Nursidik</h2>
-        <div class="w-12 h-1 bg-primary-container/30"></div>
-        <p class="text-on-surface-variant leading-relaxed">
-            Seorang edukator dan peneliti yang mendedikasikan diri pada pengembangan kurikulum pendidikan Islam yang relevan dengan tantangan zaman. Fokus utamanya terletak pada integrasi nilai-nilai manhaj salaf dengan metodologi pembelajaran modern yang humanis.
+<Layout
+  title="Yahya Nursidik — Karya, Aplikasi, dan Catatan Pendidikan"
+  description="Arsip e-book, sistem dan aplikasi pendidikan, tulisan, serta kegiatan Yahya Nursidik."
+>
+  <section class="relative overflow-hidden border-b border-[#dce3de]">
+    <div class="pointer-events-none absolute -right-28 top-12 h-80 w-80 rounded-full bg-[#dce9dd] blur-3xl"></div>
+    <div class="shell relative grid min-h-[calc(100vh-72px)] items-center gap-12 py-20 lg:grid-cols-[1.15fr_.85fr] lg:py-24">
+      <div>
+        <p class="eyebrow">Ruang karya & pembelajaran</p>
+        <h1 class="mt-6 max-w-3xl font-headline text-[clamp(3.3rem,9vw,6.8rem)] leading-[.86] tracking-[-.055em] text-[#173f32]">
+          Belajar,<br />membuat,<br /><em class="text-[#a66c22]">berbagi.</em>
+        </h1>
+        <p class="mt-8 max-w-xl text-base leading-8 text-[#526a61] sm:text-lg">
+          Saya Yahya Nursidik. Ruang ini merangkum sebagian e-book, aplikasi, tulisan, dan kegiatan yang lahir dari perjalanan di bidang pendidikan dan teknologi pembelajaran.
         </p>
-        <p class="text-on-surface-variant leading-relaxed">
-            Sebagai pengembang sistem pembelajaran, ia aktif merancang ekosistem edukasi yang tidak hanya mentransfer ilmu, tetapi juga membentuk karakter kokoh bagi generasi mendatang.
-        </p>
-        <div class="flex gap-6 pt-4">
-          <div class="flex flex-col">
-            <span class="text-primary font-bold text-xl font-headline">10+</span>
-            <span class="text-xs text-on-surface-variant uppercase tracking-wider font-medium">Tahun Dedikasi</span>
-          </div>
-          <div class="flex flex-col">
-            <span class="text-primary font-bold text-xl font-headline">7+</span>
-            <span class="text-xs text-on-surface-variant uppercase tracking-wider font-medium">Lembaga/Program</span>
-          </div>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+          <a class="button" href="#karya">Jelajahi karya <span aria-hidden="true">↓</span></a>
+          <a class="button button-secondary" href="#tentang">Mengenal prosesnya</a>
         </div>
       </div>
+
+      <aside class="card relative overflow-hidden p-7 sm:p-9" aria-label="Isi utama website">
+        <div class="absolute right-0 top-0 h-24 w-24 rounded-bl-[4rem] bg-[#e7c98f]/50"></div>
+        <p class="text-xs font-bold uppercase tracking-[.14em] text-[#7a5a26]">Di dalam ruang ini</p>
+        <ol class="mt-8 divide-y divide-[#dce3de]">
+          <li><a class="overview-link" href="#karya"><span>01</span><strong>E-book & panduan</strong><i>→</i></a></li>
+          <li><a class="overview-link" href="#sistem"><span>02</span><strong>Sistem & aplikasi</strong><i>→</i></a></li>
+          <li><a class="overview-link" href="#tulisan"><span>03</span><strong>Tulisan di berbagai ruang</strong><i>→</i></a></li>
+          <li><a class="overview-link" href="#kegiatan"><span>04</span><strong>Kelas & kegiatan</strong><i>→</i></a></li>
+        </ol>
+        <p class="mt-7 text-xs leading-5 text-[#71837c]">Disusun agar pembaca dapat langsung menuju hal yang sedang dicari.</p>
+      </aside>
     </div>
   </section>
 
-  <!-- Section 2: Brief About (Slider) -->
-  <section class="py-24 px-8 max-w-4xl mx-auto text-center border-y border-outline-variant/20 scroll-reveal fade-in-up">
-    <div class="overflow-hidden w-full">
-      <div id="quote-slider-track" class="flex transition-transform duration-700 ease-in-out">
-        {quotes.map(item => (
-          <div class="w-full flex-shrink-0 px-6 flex flex-col justify-center items-center relative">
-            <span class="absolute top-0 md:-top-4 left-1/2 -translate-x-1/2 text-[120px] text-primary/5 font-serif leading-none select-none">"</span>
-            <p class="text-2xl md:text-3xl text-on-surface leading-relaxed font-headline italic relative z-10">
-              {item.quote}
-            </p>
-            <div class="mt-10 flex flex-col items-center gap-4 relative z-10">
-              <div class="w-12 h-0.5 bg-primary/40"></div>
-              <span class="font-bold text-primary tracking-widest uppercase text-xs md:text-sm">{item.authorName}</span>
-              {item.linkText && (
-                <a class="mt-4 inline-block text-primary font-medium text-sm border-b border-primary/20 hover:border-primary transition-all pb-1 hover-line-draw" href={item.linkUrl || '#'}>
-                  {item.linkText}
-                </a>
-              )}
+  <section id="karya" class="shell py-24 lg:py-32">
+    <div class="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+      <div>
+        <p class="eyebrow">E-book & panduan</p>
+        <h2 class="section-title">Gagasan yang dirapikan agar lebih mudah dipraktikkan.</h2>
+      </div>
+      <p class="section-copy lg:max-w-sm">Bukan jawaban yang serba selesai, melainkan teman berpikir bagi orang tua, guru, dan pengelola pendidikan.</p>
+    </div>
+
+    {buku.length > 0 ? (
+      <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {buku.map((item) => (
+          <article class="card group overflow-hidden">
+            <div class="aspect-[4/3] overflow-hidden bg-[#e8eee9]">
+              <img src={item.entry.coverUrl} alt={`Sampul ${item.entry.title}`} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
             </div>
-          </div>
+            <div class="p-6">
+              <span class="tag">E-book</span>
+              <h3 class="mt-4 text-2xl leading-tight">{item.entry.title}</h3>
+              <p class="mt-3 text-sm leading-6 text-[#61756d]">{item.entry.description}</p>
+              {item.entry.link && <a class="text-link mt-5" href={item.entry.link} target="_blank" rel="noreferrer">Lihat detail</a>}
+            </div>
+          </article>
         ))}
       </div>
-    </div>
-    
-    {quotes.length > 1 && (
-      <div class="flex justify-center gap-3 mt-8">
-        {quotes.map((_, i) => (
-          <button class={`w-2.5 h-2.5 rounded-full transition-all quote-dot ${i === 0 ? 'bg-primary scale-125' : 'bg-primary/30 hover:bg-primary/60'}`} data-index={i} aria-label={`Go to slide ${i + 1}`}></button>
+    ) : (
+      <div class="mt-12 grid gap-4 md:grid-cols-3">
+        {themes.map((item) => (
+          <article class="card p-6 sm:p-7">
+            <span class="font-headline text-3xl text-[#bd8a3e]">{item.number}</span>
+            <h3 class="mt-10 text-2xl">{item.title}</h3>
+            <p class="mt-3 text-sm leading-6 text-[#61756d]">{item.copy}</p>
+          </article>
         ))}
       </div>
     )}
+    <p class="mt-7 max-w-2xl text-sm leading-6 text-[#71837c]">Katalog lengkap dan tautan baca sedang dirapikan. Untuk sementara, tema-tema di atas menggambarkan arah karya yang tersedia.</p>
   </section>
 
-  <!-- Section 3: Classes/Events -->
-  <section class="py-24 px-8 max-w-5xl mx-auto scroll-reveal">
-    <div class="text-center mb-16 fade-in-up">
-      <h2 class="font-headline text-3xl text-primary mb-4">Kelas / Seminar yang Sedang Dibuka</h2>
-      <div class="w-12 h-0.5 bg-primary-container/30 mx-auto"></div>
-    </div>
-    
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {jadwal.length > 0 ? jadwal.map((item, index) => {
-        // Create an alternating delay for visual flair
-        const delayClass = index % 3 === 0 ? 'delay-100' : index % 3 === 1 ? 'delay-200' : 'delay-300';
-        return (
-        <div class={`bg-surface-container-lowest border border-outline-variant/30 p-6 rounded-xl flex flex-col h-full hover:shadow-lg transition-all duration-500 hover:-translate-y-2 fade-in-up ${delayClass} group`}>
-          <div class="flex justify-between items-start mb-4">
-            <span class="bg-primary-fixed text-on-primary-fixed-variant text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">{item.entry.type}</span>
-            <span class="text-on-surface-variant text-[10px] uppercase font-medium animate-pulse-subtle">{item.entry.format}</span>
-          </div>
-          <h3 class="font-headline text-lg mb-2 text-primary leading-snug">{item.entry.title}</h3>
-          {item.entry.description && <p class="text-on-surface-variant text-sm leading-relaxed mb-4 flex-grow">{item.entry.description}</p>}
-          <div class="flex items-center gap-2 text-xs text-on-surface-variant mb-6 mt-auto">
-            <span class="material-symbols-outlined text-sm">calendar_today</span>
-            <span>{item.entry.status}</span>
-          </div>
-          <a href={item.entry.link || '#'} target="_blank" rel="noreferrer" class="block text-center w-full bg-primary-container text-on-primary py-2.5 rounded-lg font-medium text-sm hover:opacity-90 transition-opacity">
-            Daftar
-          </a>
+  <section id="sistem" class="bg-[#183d31] py-24 text-white lg:py-32">
+    <div class="shell">
+      <div class="grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end">
+        <div>
+          <p class="eyebrow !text-[#edc986]">Sistem & aplikasi</p>
+          <h2 class="mt-4 max-w-3xl font-headline text-[clamp(2.6rem,6vw,4.8rem)] leading-[.95] tracking-[-.04em]">Teknologi yang membantu proses belajar, bukan mengambil alihnya.</h2>
         </div>
-      )}) : (
-        <div class="col-span-3 text-center text-on-surface-variant italic py-10 fade-in-up">
-          Belum ada jadwal yang tersedia saat ini.
+        <p class="leading-7 text-[#bfd0c7]">Pilihan produk publik dan eksperimen digital. Beberapa sistem internal tidak ditampilkan untuk menjaga konteks serta kerahasiaan lembaga.</p>
+      </div>
+
+      <div class="mt-12 grid gap-5 md:grid-cols-2">
+        {systems.map((item) => (
+          <article class="group rounded-[1.5rem] border border-white/15 bg-white/[.06] p-7 transition-colors hover:bg-white/[.1] sm:p-9">
+            <div class="flex items-start justify-between gap-5">
+              <span class="text-xs font-bold uppercase tracking-[.12em] text-[#edc986]">{item.label}</span>
+              <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#f5e3bd] font-headline text-3xl text-[#173f32]">{item.accent}</span>
+            </div>
+            <h3 class="mt-14 text-3xl">{item.title}</h3>
+            <p class="mt-4 max-w-lg text-sm leading-7 text-[#c7d5ce]">{item.copy}</p>
+            <a class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-white" href={item.link}>{item.action} <span class="transition-transform group-hover:translate-x-1">→</span></a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="tulisan" class="shell py-24 lg:py-32">
+    <div class="grid gap-12 lg:grid-cols-[.85fr_1.15fr]">
+      <div>
+        <p class="eyebrow">Tulisan & kontribusi</p>
+        <h2 class="section-title">Menulis untuk memperpanjang percakapan.</h2>
+        <p class="section-copy">Sebagian tulisan pernah hadir di kolom blog lembaga dan ruang kolaboratif. Arsip nama lembaga beserta tautan artikelnya sedang disusun agar setiap rujukan dapat ditampilkan dengan tepat.</p>
+        <a class="text-link mt-6" href="https://www.linkedin.com/in/yahya-nursidik-499aa653/" target="_blank" rel="noreferrer">Ikuti catatan terbaru</a>
+      </div>
+      <div class="divide-y divide-[#dce3de] border-y border-[#dce3de]">
+        {writingAreas.map((item, index) => (
+          <article class="grid gap-3 py-7 sm:grid-cols-[3rem_1fr] sm:gap-5">
+            <span class="font-headline text-2xl text-[#bd8a3e]">0{index + 1}</span>
+            <div>
+              <h3 class="text-2xl">{item.title}</h3>
+              <p class="mt-2 text-sm leading-6 text-[#61756d]">{item.copy}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="kegiatan" class="border-y border-[#dce3de] bg-[#eef1ec] py-24 lg:py-28">
+    <div class="shell">
+      <div>
+        <p class="eyebrow">Kelas & kegiatan</p>
+        <h2 class="section-title">Ruang belajar yang sedang berjalan.</h2>
+      </div>
+      {jadwal.length > 0 ? (
+        <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {jadwal.map((item) => (
+            <article class="card flex h-full flex-col p-6">
+              <div class="flex flex-wrap items-center justify-between gap-3"><span class="tag">{item.entry.type}</span><span class="text-xs text-[#71837c]">{item.entry.format}</span></div>
+              <h3 class="mt-6 text-2xl leading-tight">{item.entry.title}</h3>
+              {item.entry.description && <p class="mt-3 flex-1 text-sm leading-6 text-[#61756d]">{item.entry.description}</p>}
+              <p class="mt-6 border-t border-[#dce3de] pt-4 text-xs font-semibold text-[#526a61]">{item.entry.status}</p>
+              {item.entry.link && <a class="button button-small mt-5 w-full" href={item.entry.link} target="_blank" rel="noreferrer">Lihat informasi</a>}
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="card mt-10 flex flex-col justify-between gap-6 p-7 sm:flex-row sm:items-center">
+          <div><h3 class="text-2xl">Belum ada jadwal publik saat ini.</h3><p class="mt-2 text-sm text-[#61756d]">Informasi kelas atau seminar berikutnya akan ditampilkan di bagian ini.</p></div>
+          <a class="button button-secondary shrink-0" href="#kontak">Tanyakan kegiatan</a>
         </div>
       )}
     </div>
   </section>
 
-  <!-- Section 4: Featured Books -->
-  <section class="py-24 px-8 max-w-5xl mx-auto border-t border-outline-variant/10 scroll-reveal">
-    <div class="text-center mb-16 fade-in-up">
-      <h2 class="font-headline text-3xl text-primary mb-4">Karya Pilihan</h2>
-      <div class="w-12 h-0.5 bg-primary-container/30 mx-auto"></div>
+  <section id="tentang" class="shell py-24 lg:py-32">
+    <div class="grid gap-12 lg:grid-cols-[.65fr_1.35fr]">
+      <div>
+        <p class="eyebrow">Tentang</p>
+        <p class="mt-5 font-headline text-4xl leading-tight">Bekerja di antara pendidikan, teknologi, dan pengembangan lembaga.</p>
+      </div>
+      <div class="space-y-6 text-base leading-8 text-[#526a61] sm:text-lg">
+        <p>Perjalanan saya bermula dari teknologi pendidikan dan teknologi informasi, lalu bertumbuh melalui peran sebagai pengajar, pengembang sistem dan media belajar, serta pendamping sejumlah program pendidikan.</p>
+        <p>Belakangan, perhatian banyak tertuju pada pendidikan Islam, pembelajaran Al-Qur'an, pendidikan anak, penguatan guru dan orang tua, serta perancangan sistem digital yang lebih sederhana dan manusiawi.</p>
+        <blockquote class="border-l-2 border-[#bd8a3e] pl-6 font-headline text-2xl leading-relaxed text-[#173f32]">Yang dibagikan di sini adalah catatan dari proses—terbuka untuk diperbaiki, diperkaya, dan dipelajari kembali.</blockquote>
+      </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-      {buku.length > 0 ? buku.map((item, index) => {
-        const delayClass = index % 3 === 0 ? 'delay-100' : index % 3 === 1 ? 'delay-200' : 'delay-300';
-        return (
-        <div class={`group fade-in-up ${delayClass}`}>
-          <div class="aspect-[3/4] rounded-lg overflow-hidden mb-6 shadow-md hover:shadow-xl bg-surface-container transition-all duration-500 group-hover:-translate-y-2">
-            <img alt={item.entry.title} class="w-full h-full object-cover" src={item.entry.coverUrl} />
-          </div>
-          <h3 class="font-headline text-xl text-primary mb-2">{item.entry.title}</h3>
-          <p class="text-on-surface-variant text-sm leading-relaxed mb-4">{item.entry.description}</p>
+  </section>
+
+  <section id="kontak" class="shell pb-24 lg:pb-32">
+    <div class="relative overflow-hidden rounded-[2rem] bg-[#e7c98f] p-8 sm:p-12 lg:p-16">
+      <div class="absolute -right-10 -top-20 h-64 w-64 rounded-full border-[40px] border-white/20"></div>
+      <div class="relative max-w-2xl">
+        <p class="text-xs font-bold uppercase tracking-[.14em] text-[#694919]">Mari bertukar pikiran</p>
+        <h2 class="mt-4 font-headline text-[clamp(2.5rem,6vw,4.5rem)] leading-[.95] tracking-[-.04em]">Ada gagasan yang ingin dibicarakan?</h2>
+        <p class="mt-5 max-w-xl leading-7 text-[#60481f]">Silakan menyapa untuk diskusi, kolaborasi pendidikan, pengembangan sistem pembelajaran, atau sekadar bertukar catatan.</p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a class="button" href="https://www.instagram.com/yahyanursidik/" target="_blank" rel="noreferrer">Hubungi lewat Instagram</a>
+          <a class="button button-secondary !border-[#80612d]" href="https://www.linkedin.com/in/yahya-nursidik-499aa653/" target="_blank" rel="noreferrer">Terhubung di LinkedIn</a>
         </div>
-      )}) : (
-        <div class="col-span-3 text-center text-on-surface-variant italic py-10 fade-in-up">
-          Koleksi buku belum ditambahkan.
-        </div>
-      )}
-    </div>
-    <div class="text-center fade-in-up delay-200">
-      <a class="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all border-b border-primary/20 pb-1 hover-line-draw" href="#">
-        Lihat Semua Buku
-        <span class="material-symbols-outlined text-base">arrow_forward</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- Section 5: Instagram -->
-  <section class="bg-surface-container-low py-24 px-8 scroll-reveal fade-in-up">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 class="font-headline text-3xl text-primary mb-2">Dari Instagram</h2>
-        <p class="text-on-surface-variant text-sm">@yahya_nursidik — Insights harian seputar pendidikan.</p>
-      </div>
-      <div class="w-full mb-10 min-h-[400px]">
-        <div class="elfsight-app-1f2388b2-5089-44c4-be9f-c0d3812ad4c9" data-elfsight-app-lazy></div>
-      </div>
-      <div class="flex justify-center gap-4">
-        <a class="flex items-center gap-2 border border-primary/20 text-primary px-6 py-2.5 rounded-lg font-medium text-sm hover:bg-surface-container transition-all hover-line-draw pb-1" href="https://www.instagram.com/yahyanursidik/" target="_blank" rel="noreferrer">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
-          Instagram
-        </a>
       </div>
     </div>
   </section>
 
-  <!-- Section 6: Collaboration CTA -->
-  <section class="py-24 px-8 max-w-3xl mx-auto text-center scroll-reveal fade-in-up">
-    <h2 class="font-headline text-3xl text-primary mb-8">Mulai Kolaborasi Bermakna</h2>
-    <button class="bg-primary-container text-on-primary px-10 py-4 rounded-lg font-medium text-lg hover:opacity-90 transition-all shadow-lg shadow-primary-container/10">
-      Hubungi via WhatsApp
-    </button>
-  </section>
-
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const track = document.getElementById('quote-slider-track');
-      const dots = document.querySelectorAll('.quote-dot');
-      if (track && dots.length > 1) {
-        let current = 0;
-        const max = dots.length;
-        let interval;
-        
-        function update() {
-          track.style.transform = `translateX(-${current * 100}%)`;
-          dots.forEach((dot, i) => {
-            if (i === current) {
-              dot.classList.add('bg-primary', 'scale-125');
-              dot.classList.remove('bg-primary/30');
-            } else {
-              dot.classList.remove('bg-primary', 'scale-125');
-              dot.classList.add('bg-primary/30');
-            }
-          });
-        }
-        
-        function next() {
-          current = (current + 1) % max;
-          update();
-        }
-        
-        interval = setInterval(next, 6000);
-        
-        dots.forEach((dot, i) => {
-          dot.addEventListener('click', () => {
-            clearInterval(interval);
-            current = i;
-            update();
-            interval = setInterval(next, 6000);
-          });
-        });
-      }
-    });
-  </script>
+  <style>
+    .overview-link { display: grid; grid-template-columns: 2rem 1fr auto; align-items: center; gap: 1rem; padding: 1rem 0; }
+    .overview-link span { color: #a66c22; font-family: 'Newsreader', serif; font-size: 1.15rem; }
+    .overview-link strong { font-size: .95rem; font-weight: 600; }
+    .overview-link i { font-style: normal; transition: transform .2s ease; }
+    .overview-link:hover i { transform: translateX(4px); }
+  </style>
 </Layout>

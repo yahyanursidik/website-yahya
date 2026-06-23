@@ -1,13 +1,22 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
 
+const useGitHubStorage =
+  process.env.NODE_ENV === 'production' ||
+  process.env.KEYSTATIC_STORAGE === 'github';
+
 export default config({
-  storage: process.env.NODE_ENV === 'development' ? {
-    kind: 'local',
-  } : {
-    kind: 'cloud',
-  },
-  cloud: {
-    project: 'web-sendiri/website-yahya',
+  storage: useGitHubStorage
+    ? {
+        kind: 'github',
+        repo: 'yahyanursidik/website-yahya',
+      }
+    : {
+        kind: 'local',
+      },
+  ui: {
+    brand: {
+      name: 'Yahya Nursidik — Pengelola Konten',
+    },
   },
   singletons: {
     parentGuide: singleton({
