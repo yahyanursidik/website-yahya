@@ -13,7 +13,72 @@ const themes = [
   { number: '03', title: 'Kepemimpinan pendidikan', copy: 'Gagasan untuk guru dan pengelola lembaga mengenai budaya belajar, tata kelola, dan perbaikan bertahap.' }
 ];
 
+const childrenBooks = [
+  {
+    title: 'Menjadi Seorang Laki-Laki Seperti Ayah',
+    description: 'Buku cerita anak tentang belajar meneladani kebaikan ayah: kuat hati, bertanggung jawab, dan tumbuh sebagai muslim yang baik.',
+    coverUrl: '/images/books/menjadi-laki-laki-seperti-ayah.png',
+    downloadUrl: ''
+  },
+  {
+    title: 'Menjadi Seorang Wanita Seperti Ibu',
+    description: 'Kisah anak yang belajar menyayangi, bersabar, dan bertanggung jawab melalui keteladanan ibu dalam kehidupan sehari-hari.',
+    coverUrl: '/images/books/menjadi-wanita-seperti-ibu.png',
+    downloadUrl: ''
+  },
+  {
+    title: 'Sayuran Sehatku',
+    description: 'Buku pengenalan berbagai jenis sayuran dan manfaatnya, disusun untuk membantu anak mencintai kebiasaan sehat sejak dini.',
+    coverUrl: '/images/books/sayuran-sehatku.png',
+    downloadUrl: ''
+  }
+];
+
+const educationBooks = [
+  {
+    title: 'Menjadi Pemimpin Sekolah Jenjang PAUD yang Menghidupkan, Bukan Sekadar Mengelola',
+    subtitle: 'Panduan Bijak untuk Kepala Sekolah dan Yayasan PAUD Islam',
+    description: 'Panduan reflektif untuk kepala sekolah dan yayasan PAUD Islam dalam menumbuhkan visi, guru, lingkungan, dan pembelajaran yang lebih hidup serta terarah.',
+    coverUrl: '/images/books/pemimpin-paud-yang-menghidupkan.png',
+    downloadUrl: ''
+  },
+  {
+    title: 'Petualangan STEM Geosains di Rumah',
+    subtitle: 'Panduan untuk Orang Tua Anak Usia Jenjang SD',
+    description: 'Panduan kegiatan geosains sederhana di rumah agar orang tua dapat menemani anak mengenal bumi, batuan, gunung, peta, dan fenomena alam dengan cara yang menyenangkan.',
+    coverUrl: '/images/books/petualangan-stem-geosains-di-rumah.png',
+    downloadUrl: ''
+  }
+];
+
 const systems = [
+  {
+    label: 'Website lembaga · Sekolah',
+    title: 'Website Sekolah Tarbiyah Sunnah Lab School',
+    copy: 'Website resmi sekolah untuk memperkenalkan profil, program, informasi penerimaan, serta kanal komunikasi publik Tarbiyah Sunnah Lab School secara lebih tertata dan mudah diakses.',
+    link: 'https://tslabschool.sch.id/',
+    action: 'Buka website',
+    accent: 'WEB',
+    external: true
+  },
+  {
+    label: 'Landing page · Informasi',
+    title: 'Landing Page Tarbiyah Sunnah Lab School',
+    copy: 'Halaman ringkas untuk mengarahkan calon orang tua dan pengunjung pada informasi penting, tautan layanan, serta kebutuhan komunikasi sekolah yang lebih cepat dan praktis.',
+    link: 'https://pintas.tslabschool.sch.id/',
+    action: 'Buka landing page',
+    accent: 'LP',
+    external: true
+  },
+  {
+    label: 'Sistem informasi · Sekolah',
+    title: 'Sistem Informasi Akademik dan Operasional Sekolah Tarbiyah Sunnah Lab School',
+    copy: 'Platform terpadu untuk membantu alur akademik dan operasional sekolah melalui portal orang tua, ekskul, staf, guru, CBT, HRD, sarana-prasarana, dan kebutuhan layanan internal lain yang terus disesuaikan dengan proses lembaga.',
+    link: 'https://hub.tslabschool.sch.id/',
+    action: 'Kunjungi portal',
+    accent: 'TSL',
+    external: true
+  },
   {
     label: 'Aplikasi web · Publik',
     title: 'Bermain Hijaiyah',
@@ -83,6 +148,35 @@ const writingAreas = [
       <p class="section-copy lg:max-w-sm">Bukan jawaban yang serba selesai, melainkan teman berpikir bagi orang tua, guru, dan pengelola pendidikan.</p>
     </div>
 
+    <div class="mt-12">
+      <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <span class="tag">Buku anak-anak</span>
+          <h3 class="mt-4 text-3xl leading-tight text-[#173f32]">Bacaan sederhana untuk menemani anak bertumbuh.</h3>
+        </div>
+        <p class="max-w-md text-sm leading-6 text-[#71837c]">Tautan unduh PDF akan ditambahkan setelah file final siap dibagikan.</p>
+      </div>
+      <div class="mt-7 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {childrenBooks.map((item) => (
+          <article class="card group flex h-full flex-col overflow-hidden">
+            <div class="aspect-[16/9] overflow-hidden bg-[#e8eee9]">
+              <img src={item.coverUrl} alt={`Sampul buku ${item.title}`} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <span class="tag">E-book anak</span>
+              <h4 class="mt-4 text-2xl leading-tight">{item.title}</h4>
+              <p class="mt-3 flex-1 text-sm leading-6 text-[#61756d]">{item.description}</p>
+              {item.downloadUrl ? (
+                <a class="button button-small mt-5 w-full" href={item.downloadUrl} target="_blank" rel="noreferrer">Download PDF</a>
+              ) : (
+                <span class="mt-5 inline-flex min-h-10 w-full items-center justify-center rounded-full border border-[#dce3de] px-4 py-2 text-center text-xs font-bold uppercase tracking-[.08em] text-[#71837c]">PDF segera tersedia</span>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
     {buku.length > 0 ? (
       <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {buku.map((item) => (
@@ -111,6 +205,36 @@ const writingAreas = [
       </div>
     )}
     <p class="mt-7 max-w-2xl text-sm leading-6 text-[#71837c]">Katalog lengkap dan tautan baca sedang dirapikan. Untuk sementara, tema-tema di atas menggambarkan arah karya yang tersedia.</p>
+
+    <div class="mt-14">
+      <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <span class="tag">E-book pendidikan</span>
+          <h3 class="mt-4 text-3xl leading-tight text-[#173f32]">Panduan untuk pengelola sekolah dan orang tua.</h3>
+        </div>
+        <p class="max-w-md text-sm leading-6 text-[#71837c]">Kategori ini memuat bahan bacaan praktis tentang kepemimpinan PAUD, pembelajaran keluarga, dan aktivitas pendidikan yang mudah diterapkan.</p>
+      </div>
+      <div class="mt-7 grid gap-6 md:grid-cols-2">
+        {educationBooks.map((item) => (
+          <article class="card group flex h-full flex-col overflow-hidden lg:flex-row">
+            <div class="aspect-[3/4] overflow-hidden bg-[#e8eee9] lg:w-[42%]">
+              <img src={item.coverUrl} alt={`Sampul e-book ${item.title}`} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
+            </div>
+            <div class="flex flex-1 flex-col p-6 sm:p-7">
+              <span class="tag">Pendidikan</span>
+              <h4 class="mt-4 text-2xl leading-tight">{item.title}</h4>
+              <p class="mt-2 text-sm font-semibold leading-6 text-[#a66c22]">{item.subtitle}</p>
+              <p class="mt-3 flex-1 text-sm leading-6 text-[#61756d]">{item.description}</p>
+              {item.downloadUrl ? (
+                <a class="button button-small mt-5 w-full" href={item.downloadUrl} target="_blank" rel="noreferrer">Download PDF</a>
+              ) : (
+                <span class="mt-5 inline-flex min-h-10 w-full items-center justify-center rounded-full border border-[#dce3de] px-4 py-2 text-center text-xs font-bold uppercase tracking-[.08em] text-[#71837c]">PDF segera tersedia</span>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
   </section>
 
   <section id="sistem" class="bg-[#183d31] py-24 text-white lg:py-32">
@@ -132,7 +256,7 @@ const writingAreas = [
             </div>
             <h3 class="mt-14 text-3xl">{item.title}</h3>
             <p class="mt-4 max-w-lg text-sm leading-7 text-[#c7d5ce]">{item.copy}</p>
-            <a class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-white" href={item.link}>{item.action} <span class="transition-transform group-hover:translate-x-1">→</span></a>
+            <a class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-white" href={item.link} target={item.external ? '_blank' : undefined} rel={item.external ? 'noreferrer' : undefined}>{item.action} <span class="transition-transform group-hover:translate-x-1">→</span></a>
           </article>
         ))}
       </div>
@@ -196,7 +320,7 @@ const writingAreas = [
       </div>
       <div class="space-y-6 text-base leading-8 text-[#526a61] sm:text-lg">
         <p>Perjalanan saya bermula dari teknologi pendidikan dan teknologi informasi, lalu bertumbuh melalui peran sebagai pengajar, pengembang sistem dan media belajar, serta pendamping sejumlah program pendidikan.</p>
-        <p>Belakangan, perhatian banyak tertuju pada pendidikan Islam, pembelajaran Al-Qur'an, pendidikan anak, penguatan guru dan orang tua, serta perancangan sistem digital yang lebih sederhana dan manusiawi.</p>
+        <p>Belakangan, perhatian banyak tertuju pada pendidikan Islam, pembelajaran Al-Qur'an, pendidikan anak, penguatan guru dan orang tua, serta perancangan sistem digital yang lebih sederhana, terarah, dan mudah digunakan.</p>
         <blockquote class="border-l-2 border-[#bd8a3e] pl-6 font-headline text-2xl leading-relaxed text-[#173f32]">Yang dibagikan di sini adalah catatan dari proses—terbuka untuk diperbaiki, diperkaya, dan dipelajari kembali.</blockquote>
       </div>
     </div>
