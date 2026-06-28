@@ -185,16 +185,26 @@ const writingAreas = [
         </div>
       </div>
 
-      <aside class="card relative overflow-hidden p-7 sm:p-9" aria-label="Isi utama website">
-        <div class="absolute right-0 top-0 h-24 w-24 rounded-bl-[4rem] bg-[#e7c98f]/50"></div>
-        <p class="text-xs font-bold uppercase tracking-[.14em] text-[#7a5a26]">Di dalam ruang ini</p>
-        <ol class="mt-8 divide-y divide-[#dce3de]">
-          <li><a class="overview-link" href="#karya"><span>01</span><strong>E-book & panduan</strong><i>→</i></a></li>
-          <li><a class="overview-link" href="#sistem"><span>02</span><strong>Sistem & aplikasi</strong><i>→</i></a></li>
-          <li><a class="overview-link" href="#tulisan"><span>03</span><strong>Tulisan di berbagai ruang</strong><i>→</i></a></li>
-          <li><a class="overview-link" href="#kegiatan"><span>04</span><strong>Kelas & kegiatan</strong><i>→</i></a></li>
-        </ol>
-        <p class="mt-7 text-xs leading-5 text-[#71837c]">Disusun agar pembaca dapat langsung menuju hal yang sedang dicari.</p>
+      <aside class="map-card card relative overflow-hidden p-7 sm:p-9" aria-labelledby="space-map-title">
+        <div class="absolute right-0 top-0 h-28 w-28 rounded-bl-[4rem] bg-[#e7c98f]/50"></div>
+        <div class="map-grid" aria-hidden="true"></div>
+        <p id="space-map-title" class="relative text-xs font-bold uppercase tracking-[.14em] text-[#7a5a26]">Di dalam ruang ini</p>
+        <div class="map-menu relative mt-8">
+          <svg class="map-route" viewBox="0 0 120 430" fill="none" aria-hidden="true">
+            <path class="map-route-shadow" d="M55 24 C18 72 100 102 63 154 C26 205 96 231 55 282 C18 331 78 359 42 408" />
+            <path class="map-route-line" d="M55 24 C18 72 100 102 63 154 C26 205 96 231 55 282 C18 331 78 359 42 408" />
+            <circle class="map-traveler" r="6">
+              <animateMotion dur="7s" repeatCount="indefinite" path="M55 24 C18 72 100 102 63 154 C26 205 96 231 55 282 C18 331 78 359 42 408" />
+            </circle>
+          </svg>
+          <ol class="map-stops">
+            <li><a class="map-link" href="#karya"><span class="map-pin"><b>01</b></span><strong>E-book & panduan</strong><i>&rarr;</i></a></li>
+            <li><a class="map-link" href="#sistem"><span class="map-pin"><b>02</b></span><strong>Sistem & aplikasi</strong><i>&rarr;</i></a></li>
+            <li><a class="map-link" href="#tulisan"><span class="map-pin"><b>03</b></span><strong>Tulisan di berbagai ruang</strong><i>&rarr;</i></a></li>
+            <li><a class="map-link" href="#kegiatan"><span class="map-pin"><b>04</b></span><strong>Kelas & kegiatan</strong><i>&rarr;</i></a></li>
+          </ol>
+        </div>
+        <p class="relative mt-7 text-xs leading-5 text-[#71837c]">Empat jalur utama untuk membaca karya, mencoba aplikasi, mengikuti tulisan, dan melihat kegiatan.</p>
       </aside>
     </div>
   </section>
@@ -402,10 +412,102 @@ const writingAreas = [
   </section>
 
   <style>
-    .overview-link { display: grid; grid-template-columns: 2rem 1fr auto; align-items: center; gap: 1rem; padding: 1rem 0; }
-    .overview-link span { color: #a66c22; font-family: 'Newsreader', serif; font-size: 1.15rem; }
-    .overview-link strong { font-size: .95rem; font-weight: 600; }
-    .overview-link i { font-style: normal; transition: transform .2s ease; }
-    .overview-link:hover i { transform: translateX(4px); }
+    .map-card { background: linear-gradient(145deg, rgba(255,255,255,.84), rgba(244,248,243,.74)); }
+    .map-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(23, 63, 50, .055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(23, 63, 50, .055) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: radial-gradient(circle at 58% 42%, black, transparent 72%);
+      pointer-events: none;
+    }
+    .map-menu { min-height: 430px; }
+    .map-route { position: absolute; inset: 0 auto 0 1.1rem; width: 7.5rem; height: 100%; overflow: visible; }
+    .map-route-shadow,
+    .map-route-line { fill: none; stroke-linecap: round; stroke-width: 7; }
+    .map-route-shadow { stroke: rgba(231, 201, 143, .55); }
+    .map-route-line {
+      stroke: #2f796f;
+      stroke-dasharray: 18 14;
+      animation: route-drift 1.8s linear infinite;
+    }
+    .map-traveler {
+      fill: #a66c22;
+      filter: drop-shadow(0 4px 8px rgba(23, 63, 50, .22));
+    }
+    .map-stops { position: relative; z-index: 1; display: grid; gap: 1rem; list-style: none; padding: .25rem 0; }
+    .map-stops li { animation: map-stop-in .65s ease both; animation-delay: calc(var(--stop-index, 0) * .11s); }
+    .map-stops li:nth-child(1) { --stop-index: 1; }
+    .map-stops li:nth-child(2) { --stop-index: 2; padding-left: 2.6rem; }
+    .map-stops li:nth-child(3) { --stop-index: 3; padding-left: .6rem; }
+    .map-stops li:nth-child(4) { --stop-index: 4; padding-left: 2rem; }
+    .map-link {
+      display: grid;
+      grid-template-columns: 3.2rem minmax(0, 1fr) auto;
+      align-items: center;
+      gap: .85rem;
+      min-height: 82px;
+      border: 1px solid rgba(189, 203, 196, .9);
+      border-radius: 1.25rem;
+      background: rgba(255, 255, 255, .82);
+      padding: .85rem 1rem .85rem .8rem;
+      box-shadow: 0 18px 40px rgba(23, 63, 50, .08);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .map-link:hover {
+      transform: translateY(-3px) scale(1.01);
+      border-color: rgba(166, 108, 34, .45);
+      background: #fffaf0;
+      box-shadow: 0 22px 46px rgba(23, 63, 50, .13);
+    }
+    .map-pin {
+      position: relative;
+      display: grid;
+      height: 3.2rem;
+      width: 3.2rem;
+      place-items: center;
+      border-radius: 999px 999px 999px 10px;
+      background: #173f32;
+      color: #f7f1df;
+      font-family: 'Newsreader', serif;
+      font-weight: 700;
+      transform: rotate(-45deg);
+      box-shadow: inset 0 0 0 4px rgba(231, 201, 143, .28), 0 10px 20px rgba(23, 63, 50, .18);
+    }
+    .map-pin::before {
+      content: '';
+      position: absolute;
+      inset: .72rem;
+      border-radius: 999px;
+      border: 1px solid rgba(247, 241, 223, .45);
+    }
+    .map-pin b {
+      position: relative;
+      z-index: 1;
+      font-size: 1.05rem;
+      transform: rotate(45deg);
+    }
+    .map-link strong { color: #173f32; font-size: .98rem; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere; }
+    .map-link i { color: #a66c22; font-style: normal; transition: transform .2s ease; }
+    .map-link:hover i { transform: translateX(4px); }
+    @keyframes route-drift {
+      to { stroke-dashoffset: -32; }
+    }
+    @keyframes map-stop-in {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 480px) {
+      .map-menu { min-height: auto; }
+      .map-route { display: none; }
+      .map-stops li:nth-child(n) { padding-left: 0; }
+      .map-link { grid-template-columns: 2.9rem minmax(0, 1fr) auto; min-height: 74px; }
+      .map-pin { height: 2.9rem; width: 2.9rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .map-traveler { display: none; }
+    }
   </style>
 </Layout>
