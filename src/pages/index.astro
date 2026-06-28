@@ -15,6 +15,18 @@ const themes = [
 
 const childrenBooks = [
   {
+    title: 'Menjadi Orang Tua yang Bertumbuh Dengan Design Thinking',
+    description: 'E-book pengasuhan untuk membantu orang tua merefleksikan proses mendampingi anak melalui empati, ideasi, uji coba, dan perbaikan berkelanjutan di rumah.',
+    coverUrl: '/images/books/menjadi-orang-tua-bertumbuh-design-thinking.png',
+    downloadUrl: ''
+  },
+  {
+    title: 'E-Book Eksplorasi Tanya-Jawab: Rahasia Menciptakan Obrolan Seru Anak dan Orang Tua di Rumah',
+    description: 'Panduan percakapan keluarga yang mengajak orang tua membangun obrolan hangat, terbuka, dan menyenangkan bersama anak dari aktivitas sehari-hari.',
+    coverUrl: '/images/books/eksplorasi-tanya-jawab-obrolan-seru.png',
+    downloadUrl: ''
+  },
+  {
     title: 'Menjadi Seorang Laki-Laki Seperti Ayah',
     description: 'Buku cerita anak tentang belajar meneladani kebaikan ayah: kuat hati, bertanggung jawab, dan tumbuh sebagai muslim yang baik.',
     coverUrl: '/images/books/menjadi-laki-laki-seperti-ayah.png',
@@ -35,6 +47,13 @@ const childrenBooks = [
 ];
 
 const educationBooks = [
+  {
+    title: 'Pengelolaan dan Pengembangan Laboratorium Virtual',
+    subtitle: 'Pendekatan Praktek Teknologi Pendidikan dan TIK',
+    description: 'Buku bersama Prof. Dr. Deni Darmawan, S.Pd., M.Si., MCE., dengan anggota Yahya Nursidik, S.Pd., M.T., dan Dr. Dadi Mulyadi, S.Pd., M.T., tentang pengelolaan laboratorium virtual dalam konteks teknologi pendidikan dan TIK.',
+    coverUrl: '/images/books/pengelolaan-pengembangan-laboratorium-virtual.png',
+    downloadUrl: ''
+  },
   {
     title: 'Menjadi Pemimpin Sekolah Jenjang PAUD yang Menghidupkan, Bukan Sekadar Mengelola',
     subtitle: 'Panduan Bijak untuk Kepala Sekolah dan Yayasan PAUD Islam',
@@ -151,8 +170,8 @@ const writingAreas = [
     <div class="mt-12">
       <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <span class="tag">Buku anak-anak</span>
-          <h3 class="mt-4 text-3xl leading-tight text-[#173f32]">Bacaan sederhana untuk menemani anak bertumbuh.</h3>
+          <span class="tag">Keluarga & anak</span>
+          <h3 class="mt-4 text-3xl leading-tight text-[#173f32]">Bacaan sederhana untuk menemani keluarga bertumbuh.</h3>
         </div>
         <p class="max-w-md text-sm leading-6 text-[#71837c]">Tautan unduh PDF akan ditambahkan setelah file final siap dibagikan.</p>
       </div>
@@ -163,7 +182,7 @@ const writingAreas = [
               <img src={item.coverUrl} alt={`Sampul buku ${item.title}`} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
             </div>
             <div class="flex flex-1 flex-col p-6">
-              <span class="tag">E-book anak</span>
+              <span class="tag">E-book keluarga</span>
               <h4 class="mt-4 text-2xl leading-tight">{item.title}</h4>
               <p class="mt-3 flex-1 text-sm leading-6 text-[#61756d]">{item.description}</p>
               {item.downloadUrl ? (
