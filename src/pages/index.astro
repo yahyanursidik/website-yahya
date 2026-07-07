@@ -115,7 +115,7 @@ const systems = [
   {
     label: 'Website lembaga · Sekolah',
     title: 'Website Sekolah Tarbiyah Sunnah Lab School',
-    copy: 'Website resmi sekolah untuk memperkenalkan profil, program, informasi penerimaan, serta kanal komunikasi publik Tarbiyah Sunnah Lab School secara lebih tertata dan mudah diakses.',
+    copy: 'Website resmi sekolah untuk menata profil, program, informasi penerimaan, dan kanal komunikasi publik Tarbiyah Sunnah Lab School dalam satu ruang yang mudah diakses.',
     link: 'https://tslabschool.sch.id/',
     action: 'Buka website',
     accent: 'WEB',
@@ -124,7 +124,7 @@ const systems = [
   {
     label: 'Landing page · Informasi',
     title: 'Landing Page Tarbiyah Sunnah Lab School',
-    copy: 'Halaman ringkas untuk mengarahkan calon orang tua dan pengunjung pada informasi penting, tautan layanan, serta kebutuhan komunikasi sekolah yang lebih cepat dan praktis.',
+    copy: 'Halaman ringkas untuk membantu calon orang tua dan pengunjung menemukan informasi penting, tautan layanan, serta kanal komunikasi sekolah dengan lebih cepat.',
     link: 'https://pintas.tslabschool.sch.id/',
     action: 'Buka landing page',
     accent: 'LP',
@@ -133,16 +133,34 @@ const systems = [
   {
     label: 'Sistem informasi · Sekolah',
     title: 'Sistem Informasi Akademik dan Operasional Sekolah Tarbiyah Sunnah Lab School',
-    copy: 'Platform terpadu untuk membantu alur akademik dan operasional sekolah melalui portal orang tua, ekskul, staf, guru, CBT, HRD, sarana-prasarana, dan kebutuhan layanan internal lain yang terus disesuaikan dengan proses lembaga.',
+    copy: 'Platform terpadu untuk membantu alur akademik dan operasional sekolah, mulai dari portal orang tua, ekskul, staf, guru, CBT, HRD, sarana-prasarana, hingga kebutuhan layanan internal.',
     link: 'https://hub.tslabschool.sch.id/',
     action: 'Kunjungi portal',
     accent: 'TSL',
     external: true
   },
   {
+    label: 'Learning management system · Yayasan',
+    title: 'Learning Management System Yayasan Pendidikan Ihsanul Adab',
+    copy: 'Portal pembelajaran untuk mendukung pengelolaan kelas, materi, aktivitas belajar, dan kebutuhan administrasi pembelajaran di lingkungan Yayasan Pendidikan Ihsanul Adab.',
+    link: 'https://hub.ihsanuladab.or.id/',
+    action: 'Kunjungi LMS',
+    accent: 'LMS',
+    external: true
+  },
+  {
+    label: 'Website lembaga · Yayasan',
+    title: 'Website Yayasan Pendidikan Ihsanul Adab',
+    copy: 'Website lembaga untuk menampilkan profil yayasan, arah pendidikan, informasi program, serta kanal komunikasi publik Yayasan Pendidikan Ihsanul Adab secara lebih tertata.',
+    link: 'https://ihsanuladab.or.id/',
+    action: 'Buka website',
+    accent: 'IA',
+    external: true
+  },
+  {
     label: 'Aplikasi web · Publik',
     title: 'Bermain Hijaiyah',
-    copy: 'Teman belajar huruf Hijaiyah dasar melalui aktivitas dengar, pilih, dan kenali. Dirancang sebagai alat bantu—bukan pengganti talaqqi bersama guru atau orang tua.',
+    copy: 'Teman belajar huruf Hijaiyah dasar melalui aktivitas dengar, pilih, dan kenali. Aplikasi ini dirancang sebagai alat bantu, bukan pengganti talaqqi bersama guru atau orang tua.',
     link: '/hijaiyah',
     action: 'Buka aplikasi',
     accent: 'أ'
@@ -224,13 +242,13 @@ const writingAreas = [
           <span class="tag">Keluarga & anak</span>
           <h3 class="mt-4 text-3xl leading-tight text-[#173f32]">Bacaan sederhana untuk menemani keluarga bertumbuh.</h3>
         </div>
-        <p class="max-w-md text-sm leading-6 text-[#71837c]">Tautan unduh PDF akan ditambahkan setelah file final siap dibagikan.</p>
+        <p class="max-w-md text-sm leading-6 text-[#71837c]">Daftar ini merangkum bacaan keluarga, buku anak, dan panduan rumah yang sedang disiapkan untuk dibagikan secara bertahap.</p>
       </div>
       <div class="mt-7 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {childrenBooks.map((item) => (
           <article class="card group flex h-full flex-col overflow-hidden">
-            <div class="aspect-[16/9] overflow-hidden bg-[#e8eee9]">
-              <img src={item.coverUrl} alt={`Sampul buku ${item.title}`} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
+            <div class="book-cover-frame">
+              <img src={item.coverUrl} alt={`Sampul buku ${item.title}`} class="book-cover-image transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
             </div>
             <div class="flex flex-1 flex-col p-6">
               <span class="tag">E-book keluarga</span>
@@ -251,8 +269,8 @@ const writingAreas = [
       <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {buku.map((item) => (
           <article class="card group overflow-hidden">
-            <div class="aspect-[4/3] overflow-hidden bg-[#e8eee9]">
-              <img src={item.entry.coverUrl} alt={`Sampul ${item.entry.title}`} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
+            <div class="book-cover-frame">
+              <img src={item.entry.coverUrl} alt={`Sampul ${item.entry.title}`} class="book-cover-image transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
             </div>
             <div class="p-6">
               <span class="tag">E-book</span>
@@ -287,8 +305,8 @@ const writingAreas = [
       <div class="mt-7 grid gap-6 md:grid-cols-2">
         {educationBooks.map((item) => (
           <article class="card group flex h-full flex-col overflow-hidden lg:flex-row">
-            <div class="aspect-[3/4] overflow-hidden bg-[#e8eee9] lg:w-[42%]">
-              <img src={item.coverUrl} alt={`Sampul e-book ${item.title}`} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
+            <div class="book-cover-frame lg:w-[42%]">
+              <img src={item.coverUrl} alt={`Sampul e-book ${item.title}`} class="book-cover-image transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
             </div>
             <div class="flex flex-1 flex-col p-6 sm:p-7">
               <span class="tag">Pendidikan</span>
@@ -314,7 +332,7 @@ const writingAreas = [
           <p class="eyebrow !text-[#edc986]">Sistem & aplikasi</p>
           <h2 class="mt-4 max-w-3xl font-headline text-[clamp(2.6rem,6vw,4.8rem)] leading-[.95] tracking-[-.04em]">Teknologi yang membantu proses belajar, bukan mengambil alihnya.</h2>
         </div>
-        <p class="leading-7 text-[#bfd0c7]">Pilihan produk publik dan eksperimen digital. Beberapa sistem internal tidak ditampilkan untuk menjaga konteks serta kerahasiaan lembaga.</p>
+        <p class="leading-7 text-[#bfd0c7]">Portfolio sistem, website, dan eksperimen digital yang dirancang untuk membantu lembaga menyampaikan informasi, mengelola pembelajaran, dan membuat layanan pendidikan lebih mudah digunakan.</p>
       </div>
 
       <div class="mt-12 grid gap-5 md:grid-cols-2">
@@ -412,6 +430,22 @@ const writingAreas = [
   </section>
 
   <style>
+    .book-cover-frame {
+      display: grid;
+      aspect-ratio: 3 / 4;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(231, 201, 143, .24), transparent 28%),
+        linear-gradient(145deg, #eef3ef, #f8f3e8);
+      padding: .85rem;
+    }
+    .book-cover-image {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 16px 22px rgba(23, 63, 50, .16));
+    }
     .map-card { background: linear-gradient(145deg, rgba(255,255,255,.84), rgba(244,248,243,.74)); }
     .map-grid {
       position: absolute;
