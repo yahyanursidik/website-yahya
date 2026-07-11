@@ -27,7 +27,7 @@ const year = new Date().getFullYear();
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet" />
   </head>
   <body class="min-h-screen bg-[#f7f7f2] text-[#18332a] antialiased">
-    <a class="skip-link" href="#konten">Lewati ke konten utama</a>
+    <a class="skip-link" href="#konten" data-i18n-id="Lewati ke konten utama" data-i18n-en="Skip to main content">Lewati ke konten utama</a>
 
     <header class="site-header" data-header>
       <div class="shell flex h-[72px] items-center justify-between gap-6">
@@ -35,33 +35,39 @@ const year = new Date().getFullYear();
           <span class="grid h-10 w-10 place-items-center rounded-full bg-[#173f32] font-headline text-lg text-white transition-transform group-hover:-rotate-3">YN</span>
           <span class="leading-tight">
             <strong class="block text-sm font-semibold tracking-[-0.01em]">Yahya Nursidik</strong>
-            <span class="block text-[11px] text-[#61756d]">Catatan karya & pembelajaran</span>
+            <span class="block text-[11px] text-[#61756d]" data-i18n-id="Catatan karya & pembelajaran" data-i18n-en="Works & learning notes">Catatan karya & pembelajaran</span>
           </span>
         </a>
 
         <nav class="hidden items-center gap-7 text-sm lg:flex" aria-label="Navigasi utama">
-          <a class="nav-link" href="/#karya">E-book</a>
-          <a class="nav-link" href="/#sistem">Sistem & aplikasi</a>
-          <a class="nav-link" href="/#tulisan">Tulisan</a>
-          <a class="nav-link" href="/#kegiatan">Kegiatan</a>
-          <a class="nav-link" href="/#tentang">Tentang</a>
-          <a class="button button-small" href="/#kontak">Hubungi</a>
+          <a class="nav-link" href="/#karya" data-i18n-id="E-book" data-i18n-en="E-books">E-book</a>
+          <a class="nav-link" href="/#sistem" data-i18n-id="Sistem & aplikasi" data-i18n-en="Systems & apps">Sistem & aplikasi</a>
+          <a class="nav-link" href="/#tulisan" data-i18n-id="Tulisan" data-i18n-en="Writing">Tulisan</a>
+          <a class="nav-link" href="/#kegiatan" data-i18n-id="Kegiatan" data-i18n-en="Programs">Kegiatan</a>
+          <a class="nav-link" href="/#tentang" data-i18n-id="Tentang" data-i18n-en="About">Tentang</a>
+          <a class="button button-small" href="/#kontak" data-i18n-id="Hubungi" data-i18n-en="Contact">Hubungi</a>
         </nav>
 
-        <button class="menu-button lg:hidden" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
-          <span class="sr-only">Buka menu</span>
-          <span></span><span></span><span></span>
-        </button>
+        <div class="flex items-center gap-2">
+          <div class="language-switch" aria-label="Pilihan bahasa">
+            <button type="button" data-lang-button="id" aria-pressed="true">ID</button>
+            <button type="button" data-lang-button="en" aria-pressed="false">EN</button>
+          </div>
+          <button class="menu-button lg:hidden" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
+            <span class="sr-only" data-i18n-id="Buka menu" data-i18n-en="Open menu">Buka menu</span>
+            <span></span><span></span><span></span>
+          </button>
+        </div>
       </div>
 
       <nav id="mobile-menu" class="mobile-menu lg:hidden" aria-label="Navigasi seluler" data-mobile-menu hidden>
         <div class="shell grid gap-1 py-3">
-          <a href="/#karya">E-book</a>
-          <a href="/#sistem">Sistem & aplikasi</a>
-          <a href="/#tulisan">Tulisan</a>
-          <a href="/#kegiatan">Kegiatan</a>
-          <a href="/#tentang">Tentang</a>
-          <a href="/#kontak">Hubungi</a>
+          <a href="/#karya" data-i18n-id="E-book" data-i18n-en="E-books">E-book</a>
+          <a href="/#sistem" data-i18n-id="Sistem & aplikasi" data-i18n-en="Systems & apps">Sistem & aplikasi</a>
+          <a href="/#tulisan" data-i18n-id="Tulisan" data-i18n-en="Writing">Tulisan</a>
+          <a href="/#kegiatan" data-i18n-id="Kegiatan" data-i18n-en="Programs">Kegiatan</a>
+          <a href="/#tentang" data-i18n-id="Tentang" data-i18n-en="About">Tentang</a>
+          <a href="/#kontak" data-i18n-id="Hubungi" data-i18n-en="Contact">Hubungi</a>
         </div>
       </nav>
     </header>
@@ -71,8 +77,8 @@ const year = new Date().getFullYear();
     <footer class="border-t border-[#dce3de] bg-[#eef1ec] py-10">
       <div class="shell flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
         <div class="max-w-md">
-          <p class="font-headline text-2xl">Belajar, berkarya, lalu berbagi seperlunya.</p>
-          <p class="mt-2 text-sm leading-relaxed text-[#61756d]">Ruang ini dirawat sebagai arsip yang terus bertumbuh—bukan daftar pencapaian yang selesai.</p>
+          <p class="font-headline text-2xl" data-i18n-id="Belajar, berkarya, lalu berbagi seperlunya." data-i18n-en="Learn, create, then share with intention.">Belajar, berkarya, lalu berbagi seperlunya.</p>
+          <p class="mt-2 text-sm leading-relaxed text-[#61756d]" data-i18n-id="Ruang ini dirawat sebagai arsip yang terus bertumbuh, bukan daftar pencapaian yang selesai." data-i18n-en="This space is kept as a growing archive, not a finished list of achievements.">Ruang ini dirawat sebagai arsip yang terus bertumbuh, bukan daftar pencapaian yang selesai.</p>
         </div>
         <div class="text-sm text-[#61756d] sm:text-right">
           <div class="mb-3 flex gap-5 sm:justify-end">
@@ -105,6 +111,35 @@ const year = new Date().getFullYear();
 
       menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
       window.addEventListener('resize', () => { if (window.innerWidth >= 1024) closeMenu(); });
+
+      const languageButtons = document.querySelectorAll('[data-lang-button]');
+      const translatableNodes = document.querySelectorAll('[data-i18n-id][data-i18n-en]');
+      const setLanguage = (language) => {
+        const nextLanguage = language === 'en' ? 'en' : 'id';
+        document.documentElement.lang = nextLanguage;
+        translatableNodes.forEach((node) => {
+          if (!(node instanceof HTMLElement)) return;
+          node.textContent = node.dataset[nextLanguage === 'en' ? 'i18nEn' : 'i18nId'] || '';
+        });
+        languageButtons.forEach((node) => {
+          if (!(node instanceof HTMLButtonElement)) return;
+          const isActive = node.dataset.langButton === nextLanguage;
+          node.setAttribute('aria-pressed', String(isActive));
+          node.classList.toggle('is-active', isActive);
+        });
+        try { window.localStorage.setItem('site-language', nextLanguage); } catch {}
+      };
+
+      languageButtons.forEach((node) => {
+        node.addEventListener('click', () => {
+          if (!(node instanceof HTMLButtonElement)) return;
+          setLanguage(node.dataset.langButton);
+        });
+      });
+
+      let savedLanguage = 'id';
+      try { savedLanguage = window.localStorage.getItem('site-language') || 'id'; } catch {}
+      setLanguage(savedLanguage);
     </script>
   </body>
 </html>

@@ -21,6 +21,9 @@
   .button-secondary { border: 1px solid #bdcbc4; background: transparent; color: #173f32; }
   .button-secondary:hover { background: #edf1ec; }
   .button-small { min-height: 40px; padding: .55rem 1rem; }
+  .language-switch { display: inline-flex; align-items: center; gap: .15rem; border: 1px solid #d0dad4; border-radius: 999px; background: rgba(255,255,255,.64); padding: .2rem; }
+  .language-switch button { min-height: 2rem; min-width: 2.25rem; border-radius: 999px; color: #61756d; font-size: .72rem; font-weight: 800; transition: background .2s ease, color .2s ease; }
+  .language-switch button:hover, .language-switch button.is-active { background: #173f32; color: #fff; }
   .eyebrow { display: inline-flex; align-items: center; gap: .5rem; color: #7a5a26; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
   .eyebrow::before { content: ''; width: 1.5rem; height: 1px; background: #c78b32; }
   .section-title { margin-top: .75rem; max-width: 720px; font-size: clamp(2rem, 5vw, 3.5rem); line-height: .98; letter-spacing: -.035em; }

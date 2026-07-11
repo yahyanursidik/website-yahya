@@ -18,77 +18,117 @@ const orderedJadwal = [...jadwal].sort((a, b) => {
   const bIndex = jadwalOrder.indexOf(b.entry.title);
   return (aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex) - (bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex);
 });
+const scheduleTranslations = {
+  title: {
+    'Kelas Guru PAUD Profesional': 'Professional Early Childhood Teacher Class',
+    'Kelas Kepala Sekolah PAUD IT Profesional': 'Professional Integrated Islamic Early Childhood Principal Class',
+    'Kelas Tumbuh Bersama (Ihsanul Adab Parenting Academy)': 'Growing Together Class (Ihsanul Adab Parenting Academy)',
+    "Program Kaderisasi Guru Al Qur'an Jenjang PAUD - SD": "Qur'an Teacher Cadre Program for Early Childhood to Elementary Levels"
+  },
+  description: {
+    'Program pengembangan guru PAUD untuk menguatkan perencanaan pembelajaran, pengelolaan kelas, komunikasi dengan anak, dan sikap profesional dalam mendampingi tumbuh kembang.': 'A professional development program for early childhood teachers to strengthen lesson planning, classroom management, communication with children, and professionalism in accompanying growth.',
+    'Ruang belajar untuk kepala sekolah PAUD Islam terpadu dalam menata kepemimpinan, budaya lembaga, pengelolaan guru, dan arah pengembangan sekolah secara lebih profesional.': 'A learning space for integrated Islamic early childhood principals to organize leadership, institutional culture, teacher management, and school development more professionally.',
+    'Program belajar parenting untuk orang tua yang ingin mendampingi tumbuh kembang anak dengan lebih sadar, hangat, bertahap, dan beradab.': 'A parenting learning program for parents who want to accompany children with greater awareness, warmth, gradual practice, and adab.',
+    "Program kaderisasi untuk menyiapkan guru Al Qur'an jenjang PAUD sampai SD agar lebih terarah dalam adab, bacaan, pembelajaran dasar, dan pendampingan anak.": "A cadre program preparing Qur'an teachers from early childhood to elementary levels with clearer direction in adab, recitation, foundational learning, and child guidance."
+  },
+  type: { Program: 'Program' },
+  format: { Online: 'Online' },
+  status: { 'Kuota Terbatas': 'Limited seats' }
+};
+const scheduleEn = (value, field) => scheduleTranslations[field]?.[value] ?? value;
 
 const themes = [
-  { number: '01', title: 'Keluarga & pengasuhan', copy: 'Rutinitas keluarga, read-aloud, dan cara menemani tumbuh kembang anak dengan lebih sadar.' },
-  { number: '02', title: 'Pembelajaran anak', copy: 'Catatan praktis tentang homeschooling PAUD, perkembangan anak, dan pembelajaran yang dekat dengan keseharian.' },
-  { number: '03', title: 'Kepemimpinan pendidikan', copy: 'Gagasan untuk guru dan pengelola lembaga mengenai budaya belajar, tata kelola, dan perbaikan bertahap.' }
+  { number: '01', title: 'Keluarga & pengasuhan', titleEn: 'Family & parenting', copy: 'Rutinitas keluarga, read-aloud, dan cara menemani tumbuh kembang anak dengan lebih sadar.', copyEn: 'Family routines, read-aloud practices, and ways to accompany children with greater awareness.' },
+  { number: '02', title: 'Pembelajaran anak', titleEn: "Children's learning", copy: 'Catatan praktis tentang homeschooling PAUD, perkembangan anak, dan pembelajaran yang dekat dengan keseharian.', copyEn: 'Practical notes on early childhood homeschooling, child development, and learning close to daily life.' },
+  { number: '03', title: 'Kepemimpinan pendidikan', titleEn: 'Educational leadership', copy: 'Gagasan untuk guru dan pengelola lembaga mengenai budaya belajar, tata kelola, dan perbaikan bertahap.', copyEn: 'Ideas for teachers and school managers on learning culture, governance, and gradual improvement.' }
 ];
 
 const childrenBooks = [
   {
     title: 'Menjadi Orang Tua yang Bertumbuh Dengan Design Thinking',
+    titleEn: 'Becoming a Growing Parent with Design Thinking',
     description: 'E-book pengasuhan untuk membantu orang tua merefleksikan proses mendampingi anak melalui empati, ideasi, uji coba, dan perbaikan berkelanjutan di rumah.',
+    descriptionEn: 'A parenting e-book that helps parents reflect on accompanying children through empathy, ideation, experimentation, and continuous improvement at home.',
     coverUrl: '/images/books/menjadi-orang-tua-bertumbuh-design-thinking.png',
     downloadUrl: ''
   },
   {
     title: 'E-Book Eksplorasi Tanya-Jawab: Rahasia Menciptakan Obrolan Seru Anak dan Orang Tua di Rumah',
+    titleEn: 'Question-and-Answer Exploration E-book: Creating Meaningful Conversations at Home',
     description: 'Panduan percakapan keluarga yang mengajak orang tua membangun obrolan hangat, terbuka, dan menyenangkan bersama anak dari aktivitas sehari-hari.',
+    descriptionEn: 'A family conversation guide that helps parents build warm, open, and enjoyable talks with children through everyday activities.',
     coverUrl: '/images/books/eksplorasi-tanya-jawab-obrolan-seru.png',
     downloadUrl: ''
   },
   {
     title: 'Menjadi Seorang Laki-Laki Seperti Ayah',
+    titleEn: 'Becoming a Man Like Father',
     description: 'Buku cerita anak tentang belajar meneladani kebaikan ayah: kuat hati, bertanggung jawab, dan tumbuh sebagai muslim yang baik.',
+    descriptionEn: 'A children\'s story about learning from a father\'s good example: being strong-hearted, responsible, and growing as a good Muslim.',
     coverUrl: '/images/books/menjadi-laki-laki-seperti-ayah.png',
     downloadUrl: ''
   },
   {
     title: 'Menjadi Seorang Wanita Seperti Ibu',
+    titleEn: 'Becoming a Woman Like Mother',
     description: 'Kisah anak yang belajar menyayangi, bersabar, dan bertanggung jawab melalui keteladanan ibu dalam kehidupan sehari-hari.',
+    descriptionEn: 'A story of a child learning love, patience, and responsibility through a mother\'s example in daily life.',
     coverUrl: '/images/books/menjadi-wanita-seperti-ibu.png',
     downloadUrl: ''
   },
   {
     title: 'Sayuran Sehatku',
+    titleEn: 'My Healthy Vegetables',
     description: 'Buku pengenalan berbagai jenis sayuran dan manfaatnya, disusun untuk membantu anak mencintai kebiasaan sehat sejak dini.',
+    descriptionEn: 'An introduction to vegetables and their benefits, created to help children love healthy habits from an early age.',
     coverUrl: '/images/books/sayuran-sehatku.png',
     downloadUrl: ''
   },
   {
     title: 'Petualangan STEM Geosains di Rumah',
+    titleEn: 'STEM Geoscience Adventures at Home',
     description: 'Panduan kegiatan geosains sederhana di rumah agar orang tua dapat menemani anak mengenal bumi, batuan, gunung, peta, dan fenomena alam dengan cara yang menyenangkan.',
+    descriptionEn: 'A simple home geoscience activity guide for parents to help children explore the earth, rocks, mountains, maps, and natural phenomena in enjoyable ways.',
     coverUrl: '/images/books/petualangan-stem-geosains-di-rumah.png',
     downloadUrl: ''
   },
   {
     title: 'E-Book Ceklis Kesiapan Masuk Kelas 1 SD/MI',
+    titleEn: 'E-book: Readiness Checklist for Grade 1 Elementary School',
     description: 'Ceklis praktis untuk membantu orang tua melihat kesiapan anak memasuki kelas 1 SD/MI dari sisi kemandirian, kebiasaan belajar, sosial-emosional, dan rutinitas dasar.',
+    descriptionEn: 'A practical checklist to help parents observe a child\'s readiness for Grade 1 through independence, study habits, social-emotional skills, and basic routines.',
     coverUrl: '/images/books/ceklis-kesiapan-masuk-kelas-1-sd-mi.png',
     downloadUrl: ''
   },
   {
     title: 'E-Book Hari-Hari Bermakna di Rumah: Panduan Manajemen Keseharian Islami untuk Orang Tua Anak Usia Dini dan SD',
+    titleEn: 'Meaningful Days at Home: An Islamic Daily Management Guide for Parents',
     description: 'Panduan manajemen keseharian Islami agar rutinitas rumah lebih terarah, hangat, dan bernilai ibadah bagi keluarga dengan anak usia dini dan SD.',
+    descriptionEn: 'An Islamic daily management guide to make home routines more intentional, warm, and worshipful for families with young and elementary-aged children.',
     coverUrl: '/images/books/hari-hari-bermakna-di-rumah.png',
     downloadUrl: ''
   },
   {
     title: 'E-Book Ceklis Indikator: Perkembangan Anak Usia 4-5 Tahun',
+    titleEn: 'E-book Indicator Checklist: Child Development Ages 4-5',
     description: 'Panduan ringkas untuk membantu orang tua memahami indikator perkembangan anak usia 4-5 tahun melalui ceklis yang mudah digunakan di rumah.',
+    descriptionEn: 'A concise guide to help parents understand developmental indicators for children aged 4-5 through an easy-to-use home checklist.',
     coverUrl: '/images/books/ceklis-indikator-perkembangan-anak-usia-4-5-tahun.png',
     downloadUrl: ''
   },
   {
     title: 'Ceklis Indikator: Perkembangan Anak Usia 5-6 Tahun',
+    titleEn: 'Indicator Checklist: Child Development Ages 5-6',
     description: 'Ceklis perkembangan anak usia 5-6 tahun untuk membantu orang tua memantau kesiapan, kebiasaan, dan capaian tumbuh kembang secara bertahap.',
+    descriptionEn: 'A developmental checklist for children aged 5-6 to help parents observe readiness, habits, and growth milestones step by step.',
     coverUrl: '/images/books/ceklis-indikator-perkembangan-anak-usia-5-6-tahun.png',
     downloadUrl: ''
   },
   {
     title: 'Ceklis Indikator: Perkembangan Anak Usia 2-3 Tahun',
+    titleEn: 'Indicator Checklist: Child Development Ages 2-3',
     description: 'Ceklis perkembangan anak usia 2-3 tahun sebagai panduan sederhana bagi orang tua dalam mengamati tumbuh kembang awal anak di rumah.',
+    descriptionEn: 'A developmental checklist for children aged 2-3 as a simple guide for parents observing early growth at home.',
     coverUrl: '/images/books/ceklis-indikator-perkembangan-anak-usia-2-3-tahun.png',
     downloadUrl: ''
   }
@@ -97,15 +137,21 @@ const childrenBooks = [
 const educationBooks = [
   {
     title: 'Pengelolaan dan Pengembangan Laboratorium Virtual',
+    titleEn: 'Managing and Developing Virtual Laboratories',
     subtitle: 'Pendekatan Praktek Teknologi Pendidikan dan TIK',
+    subtitleEn: 'A Practical Approach to Educational Technology and ICT',
     description: 'Buku bersama Prof. Dr. Deni Darmawan, S.Pd., M.Si., MCE., dengan anggota Yahya Nursidik, S.Pd., M.T., dan Dr. Dadi Mulyadi, S.Pd., M.T., tentang pengelolaan laboratorium virtual dalam konteks teknologi pendidikan dan TIK.',
+    descriptionEn: 'A collaborative book with Prof. Dr. Deni Darmawan, Yahya Nursidik, and Dr. Dadi Mulyadi on managing virtual laboratories in educational technology and ICT contexts.',
     coverUrl: '/images/books/pengelolaan-pengembangan-laboratorium-virtual.png',
     downloadUrl: ''
   },
   {
     title: 'Menjadi Pemimpin Sekolah Jenjang PAUD yang Menghidupkan, Bukan Sekadar Mengelola',
+    titleEn: 'Becoming an Early Childhood School Leader Who Brings Learning to Life',
     subtitle: 'Panduan Bijak untuk Kepala Sekolah dan Yayasan PAUD Islam',
+    subtitleEn: 'A Wise Guide for Islamic Early Childhood School Leaders and Foundations',
     description: 'Panduan reflektif untuk kepala sekolah dan yayasan PAUD Islam dalam menumbuhkan visi, guru, lingkungan, dan pembelajaran yang lebih hidup serta terarah.',
+    descriptionEn: 'A reflective guide for Islamic early childhood school leaders and foundations to grow vision, teachers, environment, and learning with greater life and direction.',
     coverUrl: '/images/books/pemimpin-paud-yang-menghidupkan.png',
     downloadUrl: ''
   }
@@ -113,81 +159,166 @@ const educationBooks = [
 
 const systems = [
   {
-    label: 'Website lembaga · Sekolah',
+    label: 'Website lembaga - Sekolah',
+    labelEn: 'Institution website - School',
     title: 'Website Sekolah Tarbiyah Sunnah Lab School',
+    titleEn: 'Tarbiyah Sunnah Lab School Website',
     copy: 'Website resmi sekolah untuk menata profil, program, informasi penerimaan, dan kanal komunikasi publik Tarbiyah Sunnah Lab School dalam satu ruang yang mudah diakses.',
+    copyEn: 'The official school website that organizes profile, programs, admissions information, and public communication channels in one accessible space.',
     link: 'https://tslabschool.sch.id/',
     action: 'Buka website',
+    actionEn: 'Open website',
     accent: 'WEB',
     external: true
   },
   {
-    label: 'Landing page · Informasi',
+    label: 'Landing page - Informasi',
+    labelEn: 'Landing page - Information',
     title: 'Landing Page Tarbiyah Sunnah Lab School',
+    titleEn: 'Tarbiyah Sunnah Lab School Landing Page',
     copy: 'Halaman ringkas untuk membantu calon orang tua dan pengunjung menemukan informasi penting, tautan layanan, serta kanal komunikasi sekolah dengan lebih cepat.',
+    copyEn: 'A concise page that helps prospective parents and visitors quickly find key information, service links, and school communication channels.',
     link: 'https://pintas.tslabschool.sch.id/',
     action: 'Buka landing page',
+    actionEn: 'Open landing page',
     accent: 'LP',
     external: true
   },
   {
-    label: 'Sistem informasi · Sekolah',
+    label: 'Sistem informasi - Sekolah',
+    labelEn: 'Information system - School',
     title: 'Sistem Informasi Akademik dan Operasional Sekolah Tarbiyah Sunnah Lab School',
+    titleEn: 'Academic and Operational Information System for Tarbiyah Sunnah Lab School',
     copy: 'Platform terpadu untuk membantu alur akademik dan operasional sekolah, mulai dari portal orang tua, ekskul, staf, guru, CBT, HRD, sarana-prasarana, hingga kebutuhan layanan internal.',
+    copyEn: 'An integrated platform supporting school academic and operational workflows, from parent portals, extracurriculars, staff, teachers, CBT, HR, facilities, to internal services.',
     link: 'https://hub.tslabschool.sch.id/',
     action: 'Kunjungi portal',
+    actionEn: 'Visit portal',
     accent: 'TSL',
     external: true
   },
   {
-    label: 'Learning management system · Yayasan',
+    label: 'Learning management system - Yayasan',
+    labelEn: 'Learning management system - Foundation',
     title: 'Learning Management System Yayasan Pendidikan Ihsanul Adab',
+    titleEn: 'Ihsanul Adab Education Foundation Learning Management System',
     copy: 'Portal pembelajaran untuk mendukung pengelolaan kelas, materi, aktivitas belajar, dan kebutuhan administrasi pembelajaran di lingkungan Yayasan Pendidikan Ihsanul Adab.',
+    copyEn: 'A learning portal that supports class management, materials, learning activities, and instructional administration for Ihsanul Adab Education Foundation.',
     link: 'https://hub.ihsanuladab.or.id/',
     action: 'Kunjungi LMS',
+    actionEn: 'Visit LMS',
     accent: 'LMS',
     external: true
   },
   {
-    label: 'Website lembaga · Yayasan',
+    label: 'Website lembaga - Yayasan',
+    labelEn: 'Institution website - Foundation',
     title: 'Website Yayasan Pendidikan Ihsanul Adab',
+    titleEn: 'Ihsanul Adab Education Foundation Website',
     copy: 'Website lembaga untuk menampilkan profil yayasan, arah pendidikan, informasi program, serta kanal komunikasi publik Yayasan Pendidikan Ihsanul Adab secara lebih tertata.',
+    copyEn: 'An institutional website presenting the foundation profile, educational direction, program information, and public communication channels in a more organized way.',
     link: 'https://ihsanuladab.or.id/',
     action: 'Buka website',
+    actionEn: 'Open website',
     accent: 'IA',
     external: true
   },
   {
-    label: 'Website pre-order · Buku anak',
+    label: 'Website pre-order - Buku anak',
+    labelEn: "Pre-order website - Children's books",
     title: 'Books by Ibu Kakang',
+    titleEn: 'Books by Ibu Kakang',
     copy: 'Website pre-order untuk memperkenalkan dan mengelola pemesanan buku-buku anak karya Ibu Kakang, dengan alur informasi produk yang sederhana dan mudah diakses keluarga.',
+    copyEn: "A pre-order website for introducing and managing children's book orders by Ibu Kakang, with simple product information flows for families.",
     link: 'https://ibukakang.my.id/',
     action: 'Buka website',
+    actionEn: 'Open website',
     accent: 'BK',
     external: true
   },
   {
-    label: 'Aplikasi web · Publik',
+    label: 'Website lembaga - Pendidikan',
+    labelEn: 'Institution website - Education',
+    title: 'Tarbiyah Sunnah Learning',
+    titleEn: 'Tarbiyah Sunnah Learning',
+    copy: 'Website utama Tarbiyah Sunnah Learning yang menghubungkan ragam jenjang dan program pendidikan, dari usia dini hingga pembelajaran nonformal, dalam satu pintu informasi.',
+    copyEn: 'The main Tarbiyah Sunnah Learning website connecting multiple education levels and programs, from early childhood to non-formal learning, through one information gateway.',
+    link: 'https://tarbiyahsunnahlearning.or.id/',
+    action: 'Buka website',
+    actionEn: 'Open website',
+    accent: 'TSL',
+    external: true
+  },
+  {
+    label: 'Website perusahaan - Herbal',
+    labelEn: 'Company website - Herbal',
+    title: 'PT Saribunga Indonesia',
+    titleEn: 'PT Saribunga Indonesia',
+    copy: 'Website perusahaan untuk memperkenalkan produk herbal alami, program kemitraan, informasi perusahaan, serta kanal layanan PT Saribunga Indonesia secara terstruktur.',
+    copyEn: 'A company website presenting natural herbal products, partnership programs, company information, and service channels for PT Saribunga Indonesia.',
+    link: 'https://www.saribunga.co.id/',
+    action: 'Buka website',
+    actionEn: 'Open website',
+    accent: 'SBI',
+    external: true
+  },
+  {
+    label: 'Aplikasi web - Publik',
+    labelEn: 'Public web app',
     title: 'Bermain Hijaiyah',
+    titleEn: 'Hijaiyah Play',
     copy: 'Teman belajar huruf Hijaiyah dasar melalui aktivitas dengar, pilih, dan kenali. Aplikasi ini dirancang sebagai alat bantu, bukan pengganti talaqqi bersama guru atau orang tua.',
+    copyEn: 'A companion for learning basic Hijaiyah letters through listening, choosing, and recognizing activities. It is designed as a support tool, not a replacement for talaqqi with teachers or parents.',
     link: '/hijaiyah',
     action: 'Buka aplikasi',
+    actionEn: 'Open app',
     accent: 'أ'
   },
   {
-    label: 'Eksperimen · Pendidikan',
+    label: 'Eksperimen - Pendidikan',
+    labelEn: 'Education experiment',
     title: 'Permainan Edukasi',
+    titleEn: 'Educational Games',
     copy: 'Kumpulan prototipe permainan sederhana untuk membuat sesi belajar terasa lebih aktif dan ramah bagi anak.',
+    copyEn: 'A collection of simple game prototypes that make learning sessions feel more active and child-friendly.',
     link: '/permainan',
     action: 'Lihat kumpulan',
+    actionEn: 'View collection',
     accent: '✦'
   }
 ];
 
+const portfolioGroups = [
+  {
+    id: 'portfolio-platform',
+    title: 'Platform & sistem',
+    titleEn: 'Platforms & systems',
+    copy: 'Ruang kerja digital untuk pembelajaran, administrasi, dan operasional lembaga.',
+    copyEn: 'Digital workspaces for learning, administration, and institutional operations.',
+    items: systems.filter((item) => item.link.includes('hub.'))
+  },
+  {
+    id: 'portfolio-website',
+    title: 'Website & layanan digital',
+    titleEn: 'Websites & digital services',
+    copy: 'Website publik yang membantu organisasi, program, dan produk hadir lebih mudah ditemukan.',
+    copyEn: 'Public websites that help organizations, programs, and products become easier to find.',
+    items: systems.filter((item) => item.external && !item.link.includes('hub.'))
+  },
+  {
+    id: 'portfolio-experiment',
+    title: 'Aplikasi & eksperimen',
+    titleEn: 'Apps & experiments',
+    copy: 'Prototipe interaktif untuk membuka cara belajar yang lebih aktif dan menyenangkan.',
+    copyEn: 'Interactive prototypes that open more active and enjoyable ways to learn.',
+    items: systems.filter((item) => !item.external)
+  }
+];
+
 const writingAreas = [
-  { title: 'Pendidikan & sekolah', copy: 'Refleksi mengenai pembelajaran, budaya sekolah, dan praktik baik yang dapat dicoba secara bertahap.' },
-  { title: 'Keluarga & tumbuh kembang', copy: 'Tulisan untuk orang tua tentang kebiasaan kecil, pengasuhan, serta proses belajar anak di rumah.' },
-  { title: 'Teknologi pembelajaran', copy: 'Catatan dari proses merancang media, LMS, dan sistem digital yang tetap berpihak pada kebutuhan manusia.' }
+  { title: 'Pendidikan & sekolah', titleEn: 'Education & schools', copy: 'Refleksi mengenai pembelajaran, budaya sekolah, dan praktik baik yang dapat dicoba secara bertahap.', copyEn: 'Reflections on learning, school culture, and good practices that can be tried gradually.' },
+  { title: 'Keluarga & tumbuh kembang', titleEn: 'Family & development', copy: 'Tulisan untuk orang tua tentang kebiasaan kecil, pengasuhan, serta proses belajar anak di rumah.', copyEn: 'Writing for parents about small habits, parenting, and children\'s learning at home.' },
+  { title: 'Teknologi pembelajaran', titleEn: 'Learning technology', copy: 'Catatan dari proses merancang media, LMS, dan sistem digital yang tetap berpihak pada kebutuhan manusia.', copyEn: 'Notes from designing media, LMS platforms, and digital systems that remain centered on human needs.' }
 ];
 ---
 
@@ -199,23 +330,23 @@ const writingAreas = [
     <div class="pointer-events-none absolute -right-28 top-12 h-80 w-80 rounded-full bg-[#dce9dd] blur-3xl"></div>
     <div class="shell relative grid min-h-[calc(100vh-72px)] items-center gap-12 py-20 lg:grid-cols-[1.15fr_.85fr] lg:py-24">
       <div>
-        <p class="eyebrow">Ruang karya & pembelajaran</p>
+        <p class="eyebrow" data-i18n-id="Ruang karya & pembelajaran" data-i18n-en="Works & learning space">Ruang karya & pembelajaran</p>
         <h1 class="mt-6 max-w-3xl font-headline text-[clamp(3.3rem,9vw,6.8rem)] leading-[.86] tracking-[-.055em] text-[#173f32]">
-          Belajar,<br />membuat,<br /><em class="text-[#a66c22]">berbagi.</em>
+          <span data-i18n-id="Belajar," data-i18n-en="Learn,">Belajar,</span><br /><span data-i18n-id="membuat," data-i18n-en="create,">membuat,</span><br /><em class="text-[#a66c22]" data-i18n-id="berbagi." data-i18n-en="share.">berbagi.</em>
         </h1>
-        <p class="mt-8 max-w-xl text-base leading-8 text-[#526a61] sm:text-lg">
+        <p class="mt-8 max-w-xl text-base leading-8 text-[#526a61] sm:text-lg" data-i18n-id="Saya Yahya Nursidik. Ruang ini merangkum sebagian e-book, aplikasi, tulisan, dan kegiatan yang lahir dari perjalanan di bidang pendidikan dan teknologi pembelajaran." data-i18n-en="I am Yahya Nursidik. This space gathers selected e-books, applications, writing, and programs shaped by a journey in education and learning technology.">
           Saya Yahya Nursidik. Ruang ini merangkum sebagian e-book, aplikasi, tulisan, dan kegiatan yang lahir dari perjalanan di bidang pendidikan dan teknologi pembelajaran.
         </p>
         <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-          <a class="button" href="#karya">Jelajahi karya <span aria-hidden="true">↓</span></a>
-          <a class="button button-secondary" href="#tentang">Mengenal prosesnya</a>
+          <a class="button" href="#karya"><span data-i18n-id="Jelajahi karya" data-i18n-en="Explore works">Jelajahi karya</span> <span aria-hidden="true">↓</span></a>
+          <a class="button button-secondary" href="#tentang" data-i18n-id="Mengenal prosesnya" data-i18n-en="See the process">Mengenal prosesnya</a>
         </div>
       </div>
 
       <aside class="map-card card relative overflow-hidden p-7 sm:p-9" aria-labelledby="space-map-title">
         <div class="absolute right-0 top-0 h-28 w-28 rounded-bl-[4rem] bg-[#e7c98f]/50"></div>
         <div class="map-grid" aria-hidden="true"></div>
-        <p id="space-map-title" class="relative text-xs font-bold uppercase tracking-[.14em] text-[#7a5a26]">Di dalam ruang ini</p>
+        <p id="space-map-title" class="relative text-xs font-bold uppercase tracking-[.14em] text-[#7a5a26]" data-i18n-id="Di dalam ruang ini" data-i18n-en="Inside this space">Di dalam ruang ini</p>
         <div class="map-menu relative mt-8">
           <svg class="map-route" viewBox="0 0 120 430" fill="none" aria-hidden="true">
             <path class="map-route-shadow" d="M55 24 C18 72 100 102 63 154 C26 205 96 231 55 282 C18 331 78 359 42 408" />
@@ -225,13 +356,13 @@ const writingAreas = [
             </circle>
           </svg>
           <ol class="map-stops">
-            <li><a class="map-link" href="#karya"><span class="map-pin"><b>01</b></span><strong>E-book & panduan</strong><i>&rarr;</i></a></li>
-            <li><a class="map-link" href="#sistem"><span class="map-pin"><b>02</b></span><strong>Sistem & aplikasi</strong><i>&rarr;</i></a></li>
-            <li><a class="map-link" href="#tulisan"><span class="map-pin"><b>03</b></span><strong>Tulisan di berbagai ruang</strong><i>&rarr;</i></a></li>
-            <li><a class="map-link" href="#kegiatan"><span class="map-pin"><b>04</b></span><strong>Kelas & kegiatan</strong><i>&rarr;</i></a></li>
+            <li><a class="map-link" href="#karya"><span class="map-pin"><b>01</b></span><strong data-i18n-id="E-book & panduan" data-i18n-en="E-books & guides">E-book & panduan</strong><i>&rarr;</i></a></li>
+            <li><a class="map-link" href="#sistem"><span class="map-pin"><b>02</b></span><strong data-i18n-id="Sistem & aplikasi" data-i18n-en="Systems & apps">Sistem & aplikasi</strong><i>&rarr;</i></a></li>
+            <li><a class="map-link" href="#tulisan"><span class="map-pin"><b>03</b></span><strong data-i18n-id="Tulisan di berbagai ruang" data-i18n-en="Writing across spaces">Tulisan di berbagai ruang</strong><i>&rarr;</i></a></li>
+            <li><a class="map-link" href="#kegiatan"><span class="map-pin"><b>04</b></span><strong data-i18n-id="Kelas & kegiatan" data-i18n-en="Classes & programs">Kelas & kegiatan</strong><i>&rarr;</i></a></li>
           </ol>
         </div>
-        <p class="relative mt-7 text-xs leading-5 text-[#71837c]">Empat jalur utama untuk membaca karya, mencoba aplikasi, mengikuti tulisan, dan melihat kegiatan.</p>
+        <p class="relative mt-7 text-xs leading-5 text-[#71837c]" data-i18n-id="Empat jalur utama untuk membaca karya, mencoba aplikasi, mengikuti tulisan, dan melihat kegiatan." data-i18n-en="Four main paths to read works, try applications, follow writing, and view programs.">Empat jalur utama untuk membaca karya, mencoba aplikasi, mengikuti tulisan, dan melihat kegiatan.</p>
       </aside>
     </div>
   </section>
@@ -239,19 +370,19 @@ const writingAreas = [
   <section id="karya" class="shell py-24 lg:py-32">
     <div class="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
       <div>
-        <p class="eyebrow">E-book & panduan</p>
-        <h2 class="section-title">Gagasan yang dirapikan agar lebih mudah dipraktikkan.</h2>
+        <p class="eyebrow" data-i18n-id="E-book & panduan" data-i18n-en="E-books & guides">E-book & panduan</p>
+        <h2 class="section-title" data-i18n-id="Gagasan yang dirapikan agar lebih mudah dipraktikkan." data-i18n-en="Ideas organized to be easier to practice.">Gagasan yang dirapikan agar lebih mudah dipraktikkan.</h2>
       </div>
-      <p class="section-copy lg:max-w-sm">Bukan jawaban yang serba selesai, melainkan teman berpikir bagi orang tua, guru, dan pengelola pendidikan.</p>
+      <p class="section-copy lg:max-w-sm" data-i18n-id="Bukan jawaban yang serba selesai, melainkan teman berpikir bagi orang tua, guru, dan pengelola pendidikan." data-i18n-en="Not finished answers, but thinking companions for parents, teachers, and education managers.">Bukan jawaban yang serba selesai, melainkan teman berpikir bagi orang tua, guru, dan pengelola pendidikan.</p>
     </div>
 
     <div class="mt-12">
       <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <span class="tag">Keluarga & anak</span>
-          <h3 class="mt-4 text-3xl leading-tight text-[#173f32]">Bacaan sederhana untuk menemani keluarga bertumbuh.</h3>
+          <span class="tag" data-i18n-id="Keluarga & anak" data-i18n-en="Family & children">Keluarga & anak</span>
+          <h3 class="mt-4 text-3xl leading-tight text-[#173f32]" data-i18n-id="Bacaan sederhana untuk menemani keluarga bertumbuh." data-i18n-en="Simple reading to accompany families as they grow.">Bacaan sederhana untuk menemani keluarga bertumbuh.</h3>
         </div>
-        <p class="max-w-md text-sm leading-6 text-[#71837c]">Daftar ini merangkum bacaan keluarga, buku anak, dan panduan rumah yang sedang disiapkan untuk dibagikan secara bertahap.</p>
+        <p class="max-w-md text-sm leading-6 text-[#71837c]" data-i18n-id="Daftar ini merangkum bacaan keluarga, buku anak, dan panduan rumah yang sedang disiapkan untuk dibagikan secara bertahap." data-i18n-en="This list gathers family readings, children's books, and home guides being prepared for gradual sharing.">Daftar ini merangkum bacaan keluarga, buku anak, dan panduan rumah yang sedang disiapkan untuk dibagikan secara bertahap.</p>
       </div>
       <div class="mt-7 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {childrenBooks.map((item) => (
@@ -260,13 +391,13 @@ const writingAreas = [
               <img src={item.coverUrl} alt={`Sampul buku ${item.title}`} class="book-cover-image transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
             </div>
             <div class="flex flex-1 flex-col p-6">
-              <span class="tag">E-book keluarga</span>
-              <h4 class="mt-4 text-2xl leading-tight">{item.title}</h4>
-              <p class="mt-3 flex-1 text-sm leading-6 text-[#61756d]">{item.description}</p>
+              <span class="tag" data-i18n-id="E-book keluarga" data-i18n-en="Family e-book">E-book keluarga</span>
+              <h4 class="mt-4 text-2xl leading-tight" data-i18n-id={item.title} data-i18n-en={item.titleEn}>{item.title}</h4>
+              <p class="mt-3 flex-1 text-sm leading-6 text-[#61756d]" data-i18n-id={item.description} data-i18n-en={item.descriptionEn}>{item.description}</p>
               {item.downloadUrl ? (
-                <a class="button button-small mt-5 w-full" href={item.downloadUrl} target="_blank" rel="noreferrer">Download PDF</a>
+                <a class="button button-small mt-5 w-full" href={item.downloadUrl} target="_blank" rel="noreferrer" data-i18n-id="Download PDF" data-i18n-en="Download PDF">Download PDF</a>
               ) : (
-                <span class="mt-5 inline-flex min-h-10 w-full items-center justify-center rounded-full border border-[#dce3de] px-4 py-2 text-center text-xs font-bold uppercase tracking-[.08em] text-[#71837c]">PDF segera tersedia</span>
+                <span class="mt-5 inline-flex min-h-10 w-full items-center justify-center rounded-full border border-[#dce3de] px-4 py-2 text-center text-xs font-bold uppercase tracking-[.08em] text-[#71837c]" data-i18n-id="PDF segera tersedia" data-i18n-en="PDF coming soon">PDF segera tersedia</span>
               )}
             </div>
           </article>
@@ -282,10 +413,10 @@ const writingAreas = [
               <img src={item.entry.coverUrl} alt={`Sampul ${item.entry.title}`} class="book-cover-image transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
             </div>
             <div class="p-6">
-              <span class="tag">E-book</span>
+              <span class="tag" data-i18n-id="E-book" data-i18n-en="E-book">E-book</span>
               <h3 class="mt-4 text-2xl leading-tight">{item.entry.title}</h3>
               <p class="mt-3 text-sm leading-6 text-[#61756d]">{item.entry.description}</p>
-              {item.entry.link && <a class="text-link mt-5" href={item.entry.link} target="_blank" rel="noreferrer">Lihat detail</a>}
+              {item.entry.link && <a class="text-link mt-5" href={item.entry.link} target="_blank" rel="noreferrer" data-i18n-id="Lihat detail" data-i18n-en="View details">Lihat detail</a>}
             </div>
           </article>
         ))}
@@ -295,21 +426,21 @@ const writingAreas = [
         {themes.map((item) => (
           <article class="card p-6 sm:p-7">
             <span class="font-headline text-3xl text-[#bd8a3e]">{item.number}</span>
-            <h3 class="mt-10 text-2xl">{item.title}</h3>
-            <p class="mt-3 text-sm leading-6 text-[#61756d]">{item.copy}</p>
+            <h3 class="mt-10 text-2xl" data-i18n-id={item.title} data-i18n-en={item.titleEn}>{item.title}</h3>
+            <p class="mt-3 text-sm leading-6 text-[#61756d]" data-i18n-id={item.copy} data-i18n-en={item.copyEn}>{item.copy}</p>
           </article>
         ))}
       </div>
     )}
-    <p class="mt-7 max-w-2xl text-sm leading-6 text-[#71837c]">Katalog lengkap dan tautan baca sedang dirapikan. Untuk sementara, tema-tema di atas menggambarkan arah karya yang tersedia.</p>
+    <p class="mt-7 max-w-2xl text-sm leading-6 text-[#71837c]" data-i18n-id="Katalog lengkap dan tautan baca sedang dirapikan. Untuk sementara, tema-tema di atas menggambarkan arah karya yang tersedia." data-i18n-en="The full catalog and reading links are being organized. For now, the themes above show the direction of available works.">Katalog lengkap dan tautan baca sedang dirapikan. Untuk sementara, tema-tema di atas menggambarkan arah karya yang tersedia.</p>
 
     <div class="mt-14">
       <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <span class="tag">E-book pendidikan</span>
-          <h3 class="mt-4 text-3xl leading-tight text-[#173f32]">Bacaan akademis, panduan lembaga, dan profesionalitas.</h3>
+          <span class="tag" data-i18n-id="E-book pendidikan" data-i18n-en="Education e-books">E-book pendidikan</span>
+          <h3 class="mt-4 text-3xl leading-tight text-[#173f32]" data-i18n-id="Bacaan akademis, panduan lembaga, dan profesionalitas." data-i18n-en="Academic reading, institutional guides, and professionalism.">Bacaan akademis, panduan lembaga, dan profesionalitas.</h3>
         </div>
-        <p class="max-w-md text-sm leading-6 text-[#71837c]">Kategori ini memuat bahan bacaan akademis, tata kelola lembaga, kepemimpinan pendidikan, dan penguatan profesionalitas pengelola sekolah.</p>
+        <p class="max-w-md text-sm leading-6 text-[#71837c]" data-i18n-id="Kategori ini memuat bahan bacaan akademis, tata kelola lembaga, kepemimpinan pendidikan, dan penguatan profesionalitas pengelola sekolah." data-i18n-en="This category contains academic reading, institutional governance, educational leadership, and professional development for school managers.">Kategori ini memuat bahan bacaan akademis, tata kelola lembaga, kepemimpinan pendidikan, dan penguatan profesionalitas pengelola sekolah.</p>
       </div>
       <div class="mt-7 grid gap-6 md:grid-cols-2">
         {educationBooks.map((item) => (
@@ -318,14 +449,14 @@ const writingAreas = [
               <img src={item.coverUrl} alt={`Sampul e-book ${item.title}`} class="book-cover-image transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
             </div>
             <div class="flex flex-1 flex-col p-6 sm:p-7">
-              <span class="tag">Pendidikan</span>
-              <h4 class="mt-4 text-2xl leading-tight">{item.title}</h4>
-              <p class="mt-2 text-sm font-semibold leading-6 text-[#a66c22]">{item.subtitle}</p>
-              <p class="mt-3 flex-1 text-sm leading-6 text-[#61756d]">{item.description}</p>
+              <span class="tag" data-i18n-id="Pendidikan" data-i18n-en="Education">Pendidikan</span>
+              <h4 class="mt-4 text-2xl leading-tight" data-i18n-id={item.title} data-i18n-en={item.titleEn}>{item.title}</h4>
+              <p class="mt-2 text-sm font-semibold leading-6 text-[#a66c22]" data-i18n-id={item.subtitle} data-i18n-en={item.subtitleEn}>{item.subtitle}</p>
+              <p class="mt-3 flex-1 text-sm leading-6 text-[#61756d]" data-i18n-id={item.description} data-i18n-en={item.descriptionEn}>{item.description}</p>
               {item.downloadUrl ? (
-                <a class="button button-small mt-5 w-full" href={item.downloadUrl} target="_blank" rel="noreferrer">Download PDF</a>
+                <a class="button button-small mt-5 w-full" href={item.downloadUrl} target="_blank" rel="noreferrer" data-i18n-id="Download PDF" data-i18n-en="Download PDF">Download PDF</a>
               ) : (
-                <span class="mt-5 inline-flex min-h-10 w-full items-center justify-center rounded-full border border-[#dce3de] px-4 py-2 text-center text-xs font-bold uppercase tracking-[.08em] text-[#71837c]">PDF segera tersedia</span>
+                <span class="mt-5 inline-flex min-h-10 w-full items-center justify-center rounded-full border border-[#dce3de] px-4 py-2 text-center text-xs font-bold uppercase tracking-[.08em] text-[#71837c]" data-i18n-id="PDF segera tersedia" data-i18n-en="PDF coming soon">PDF segera tersedia</span>
               )}
             </div>
           </article>
@@ -338,23 +469,40 @@ const writingAreas = [
     <div class="shell">
       <div class="grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end">
         <div>
-          <p class="eyebrow !text-[#edc986]">Sistem & aplikasi</p>
-          <h2 class="mt-4 max-w-3xl font-headline text-[clamp(2.6rem,6vw,4.8rem)] leading-[.95] tracking-[-.04em]">Teknologi yang membantu proses belajar, bukan mengambil alihnya.</h2>
+          <p class="eyebrow !text-[#edc986]" data-i18n-id="Sistem & aplikasi" data-i18n-en="Systems & apps">Sistem & aplikasi</p>
+          <h2 class="mt-4 max-w-3xl font-headline text-[clamp(2.6rem,6vw,4.8rem)] leading-[.95] tracking-[-.04em]" data-i18n-id="Teknologi yang membantu proses belajar, bukan mengambil alihnya." data-i18n-en="Technology that supports learning, not replaces it.">Teknologi yang membantu proses belajar, bukan mengambil alihnya.</h2>
         </div>
-        <p class="leading-7 text-[#bfd0c7]">Portfolio sistem, website, dan eksperimen digital yang dirancang untuk membantu lembaga menyampaikan informasi, mengelola pembelajaran, dan membuat layanan pendidikan lebih mudah digunakan.</p>
+        <p class="leading-7 text-[#bfd0c7]" data-i18n-id="Portofolio sistem, website, dan eksperimen digital yang dirancang untuk membantu lembaga menyampaikan informasi, mengelola pembelajaran, dan membuat layanan pendidikan lebih mudah digunakan." data-i18n-en="A portfolio of systems, websites, and digital experiments designed to help institutions communicate clearly, manage learning, and make educational services easier to use.">Portofolio sistem, website, dan eksperimen digital yang dirancang untuk membantu lembaga menyampaikan informasi, mengelola pembelajaran, dan membuat layanan pendidikan lebih mudah digunakan.</p>
       </div>
 
-      <div class="mt-12 grid gap-5 md:grid-cols-2">
-        {systems.map((item) => (
-          <article class="group rounded-[1.5rem] border border-white/15 bg-white/[.06] p-7 transition-colors hover:bg-white/[.1] sm:p-9">
-            <div class="flex items-start justify-between gap-5">
-              <span class="text-xs font-bold uppercase tracking-[.12em] text-[#edc986]">{item.label}</span>
-              <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#f5e3bd] font-headline text-3xl text-[#173f32]">{item.accent}</span>
+      <nav class="portfolio-nav mt-10" aria-label="Jelajahi kategori portofolio">
+        <span class="portfolio-nav-label" data-i18n-id="Jelajahi berdasarkan jenis" data-i18n-en="Browse by type">Jelajahi berdasarkan jenis</span>
+        <div class="portfolio-nav-links">
+          {portfolioGroups.map((group, index) => <a href={`#${group.id}`}><span>0{index + 1}</span><span data-i18n-id={group.title} data-i18n-en={group.titleEn}>{group.title}</span></a>)}
+        </div>
+      </nav>
+
+      <div class="mt-14 space-y-16 lg:space-y-20">
+        {portfolioGroups.map((group) => (
+          <section id={group.id} class="scroll-mt-24" aria-labelledby={`${group.id}-title`}>
+            <div class="grid gap-4 border-b border-white/15 pb-6 sm:grid-cols-[minmax(0,1fr)_minmax(16rem,.55fr)] sm:items-end">
+              <h3 id={`${group.id}-title`} class="font-headline text-[clamp(2rem,4vw,3rem)] leading-none text-[#f5e3bd]" data-i18n-id={group.title} data-i18n-en={group.titleEn}>{group.title}</h3>
+              <p class="text-sm leading-6 text-[#bfd0c7]" data-i18n-id={group.copy} data-i18n-en={group.copyEn}>{group.copy}</p>
             </div>
-            <h3 class="mt-14 text-3xl">{item.title}</h3>
-            <p class="mt-4 max-w-lg text-sm leading-7 text-[#c7d5ce]">{item.copy}</p>
-            <a class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-white" href={item.link} target={item.external ? '_blank' : undefined} rel={item.external ? 'noreferrer' : undefined}>{item.action} <span class="transition-transform group-hover:translate-x-1">→</span></a>
-          </article>
+            <div class="mt-6 grid gap-5 md:grid-cols-2">
+              {group.items.map((item) => (
+                <article class="group flex h-full flex-col rounded-[1.5rem] border border-white/15 bg-white/[.06] p-7 transition-colors hover:bg-white/[.1] sm:p-9">
+                  <div class="flex items-start justify-between gap-5">
+                    <span class="text-xs font-bold uppercase tracking-[.12em] text-[#edc986]" data-i18n-id={item.label} data-i18n-en={item.labelEn}>{item.label}</span>
+                    <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#f5e3bd] px-1 text-center font-headline text-lg leading-none text-[#173f32]">{item.accent}</span>
+                  </div>
+                  <h4 class="mt-12 text-3xl leading-tight" data-i18n-id={item.title} data-i18n-en={item.titleEn}>{item.title}</h4>
+                  <p class="mt-4 max-w-lg flex-1 text-sm leading-7 text-[#c7d5ce]" data-i18n-id={item.copy} data-i18n-en={item.copyEn}>{item.copy}</p>
+                  <a class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-white" href={item.link} target={item.external ? '_blank' : undefined} rel={item.external ? 'noreferrer' : undefined}><span data-i18n-id={item.action} data-i18n-en={item.actionEn}>{item.action}</span> <span class="transition-transform group-hover:translate-x-1">&rarr;</span></a>
+                </article>
+              ))}
+            </div>
+          </section>
         ))}
       </div>
     </div>
@@ -363,18 +511,18 @@ const writingAreas = [
   <section id="tulisan" class="shell py-24 lg:py-32">
     <div class="grid gap-12 lg:grid-cols-[.85fr_1.15fr]">
       <div>
-        <p class="eyebrow">Tulisan & kontribusi</p>
-        <h2 class="section-title">Menulis untuk memperpanjang percakapan.</h2>
-        <p class="section-copy">Sebagian tulisan pernah hadir di kolom blog lembaga dan ruang kolaboratif. Arsip nama lembaga beserta tautan artikelnya sedang disusun agar setiap rujukan dapat ditampilkan dengan tepat.</p>
-        <a class="text-link mt-6" href="https://www.linkedin.com/in/yahya-nursidik-499aa653/" target="_blank" rel="noreferrer">Ikuti catatan terbaru</a>
+        <p class="eyebrow" data-i18n-id="Tulisan & kontribusi" data-i18n-en="Writing & contributions">Tulisan & kontribusi</p>
+        <h2 class="section-title" data-i18n-id="Menulis untuk memperpanjang percakapan." data-i18n-en="Writing to extend the conversation.">Menulis untuk memperpanjang percakapan.</h2>
+        <p class="section-copy" data-i18n-id="Sebagian tulisan pernah hadir di kolom blog lembaga dan ruang kolaboratif. Arsip nama lembaga beserta tautan artikelnya sedang disusun agar setiap rujukan dapat ditampilkan dengan tepat." data-i18n-en="Some writing has appeared in institutional blogs and collaborative spaces. The archive of names and article links is being organized so every reference can be displayed properly.">Sebagian tulisan pernah hadir di kolom blog lembaga dan ruang kolaboratif. Arsip nama lembaga beserta tautan artikelnya sedang disusun agar setiap rujukan dapat ditampilkan dengan tepat.</p>
+        <a class="text-link mt-6" href="https://www.linkedin.com/in/yahya-nursidik-499aa653/" target="_blank" rel="noreferrer" data-i18n-id="Ikuti catatan terbaru" data-i18n-en="Follow recent notes">Ikuti catatan terbaru</a>
       </div>
       <div class="divide-y divide-[#dce3de] border-y border-[#dce3de]">
         {writingAreas.map((item, index) => (
           <article class="grid gap-3 py-7 sm:grid-cols-[3rem_1fr] sm:gap-5">
             <span class="font-headline text-2xl text-[#bd8a3e]">0{index + 1}</span>
             <div>
-              <h3 class="text-2xl">{item.title}</h3>
-              <p class="mt-2 text-sm leading-6 text-[#61756d]">{item.copy}</p>
+              <h3 class="text-2xl" data-i18n-id={item.title} data-i18n-en={item.titleEn}>{item.title}</h3>
+              <p class="mt-2 text-sm leading-6 text-[#61756d]" data-i18n-id={item.copy} data-i18n-en={item.copyEn}>{item.copy}</p>
             </div>
           </article>
         ))}
@@ -385,25 +533,25 @@ const writingAreas = [
   <section id="kegiatan" class="border-y border-[#dce3de] bg-[#eef1ec] py-24 lg:py-28">
     <div class="shell">
       <div>
-        <p class="eyebrow">Kelas & kegiatan</p>
-        <h2 class="section-title">Ruang belajar yang sedang berjalan.</h2>
+        <p class="eyebrow" data-i18n-id="Kelas & kegiatan" data-i18n-en="Classes & programs">Kelas & kegiatan</p>
+        <h2 class="section-title" data-i18n-id="Ruang belajar yang sedang berjalan." data-i18n-en="Learning spaces currently running.">Ruang belajar yang sedang berjalan.</h2>
       </div>
       {orderedJadwal.length > 0 ? (
         <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {orderedJadwal.map((item) => (
             <article class="card flex h-full flex-col p-6">
-              <div class="flex flex-wrap items-center justify-between gap-3"><span class="tag">{item.entry.type}</span><span class="text-xs text-[#71837c]">{item.entry.format}</span></div>
-              <h3 class="mt-6 text-2xl leading-tight">{item.entry.title}</h3>
-              {item.entry.description && <p class="mt-3 flex-1 text-sm leading-6 text-[#61756d]">{item.entry.description}</p>}
-              <p class="mt-6 border-t border-[#dce3de] pt-4 text-xs font-semibold text-[#526a61]">{item.entry.status}</p>
-              {item.entry.link && <a class="button button-small mt-5 w-full" href={item.entry.link} target="_blank" rel="noreferrer">Lihat informasi</a>}
+              <div class="flex flex-wrap items-center justify-between gap-3"><span class="tag" data-i18n-id={item.entry.type} data-i18n-en={scheduleEn(item.entry.type, 'type')}>{item.entry.type}</span><span class="text-xs text-[#71837c]" data-i18n-id={item.entry.format} data-i18n-en={scheduleEn(item.entry.format, 'format')}>{item.entry.format}</span></div>
+              <h3 class="mt-6 text-2xl leading-tight" data-i18n-id={item.entry.title} data-i18n-en={scheduleEn(item.entry.title, 'title')}>{item.entry.title}</h3>
+              {item.entry.description && <p class="mt-3 flex-1 text-sm leading-6 text-[#61756d]" data-i18n-id={item.entry.description} data-i18n-en={scheduleEn(item.entry.description, 'description')}>{item.entry.description}</p>}
+              <p class="mt-6 border-t border-[#dce3de] pt-4 text-xs font-semibold text-[#526a61]" data-i18n-id={item.entry.status} data-i18n-en={scheduleEn(item.entry.status, 'status')}>{item.entry.status}</p>
+              {item.entry.link && <a class="button button-small mt-5 w-full" href={item.entry.link} target="_blank" rel="noreferrer" data-i18n-id="Lihat informasi" data-i18n-en="View information">Lihat informasi</a>}
             </article>
           ))}
         </div>
       ) : (
         <div class="card mt-10 flex flex-col justify-between gap-6 p-7 sm:flex-row sm:items-center">
-          <div><h3 class="text-2xl">Belum ada jadwal publik saat ini.</h3><p class="mt-2 text-sm text-[#61756d]">Informasi kelas atau seminar berikutnya akan ditampilkan di bagian ini.</p></div>
-          <a class="button button-secondary shrink-0" href="#kontak">Tanyakan kegiatan</a>
+          <div><h3 class="text-2xl" data-i18n-id="Belum ada jadwal publik saat ini." data-i18n-en="No public schedule is available right now.">Belum ada jadwal publik saat ini.</h3><p class="mt-2 text-sm text-[#61756d]" data-i18n-id="Informasi kelas atau seminar berikutnya akan ditampilkan di bagian ini." data-i18n-en="Information about upcoming classes or seminars will appear in this section.">Informasi kelas atau seminar berikutnya akan ditampilkan di bagian ini.</p></div>
+          <a class="button button-secondary shrink-0" href="#kontak" data-i18n-id="Tanyakan kegiatan" data-i18n-en="Ask about programs">Tanyakan kegiatan</a>
         </div>
       )}
     </div>
@@ -412,13 +560,13 @@ const writingAreas = [
   <section id="tentang" class="shell py-24 lg:py-32">
     <div class="grid gap-12 lg:grid-cols-[.65fr_1.35fr]">
       <div>
-        <p class="eyebrow">Tentang</p>
-        <p class="mt-5 font-headline text-4xl leading-tight">Bekerja di antara pendidikan, teknologi, dan pengembangan lembaga.</p>
+        <p class="eyebrow" data-i18n-id="Tentang" data-i18n-en="About">Tentang</p>
+        <p class="mt-5 font-headline text-4xl leading-tight" data-i18n-id="Bekerja di antara pendidikan, teknologi, dan pengembangan lembaga." data-i18n-en="Working across education, technology, and institutional development.">Bekerja di antara pendidikan, teknologi, dan pengembangan lembaga.</p>
       </div>
       <div class="space-y-6 text-base leading-8 text-[#526a61] sm:text-lg">
-        <p>Perjalanan saya bermula dari teknologi pendidikan dan teknologi informasi, lalu bertumbuh melalui peran sebagai pengajar, pengembang sistem dan media belajar, serta pendamping sejumlah program pendidikan.</p>
-        <p>Belakangan, perhatian banyak tertuju pada pendidikan Islam, pembelajaran Al-Qur'an, pendidikan anak, penguatan guru dan orang tua, serta perancangan sistem digital yang lebih sederhana, terarah, dan mudah digunakan.</p>
-        <blockquote class="border-l-2 border-[#bd8a3e] pl-6 font-headline text-2xl leading-relaxed text-[#173f32]">Yang dibagikan di sini adalah catatan dari proses—terbuka untuk diperbaiki, diperkaya, dan dipelajari kembali.</blockquote>
+        <p data-i18n-id="Perjalanan saya bermula dari teknologi pendidikan dan teknologi informasi, lalu bertumbuh melalui peran sebagai pengajar, pengembang sistem dan media belajar, serta pendamping sejumlah program pendidikan." data-i18n-en="My journey began in educational technology and information technology, then grew through roles as a teacher, system and learning media developer, and companion for several education programs.">Perjalanan saya bermula dari teknologi pendidikan dan teknologi informasi, lalu bertumbuh melalui peran sebagai pengajar, pengembang sistem dan media belajar, serta pendamping sejumlah program pendidikan.</p>
+        <p data-i18n-id="Belakangan, perhatian banyak tertuju pada pendidikan Islam, pembelajaran Al-Qur'an, pendidikan anak, penguatan guru dan orang tua, serta perancangan sistem digital yang lebih sederhana, terarah, dan mudah digunakan." data-i18n-en="Recently, much of my attention has been directed toward Islamic education, Qur'an learning, children's education, strengthening teachers and parents, and designing simpler, more focused, easier-to-use digital systems.">Belakangan, perhatian banyak tertuju pada pendidikan Islam, pembelajaran Al-Qur'an, pendidikan anak, penguatan guru dan orang tua, serta perancangan sistem digital yang lebih sederhana, terarah, dan mudah digunakan.</p>
+        <blockquote class="border-l-2 border-[#bd8a3e] pl-6 font-headline text-2xl leading-relaxed text-[#173f32]" data-i18n-id="Yang dibagikan di sini adalah catatan dari proses, terbuka untuk diperbaiki, diperkaya, dan dipelajari kembali." data-i18n-en="What is shared here is a record of process, open to be improved, enriched, and relearned.">Yang dibagikan di sini adalah catatan dari proses, terbuka untuk diperbaiki, diperkaya, dan dipelajari kembali.</blockquote>
       </div>
     </div>
   </section>
@@ -427,18 +575,63 @@ const writingAreas = [
     <div class="relative overflow-hidden rounded-[2rem] bg-[#e7c98f] p-8 sm:p-12 lg:p-16">
       <div class="absolute -right-10 -top-20 h-64 w-64 rounded-full border-[40px] border-white/20"></div>
       <div class="relative max-w-2xl">
-        <p class="text-xs font-bold uppercase tracking-[.14em] text-[#694919]">Mari bertukar pikiran</p>
-        <h2 class="mt-4 font-headline text-[clamp(2.5rem,6vw,4.5rem)] leading-[.95] tracking-[-.04em]">Ada gagasan yang ingin dibicarakan?</h2>
-        <p class="mt-5 max-w-xl leading-7 text-[#60481f]">Silakan menyapa untuk diskusi, kolaborasi pendidikan, pengembangan sistem pembelajaran, atau sekadar bertukar catatan.</p>
+        <p class="text-xs font-bold uppercase tracking-[.14em] text-[#694919]" data-i18n-id="Mari bertukar pikiran" data-i18n-en="Let's exchange ideas">Mari bertukar pikiran</p>
+        <h2 class="mt-4 font-headline text-[clamp(2.5rem,6vw,4.5rem)] leading-[.95] tracking-[-.04em]" data-i18n-id="Ada gagasan yang ingin dibicarakan?" data-i18n-en="Have an idea to discuss?">Ada gagasan yang ingin dibicarakan?</h2>
+        <p class="mt-5 max-w-xl leading-7 text-[#60481f]" data-i18n-id="Silakan menyapa untuk diskusi, kolaborasi pendidikan, pengembangan sistem pembelajaran, atau sekadar bertukar catatan." data-i18n-en="Feel free to reach out for discussion, education collaboration, learning system development, or simply exchanging notes.">Silakan menyapa untuk diskusi, kolaborasi pendidikan, pengembangan sistem pembelajaran, atau sekadar bertukar catatan.</p>
         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          <a class="button" href="https://www.instagram.com/yahyanursidik/" target="_blank" rel="noreferrer">Hubungi lewat Instagram</a>
-          <a class="button button-secondary !border-[#80612d]" href="https://www.linkedin.com/in/yahya-nursidik-499aa653/" target="_blank" rel="noreferrer">Terhubung di LinkedIn</a>
+          <a class="button" href="https://www.instagram.com/yahyanursidik/" target="_blank" rel="noreferrer" data-i18n-id="Hubungi lewat Instagram" data-i18n-en="Contact via Instagram">Hubungi lewat Instagram</a>
+          <a class="button button-secondary !border-[#80612d]" href="https://www.linkedin.com/in/yahya-nursidik-499aa653/" target="_blank" rel="noreferrer" data-i18n-id="Terhubung di LinkedIn" data-i18n-en="Connect on LinkedIn">Terhubung di LinkedIn</a>
         </div>
       </div>
     </div>
   </section>
 
   <style>
+    .portfolio-nav {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, .15);
+      padding-bottom: .9rem;
+    }
+    .portfolio-nav-label {
+      flex: 0 0 auto;
+      color: #bfd0c7;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .portfolio-nav-links {
+      display: flex;
+      gap: .25rem 1.2rem;
+      min-width: 0;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+    .portfolio-nav-links a {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: baseline;
+      gap: .45rem;
+      border-bottom: 2px solid transparent;
+      color: #fff;
+      font-size: .9rem;
+      font-weight: 700;
+      padding: .35rem 0 .55rem;
+      transition: border-color .2s ease, color .2s ease;
+    }
+    .portfolio-nav-links a:hover,
+    .portfolio-nav-links a:focus-visible {
+      border-color: #edc986;
+      color: #edc986;
+      outline: none;
+    }
+    .portfolio-nav-links a > span:first-child {
+      color: #edc986;
+      font-size: .7rem;
+      letter-spacing: .08em;
+    }
     .book-cover-frame {
       display: grid;
       aspect-ratio: 3 / 4;
@@ -543,6 +736,8 @@ const writingAreas = [
       to { opacity: 1; transform: translateY(0); }
     }
     @media (max-width: 480px) {
+      .portfolio-nav { align-items: flex-start; flex-direction: column; gap: .35rem; }
+      .portfolio-nav-links { width: 100%; }
       .map-menu { min-height: auto; }
       .map-route { display: none; }
       .map-stops li:nth-child(n) { padding-left: 0; }
