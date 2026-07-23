@@ -17,7 +17,7 @@ const year = new Date().getFullYear();
 <html lang="id">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -26,27 +26,18 @@ const year = new Date().getFullYear();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet" />
   </head>
-  <body class="min-h-screen bg-[#f7f7f2] text-[#18332a] antialiased">
+  <body class="min-h-screen antialiased">
     <a class="skip-link" href="#konten" data-i18n-id="Lewati ke konten utama" data-i18n-en="Skip to main content">Lewati ke konten utama</a>
 
     <header class="site-header" data-header>
-      <div class="shell flex h-[72px] items-center justify-between gap-6">
+      <div class="masthead-main shell flex items-center justify-between gap-6">
         <a href="/" class="group flex items-center gap-3" aria-label="Yahya Nursidik, beranda">
-          <span class="grid h-10 w-10 place-items-center rounded-full bg-[#173f32] font-headline text-lg text-white transition-transform group-hover:-rotate-3">YN</span>
+          <span class="grid h-10 w-10 place-items-center rounded-[var(--radius-md)] bg-[var(--color-forest)] font-headline text-lg text-[var(--color-inverse)]">YN</span>
           <span class="leading-tight">
-            <strong class="block text-sm font-semibold tracking-[-0.01em]">Yahya Nursidik</strong>
-            <span class="block text-[11px] text-[#61756d]" data-i18n-id="Catatan karya & pembelajaran" data-i18n-en="Works & learning notes">Catatan karya & pembelajaran</span>
+            <strong class="block text-sm font-semibold">Yahya Nursidik</strong>
+            <span class="block text-[11px] text-[var(--color-muted)]" data-i18n-id="Catatan karya & pembelajaran" data-i18n-en="Works & learning notes">Catatan karya & pembelajaran</span>
           </span>
         </a>
-
-        <nav class="hidden items-center gap-7 text-sm lg:flex" aria-label="Navigasi utama">
-          <a class="nav-link" href="/#karya" data-i18n-id="E-book" data-i18n-en="E-books">E-book</a>
-          <a class="nav-link" href="/#sistem" data-i18n-id="Sistem & aplikasi" data-i18n-en="Systems & apps">Sistem & aplikasi</a>
-          <a class="nav-link" href="/#tulisan" data-i18n-id="Tulisan" data-i18n-en="Writing">Tulisan</a>
-          <a class="nav-link" href="/#kegiatan" data-i18n-id="Kegiatan" data-i18n-en="Programs">Kegiatan</a>
-          <a class="nav-link" href="/#tentang" data-i18n-id="Tentang" data-i18n-en="About">Tentang</a>
-          <a class="button button-small" href="/#kontak" data-i18n-id="Hubungi" data-i18n-en="Contact">Hubungi</a>
-        </nav>
 
         <div class="flex items-center gap-2">
           <div class="language-switch" aria-label="Pilihan bahasa">
@@ -60,6 +51,19 @@ const year = new Date().getFullYear();
         </div>
       </div>
 
+      <div class="masthead-nav hidden lg:block">
+        <nav class="masthead-nav-inner shell text-sm" aria-label="Navigasi utama">
+          <div class="flex items-center gap-8">
+            <a class="nav-link" href="/#karya" data-section-link="karya" data-i18n-id="E-book" data-i18n-en="E-books">E-book</a>
+            <a class="nav-link" href="/#sistem" data-section-link="sistem" data-i18n-id="Portofolio digital" data-i18n-en="Digital portfolio">Portofolio digital</a>
+            <a class="nav-link" href="/#tulisan" data-section-link="tulisan" data-i18n-id="Tulisan" data-i18n-en="Writing">Tulisan</a>
+            <a class="nav-link" href="/#kegiatan" data-section-link="kegiatan" data-i18n-id="Kelas & program" data-i18n-en="Classes & programs">Kelas & program</a>
+            <a class="nav-link" href="/#tentang" data-section-link="tentang" data-i18n-id="Tentang" data-i18n-en="About">Tentang</a>
+          </div>
+          <a class="text-link" href="/#kontak" data-i18n-id="Mulai percakapan" data-i18n-en="Start a conversation">Mulai percakapan</a>
+        </nav>
+      </div>
+
       <nav id="mobile-menu" class="mobile-menu lg:hidden" aria-label="Navigasi seluler" data-mobile-menu hidden>
         <div class="shell grid gap-1 py-3">
           <a href="/#karya" data-i18n-id="E-book" data-i18n-en="E-books">E-book</a>
@@ -70,17 +74,18 @@ const year = new Date().getFullYear();
           <a href="/#kontak" data-i18n-id="Hubungi" data-i18n-en="Contact">Hubungi</a>
         </div>
       </nav>
+      <div class="reading-progress" data-reading-progress aria-hidden="true"></div>
     </header>
 
     <main id="konten"><slot /></main>
 
-    <footer class="border-t border-[#dce3de] bg-[#eef1ec] py-10">
+    <footer class="border-t border-[var(--color-rule)] bg-[var(--color-paper-2)] py-12">
       <div class="shell flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
         <div class="max-w-md">
-          <p class="font-headline text-2xl" data-i18n-id="Belajar, berkarya, lalu berbagi seperlunya." data-i18n-en="Learn, create, then share with intention.">Belajar, berkarya, lalu berbagi seperlunya.</p>
-          <p class="mt-2 text-sm leading-relaxed text-[#61756d]" data-i18n-id="Ruang ini dirawat sebagai arsip yang terus bertumbuh, bukan daftar pencapaian yang selesai." data-i18n-en="This space is kept as a growing archive, not a finished list of achievements.">Ruang ini dirawat sebagai arsip yang terus bertumbuh, bukan daftar pencapaian yang selesai.</p>
+          <p class="font-headline text-3xl" data-i18n-id="Salam hangat, Yahya." data-i18n-en="Warmly, Yahya.">Salam hangat, Yahya.</p>
+          <p class="mt-2 text-sm leading-relaxed text-[var(--color-muted)]" data-i18n-id="Terima kasih sudah singgah, membaca, dan melihat karya yang masih terus bertumbuh." data-i18n-en="Thank you for visiting, reading, and exploring work that continues to grow.">Terima kasih sudah singgah, membaca, dan melihat karya yang masih terus bertumbuh.</p>
         </div>
-        <div class="text-sm text-[#61756d] sm:text-right">
+        <div class="text-sm text-[var(--color-muted)] sm:text-right">
           <div class="mb-3 flex gap-5 sm:justify-end">
             <a class="footer-link" href="https://www.instagram.com/yahyanursidik/" target="_blank" rel="noreferrer">Instagram</a>
             <a class="footer-link" href="https://www.linkedin.com/in/yahya-nursidik-499aa653/" target="_blank" rel="noreferrer">LinkedIn</a>
@@ -89,6 +94,8 @@ const year = new Date().getFullYear();
         </div>
       </div>
     </footer>
+
+    <button class="back-to-top" type="button" data-back-to-top aria-label="Kembali ke atas" title="Kembali ke atas">↑</button>
 
     <script>
       const button = document.querySelector('[data-menu-button]');
@@ -114,7 +121,7 @@ const year = new Date().getFullYear();
 
       const languageButtons = document.querySelectorAll('[data-lang-button]');
       const translatableNodes = document.querySelectorAll('[data-i18n-id][data-i18n-en]');
-      const setLanguage = (language) => {
+      const setLanguage = (language: string | undefined) => {
         const nextLanguage = language === 'en' ? 'en' : 'id';
         document.documentElement.lang = nextLanguage;
         translatableNodes.forEach((node) => {
@@ -128,6 +135,7 @@ const year = new Date().getFullYear();
           node.classList.toggle('is-active', isActive);
         });
         try { window.localStorage.setItem('site-language', nextLanguage); } catch {}
+        window.dispatchEvent(new CustomEvent('site-language-change', { detail: { language: nextLanguage } }));
       };
 
       languageButtons.forEach((node) => {
@@ -140,6 +148,46 @@ const year = new Date().getFullYear();
       let savedLanguage = 'id';
       try { savedLanguage = window.localStorage.getItem('site-language') || 'id'; } catch {}
       setLanguage(savedLanguage);
+
+      const progress = document.querySelector('[data-reading-progress]');
+      const backToTop = document.querySelector('[data-back-to-top]');
+      let scrollFrame: number | undefined;
+      const updateScrollUi = () => {
+        scrollFrame = undefined;
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const ratio = scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0;
+        if (progress instanceof HTMLElement) progress.style.transform = `scaleX(${ratio})`;
+        if (backToTop instanceof HTMLElement) backToTop.classList.toggle('is-visible', window.scrollY > 640);
+      };
+      window.addEventListener('scroll', () => {
+        if (scrollFrame) return;
+        scrollFrame = window.requestAnimationFrame(updateScrollUi);
+      }, { passive: true });
+      updateScrollUi();
+
+      backToTop?.addEventListener('click', () => {
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+      });
+
+      const observedSections = ['karya', 'sistem', 'tulisan', 'kegiatan', 'tentang']
+        .map((id) => document.getElementById(id))
+        .filter((section) => section instanceof HTMLElement);
+      const sectionLinks = document.querySelectorAll('[data-section-link]');
+      const sectionObserver = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible?.target.id) return;
+        sectionLinks.forEach((link) => {
+          if (!(link instanceof HTMLElement)) return;
+          const active = link.dataset.sectionLink === visible.target.id;
+          link.classList.toggle('is-active', active);
+          if (active) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      }, { rootMargin: '-30% 0px -55% 0px', threshold: [0, .2, .5] });
+      observedSections.forEach((section) => sectionObserver.observe(section));
     </script>
   </body>
 </html>

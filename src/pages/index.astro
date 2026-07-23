@@ -35,7 +35,9 @@ const scheduleTranslations = {
   format: { Online: 'Online' },
   status: { 'Kuota Terbatas': 'Limited seats' }
 };
-const scheduleEn = (value, field) => scheduleTranslations[field]?.[value] ?? value;
+type ScheduleField = keyof typeof scheduleTranslations;
+const scheduleEn = (value: string, field: ScheduleField) =>
+  (scheduleTranslations[field] as Record<string, string>)[value] ?? value;
 
 const themes = [
   { number: '01', title: 'Keluarga & pengasuhan', titleEn: 'Family & parenting', copy: 'Rutinitas keluarga, read-aloud, dan cara menemani tumbuh kembang anak dengan lebih sadar.', copyEn: 'Family routines, read-aloud practices, and ways to accompany children with greater awareness.' },
@@ -326,15 +328,14 @@ const writingAreas = [
   title="Yahya Nursidik — Karya, Aplikasi, dan Catatan Pendidikan"
   description="Arsip e-book, sistem dan aplikasi pendidikan, tulisan, serta kegiatan Yahya Nursidik."
 >
-  <section class="relative overflow-hidden border-b border-[#dce3de]">
-    <div class="pointer-events-none absolute -right-28 top-12 h-80 w-80 rounded-full bg-[#dce9dd] blur-3xl"></div>
-    <div class="shell relative grid min-h-[calc(100vh-72px)] items-center gap-12 py-20 lg:grid-cols-[1.15fr_.85fr] lg:py-24">
+  <section class="relative overflow-hidden border-b border-[var(--color-rule)]">
+    <div class="shell relative grid min-h-[calc(95svh-110px)] grid-cols-[minmax(0,1fr)] items-center gap-12 py-16 lg:grid-cols-[1.15fr_.85fr] lg:py-16">
       <div>
-        <p class="eyebrow" data-i18n-id="Ruang karya & pembelajaran" data-i18n-en="Works & learning space">Ruang karya & pembelajaran</p>
-        <h1 class="mt-6 max-w-3xl font-headline text-[clamp(3.3rem,9vw,6.8rem)] leading-[.86] tracking-[-.055em] text-[#173f32]">
-          <span data-i18n-id="Belajar," data-i18n-en="Learn,">Belajar,</span><br /><span data-i18n-id="membuat," data-i18n-en="create,">membuat,</span><br /><em class="text-[#a66c22]" data-i18n-id="berbagi." data-i18n-en="share.">berbagi.</em>
+        <p class="section-label" data-i18n-id="Ruang karya & pembelajaran" data-i18n-en="Works & learning space">Ruang karya & pembelajaran</p>
+        <h1 class="hero-title mt-6 max-w-3xl min-w-0 text-[var(--color-forest)]">
+          <span data-i18n-id="Belajar," data-i18n-en="Learn,">Belajar,</span><br /><span data-i18n-id="membuat," data-i18n-en="create,">membuat,</span><br /><span class="text-[var(--color-accent)]" data-i18n-id="berbagi." data-i18n-en="share.">berbagi.</span>
         </h1>
-        <p class="mt-8 max-w-xl text-base leading-8 text-[#526a61] sm:text-lg" data-i18n-id="Saya Yahya Nursidik. Ruang ini merangkum sebagian e-book, aplikasi, tulisan, dan kegiatan yang lahir dari perjalanan di bidang pendidikan dan teknologi pembelajaran." data-i18n-en="I am Yahya Nursidik. This space gathers selected e-books, applications, writing, and programs shaped by a journey in education and learning technology.">
+        <p class="mt-8 max-w-xl text-base leading-8 text-[var(--color-muted)] sm:text-lg" data-i18n-id="Saya Yahya Nursidik. Ruang ini merangkum sebagian e-book, aplikasi, tulisan, dan kegiatan yang lahir dari perjalanan di bidang pendidikan dan teknologi pembelajaran." data-i18n-en="I am Yahya Nursidik. This space gathers selected e-books, applications, writing, and programs shaped by a journey in education and learning technology.">
           Saya Yahya Nursidik. Ruang ini merangkum sebagian e-book, aplikasi, tulisan, dan kegiatan yang lahir dari perjalanan di bidang pendidikan dan teknologi pembelajaran.
         </p>
         <div class="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -343,11 +344,10 @@ const writingAreas = [
         </div>
       </div>
 
-      <aside class="map-card card relative overflow-hidden p-7 sm:p-9" aria-labelledby="space-map-title">
-        <div class="absolute right-0 top-0 h-28 w-28 rounded-bl-[4rem] bg-[#e7c98f]/50"></div>
+      <aside class="map-card card relative overflow-hidden p-6 sm:p-7" aria-labelledby="space-map-title">
         <div class="map-grid" aria-hidden="true"></div>
-        <p id="space-map-title" class="relative text-xs font-bold uppercase tracking-[.14em] text-[#7a5a26]" data-i18n-id="Di dalam ruang ini" data-i18n-en="Inside this space">Di dalam ruang ini</p>
-        <div class="map-menu relative mt-8">
+        <p id="space-map-title" class="relative text-xs font-bold text-[var(--color-accent-dark)]" data-i18n-id="Di dalam ruang ini" data-i18n-en="Inside this space">Di dalam ruang ini</p>
+        <div class="map-menu relative mt-6">
           <svg class="map-route" viewBox="0 0 120 430" fill="none" aria-hidden="true">
             <path class="map-route-shadow" d="M55 24 C18 72 100 102 63 154 C26 205 96 231 55 282 C18 331 78 359 42 408" />
             <path class="map-route-line" d="M55 24 C18 72 100 102 63 154 C26 205 96 231 55 282 C18 331 78 359 42 408" />
@@ -362,7 +362,7 @@ const writingAreas = [
             <li><a class="map-link" href="#kegiatan"><span class="map-pin"><b>04</b></span><strong data-i18n-id="Kelas & kegiatan" data-i18n-en="Classes & programs">Kelas & kegiatan</strong><i>&rarr;</i></a></li>
           </ol>
         </div>
-        <p class="relative mt-7 text-xs leading-5 text-[#71837c]" data-i18n-id="Empat jalur utama untuk membaca karya, mencoba aplikasi, mengikuti tulisan, dan melihat kegiatan." data-i18n-en="Four main paths to read works, try applications, follow writing, and view programs.">Empat jalur utama untuk membaca karya, mencoba aplikasi, mengikuti tulisan, dan melihat kegiatan.</p>
+        <p class="relative mt-5 text-xs leading-5 text-[var(--color-muted-2)]" data-i18n-id="Empat jalur utama untuk membaca karya, mencoba aplikasi, mengikuti tulisan, dan melihat kegiatan." data-i18n-en="Four main paths to read works, try applications, follow writing, and view programs.">Empat jalur utama untuk membaca karya, mencoba aplikasi, mengikuti tulisan, dan melihat kegiatan.</p>
       </aside>
     </div>
   </section>
@@ -370,7 +370,7 @@ const writingAreas = [
   <section id="karya" class="shell py-24 lg:py-32">
     <div class="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
       <div>
-        <p class="eyebrow" data-i18n-id="E-book & panduan" data-i18n-en="E-books & guides">E-book & panduan</p>
+        <p class="section-label" data-i18n-id="E-book & panduan" data-i18n-en="E-books & guides">E-book & panduan</p>
         <h2 class="section-title" data-i18n-id="Gagasan yang dirapikan agar lebih mudah dipraktikkan." data-i18n-en="Ideas organized to be easier to practice.">Gagasan yang dirapikan agar lebih mudah dipraktikkan.</h2>
       </div>
       <p class="section-copy lg:max-w-sm" data-i18n-id="Bukan jawaban yang serba selesai, melainkan teman berpikir bagi orang tua, guru, dan pengelola pendidikan." data-i18n-en="Not finished answers, but thinking companions for parents, teachers, and education managers.">Bukan jawaban yang serba selesai, melainkan teman berpikir bagi orang tua, guru, dan pengelola pendidikan.</p>
@@ -380,24 +380,24 @@ const writingAreas = [
       <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <span class="tag" data-i18n-id="Keluarga & anak" data-i18n-en="Family & children">Keluarga & anak</span>
-          <h3 class="mt-4 text-3xl leading-tight text-[#173f32]" data-i18n-id="Bacaan sederhana untuk menemani keluarga bertumbuh." data-i18n-en="Simple reading to accompany families as they grow.">Bacaan sederhana untuk menemani keluarga bertumbuh.</h3>
+          <h3 class="mt-4 text-3xl leading-tight text-[var(--color-forest)]" data-i18n-id="Bacaan sederhana untuk menemani keluarga bertumbuh." data-i18n-en="Simple reading to accompany families as they grow.">Bacaan sederhana untuk menemani keluarga bertumbuh.</h3>
         </div>
-        <p class="max-w-md text-sm leading-6 text-[#71837c]" data-i18n-id="Daftar ini merangkum bacaan keluarga, buku anak, dan panduan rumah yang sedang disiapkan untuk dibagikan secara bertahap." data-i18n-en="This list gathers family readings, children's books, and home guides being prepared for gradual sharing.">Daftar ini merangkum bacaan keluarga, buku anak, dan panduan rumah yang sedang disiapkan untuk dibagikan secara bertahap.</p>
+        <p class="max-w-md text-sm leading-6 text-[var(--color-muted-2)]" data-i18n-id="Daftar ini merangkum bacaan keluarga, buku anak, dan panduan rumah yang sedang disiapkan untuk dibagikan secara bertahap." data-i18n-en="This list gathers family readings, children's books, and home guides being prepared for gradual sharing.">Daftar ini merangkum bacaan keluarga, buku anak, dan panduan rumah yang sedang disiapkan untuk dibagikan secara bertahap.</p>
       </div>
       <div class="mt-7 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {childrenBooks.map((item) => (
           <article class="card group flex h-full flex-col overflow-hidden">
             <div class="book-cover-frame">
-              <img src={item.coverUrl} alt={`Sampul buku ${item.title}`} class="book-cover-image transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
+              <img src={item.coverUrl} alt={`Sampul buku ${item.title}`} class="book-cover-image" loading="lazy" />
             </div>
             <div class="flex flex-1 flex-col p-6">
               <span class="tag" data-i18n-id="E-book keluarga" data-i18n-en="Family e-book">E-book keluarga</span>
               <h4 class="mt-4 text-2xl leading-tight" data-i18n-id={item.title} data-i18n-en={item.titleEn}>{item.title}</h4>
-              <p class="mt-3 flex-1 text-sm leading-6 text-[#61756d]" data-i18n-id={item.description} data-i18n-en={item.descriptionEn}>{item.description}</p>
+              <p class="mt-3 flex-1 text-sm leading-6 text-[var(--color-muted)]" data-i18n-id={item.description} data-i18n-en={item.descriptionEn}>{item.description}</p>
               {item.downloadUrl ? (
                 <a class="button button-small mt-5 w-full" href={item.downloadUrl} target="_blank" rel="noreferrer" data-i18n-id="Download PDF" data-i18n-en="Download PDF">Download PDF</a>
               ) : (
-                <span class="mt-5 inline-flex min-h-10 w-full items-center justify-center rounded-full border border-[#dce3de] px-4 py-2 text-center text-xs font-bold uppercase tracking-[.08em] text-[#71837c]" data-i18n-id="PDF segera tersedia" data-i18n-en="PDF coming soon">PDF segera tersedia</span>
+                <span class="mt-5 inline-flex min-h-10 w-full items-center justify-center rounded-full border border-[var(--color-rule)] px-4 py-2 text-center text-xs font-bold text-[var(--color-muted-2)]" data-i18n-id="PDF segera tersedia" data-i18n-en="PDF coming soon">PDF segera tersedia</span>
               )}
             </div>
           </article>
@@ -410,12 +410,12 @@ const writingAreas = [
         {buku.map((item) => (
           <article class="card group overflow-hidden">
             <div class="book-cover-frame">
-              <img src={item.entry.coverUrl} alt={`Sampul ${item.entry.title}`} class="book-cover-image transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
+              <img src={item.entry.coverUrl} alt={`Sampul ${item.entry.title}`} class="book-cover-image" loading="lazy" />
             </div>
             <div class="p-6">
               <span class="tag" data-i18n-id="E-book" data-i18n-en="E-book">E-book</span>
               <h3 class="mt-4 text-2xl leading-tight">{item.entry.title}</h3>
-              <p class="mt-3 text-sm leading-6 text-[#61756d]">{item.entry.description}</p>
+              <p class="mt-3 text-sm leading-6 text-[var(--color-muted)]">{item.entry.description}</p>
               {item.entry.link && <a class="text-link mt-5" href={item.entry.link} target="_blank" rel="noreferrer" data-i18n-id="Lihat detail" data-i18n-en="View details">Lihat detail</a>}
             </div>
           </article>
@@ -425,38 +425,38 @@ const writingAreas = [
       <div class="mt-12 grid gap-4 md:grid-cols-3">
         {themes.map((item) => (
           <article class="card p-6 sm:p-7">
-            <span class="font-headline text-3xl text-[#bd8a3e]">{item.number}</span>
+            <span class="font-headline text-3xl text-[var(--color-accent)]">{item.number}</span>
             <h3 class="mt-10 text-2xl" data-i18n-id={item.title} data-i18n-en={item.titleEn}>{item.title}</h3>
-            <p class="mt-3 text-sm leading-6 text-[#61756d]" data-i18n-id={item.copy} data-i18n-en={item.copyEn}>{item.copy}</p>
+            <p class="mt-3 text-sm leading-6 text-[var(--color-muted)]" data-i18n-id={item.copy} data-i18n-en={item.copyEn}>{item.copy}</p>
           </article>
         ))}
       </div>
     )}
-    <p class="mt-7 max-w-2xl text-sm leading-6 text-[#71837c]" data-i18n-id="Katalog lengkap dan tautan baca sedang dirapikan. Untuk sementara, tema-tema di atas menggambarkan arah karya yang tersedia." data-i18n-en="The full catalog and reading links are being organized. For now, the themes above show the direction of available works.">Katalog lengkap dan tautan baca sedang dirapikan. Untuk sementara, tema-tema di atas menggambarkan arah karya yang tersedia.</p>
+    <p class="mt-7 max-w-2xl text-sm leading-6 text-[var(--color-muted-2)]" data-i18n-id="Katalog lengkap dan tautan baca sedang dirapikan. Untuk sementara, tema-tema di atas menggambarkan arah karya yang tersedia." data-i18n-en="The full catalog and reading links are being organized. For now, the themes above show the direction of available works.">Katalog lengkap dan tautan baca sedang dirapikan. Untuk sementara, tema-tema di atas menggambarkan arah karya yang tersedia.</p>
 
     <div class="mt-14">
       <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <span class="tag" data-i18n-id="E-book pendidikan" data-i18n-en="Education e-books">E-book pendidikan</span>
-          <h3 class="mt-4 text-3xl leading-tight text-[#173f32]" data-i18n-id="Bacaan akademis, panduan lembaga, dan profesionalitas." data-i18n-en="Academic reading, institutional guides, and professionalism.">Bacaan akademis, panduan lembaga, dan profesionalitas.</h3>
+          <h3 class="mt-4 text-3xl leading-tight text-[var(--color-forest)]" data-i18n-id="Bacaan akademis, panduan lembaga, dan profesionalitas." data-i18n-en="Academic reading, institutional guides, and professionalism.">Bacaan akademis, panduan lembaga, dan profesionalitas.</h3>
         </div>
-        <p class="max-w-md text-sm leading-6 text-[#71837c]" data-i18n-id="Kategori ini memuat bahan bacaan akademis, tata kelola lembaga, kepemimpinan pendidikan, dan penguatan profesionalitas pengelola sekolah." data-i18n-en="This category contains academic reading, institutional governance, educational leadership, and professional development for school managers.">Kategori ini memuat bahan bacaan akademis, tata kelola lembaga, kepemimpinan pendidikan, dan penguatan profesionalitas pengelola sekolah.</p>
+        <p class="max-w-md text-sm leading-6 text-[var(--color-muted-2)]" data-i18n-id="Kategori ini memuat bahan bacaan akademis, tata kelola lembaga, kepemimpinan pendidikan, dan penguatan profesionalitas pengelola sekolah." data-i18n-en="This category contains academic reading, institutional governance, educational leadership, and professional development for school managers.">Kategori ini memuat bahan bacaan akademis, tata kelola lembaga, kepemimpinan pendidikan, dan penguatan profesionalitas pengelola sekolah.</p>
       </div>
       <div class="mt-7 grid gap-6 md:grid-cols-2">
         {educationBooks.map((item) => (
           <article class="card group flex h-full flex-col overflow-hidden lg:flex-row">
             <div class="book-cover-frame lg:w-[42%]">
-              <img src={item.coverUrl} alt={`Sampul e-book ${item.title}`} class="book-cover-image transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
+              <img src={item.coverUrl} alt={`Sampul e-book ${item.title}`} class="book-cover-image" loading="lazy" />
             </div>
             <div class="flex flex-1 flex-col p-6 sm:p-7">
               <span class="tag" data-i18n-id="Pendidikan" data-i18n-en="Education">Pendidikan</span>
               <h4 class="mt-4 text-2xl leading-tight" data-i18n-id={item.title} data-i18n-en={item.titleEn}>{item.title}</h4>
-              <p class="mt-2 text-sm font-semibold leading-6 text-[#a66c22]" data-i18n-id={item.subtitle} data-i18n-en={item.subtitleEn}>{item.subtitle}</p>
-              <p class="mt-3 flex-1 text-sm leading-6 text-[#61756d]" data-i18n-id={item.description} data-i18n-en={item.descriptionEn}>{item.description}</p>
+              <p class="mt-2 text-sm font-semibold leading-6 text-[var(--color-accent)]" data-i18n-id={item.subtitle} data-i18n-en={item.subtitleEn}>{item.subtitle}</p>
+              <p class="mt-3 flex-1 text-sm leading-6 text-[var(--color-muted)]" data-i18n-id={item.description} data-i18n-en={item.descriptionEn}>{item.description}</p>
               {item.downloadUrl ? (
                 <a class="button button-small mt-5 w-full" href={item.downloadUrl} target="_blank" rel="noreferrer" data-i18n-id="Download PDF" data-i18n-en="Download PDF">Download PDF</a>
               ) : (
-                <span class="mt-5 inline-flex min-h-10 w-full items-center justify-center rounded-full border border-[#dce3de] px-4 py-2 text-center text-xs font-bold uppercase tracking-[.08em] text-[#71837c]" data-i18n-id="PDF segera tersedia" data-i18n-en="PDF coming soon">PDF segera tersedia</span>
+                <span class="mt-5 inline-flex min-h-10 w-full items-center justify-center rounded-full border border-[var(--color-rule)] px-4 py-2 text-center text-xs font-bold text-[var(--color-muted-2)]" data-i18n-id="PDF segera tersedia" data-i18n-en="PDF coming soon">PDF segera tersedia</span>
               )}
             </div>
           </article>
@@ -465,40 +465,46 @@ const writingAreas = [
     </div>
   </section>
 
-  <section id="sistem" class="bg-[#183d31] py-24 text-white lg:py-32">
+  <section id="sistem" class="bg-[var(--color-forest-deep)] py-20 text-[var(--color-inverse)] lg:py-28">
     <div class="shell">
       <div class="grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end">
         <div>
-          <p class="eyebrow !text-[#edc986]" data-i18n-id="Sistem & aplikasi" data-i18n-en="Systems & apps">Sistem & aplikasi</p>
-          <h2 class="mt-4 max-w-3xl font-headline text-[clamp(2.6rem,6vw,4.8rem)] leading-[.95] tracking-[-.04em]" data-i18n-id="Teknologi yang membantu proses belajar, bukan mengambil alihnya." data-i18n-en="Technology that supports learning, not replaces it.">Teknologi yang membantu proses belajar, bukan mengambil alihnya.</h2>
+          <p class="section-label !text-[var(--color-accent-soft)]" data-i18n-id="Sistem & aplikasi" data-i18n-en="Systems & apps">Sistem & aplikasi</p>
+          <h2 class="mt-4 max-w-3xl min-w-0 font-headline text-[clamp(2.6rem,6vw,4.8rem)] leading-[.98]" data-i18n-id="Teknologi yang membantu proses belajar, bukan mengambil alihnya." data-i18n-en="Technology that supports learning, not replaces it.">Teknologi yang membantu proses belajar, bukan mengambil alihnya.</h2>
         </div>
-        <p class="leading-7 text-[#bfd0c7]" data-i18n-id="Portofolio sistem, website, dan eksperimen digital yang dirancang untuk membantu lembaga menyampaikan informasi, mengelola pembelajaran, dan membuat layanan pendidikan lebih mudah digunakan." data-i18n-en="A portfolio of systems, websites, and digital experiments designed to help institutions communicate clearly, manage learning, and make educational services easier to use.">Portofolio sistem, website, dan eksperimen digital yang dirancang untuk membantu lembaga menyampaikan informasi, mengelola pembelajaran, dan membuat layanan pendidikan lebih mudah digunakan.</p>
+        <p class="leading-7 text-[var(--color-inverse-muted)]" data-i18n-id="Portofolio sistem, website, dan eksperimen digital yang dirancang untuk membantu lembaga menyampaikan informasi, mengelola pembelajaran, dan membuat layanan pendidikan lebih mudah digunakan." data-i18n-en="A portfolio of systems, websites, and digital experiments designed to help institutions communicate clearly, manage learning, and make educational services easier to use.">Portofolio sistem, website, dan eksperimen digital yang dirancang untuk membantu lembaga menyampaikan informasi, mengelola pembelajaran, dan membuat layanan pendidikan lebih mudah digunakan.</p>
       </div>
 
-      <nav class="portfolio-nav mt-10" aria-label="Jelajahi kategori portofolio">
-        <span class="portfolio-nav-label" data-i18n-id="Jelajahi berdasarkan jenis" data-i18n-en="Browse by type">Jelajahi berdasarkan jenis</span>
-        <div class="portfolio-nav-links">
-          {portfolioGroups.map((group, index) => <a href={`#${group.id}`}><span>0{index + 1}</span><span data-i18n-id={group.title} data-i18n-en={group.titleEn}>{group.title}</span></a>)}
+      <div class="portfolio-filter mt-10">
+        <div class="portfolio-filter-copy">
+          <span data-i18n-id="Saring portofolio" data-i18n-en="Filter portfolio">Saring portofolio</span>
+          <span class="portfolio-count" data-portfolio-count data-total={systems.length} aria-live="polite">{systems.length} karya ditampilkan</span>
         </div>
-      </nav>
+        <div class="portfolio-filter-options" role="group" aria-label="Saring portofolio berdasarkan jenis">
+          <button type="button" data-portfolio-filter="all" aria-pressed="true" data-i18n-id="Semua" data-i18n-en="All">Semua</button>
+          {portfolioGroups.map((group) => (
+            <button type="button" data-portfolio-filter={group.id} aria-pressed="false" data-i18n-id={group.title} data-i18n-en={group.titleEn}>{group.title}</button>
+          ))}
+        </div>
+      </div>
 
       <div class="mt-14 space-y-16 lg:space-y-20">
         {portfolioGroups.map((group) => (
-          <section id={group.id} class="scroll-mt-24" aria-labelledby={`${group.id}-title`}>
-            <div class="grid gap-4 border-b border-white/15 pb-6 sm:grid-cols-[minmax(0,1fr)_minmax(16rem,.55fr)] sm:items-end">
-              <h3 id={`${group.id}-title`} class="font-headline text-[clamp(2rem,4vw,3rem)] leading-none text-[#f5e3bd]" data-i18n-id={group.title} data-i18n-en={group.titleEn}>{group.title}</h3>
-              <p class="text-sm leading-6 text-[#bfd0c7]" data-i18n-id={group.copy} data-i18n-en={group.copyEn}>{group.copy}</p>
+          <section id={group.id} class="scroll-mt-24" aria-labelledby={`${group.id}-title`} data-portfolio-group={group.id}>
+            <div class="grid gap-4 border-b border-[var(--color-rule-inverse)] pb-6 sm:grid-cols-[minmax(0,1fr)_minmax(16rem,.55fr)] sm:items-end">
+              <h3 id={`${group.id}-title`} class="min-w-0 font-headline text-[clamp(2rem,4vw,3rem)] leading-none text-[var(--color-accent-pale)]" data-i18n-id={group.title} data-i18n-en={group.titleEn}>{group.title}</h3>
+              <p class="text-sm leading-6 text-[var(--color-inverse-muted)]" data-i18n-id={group.copy} data-i18n-en={group.copyEn}>{group.copy}</p>
             </div>
-            <div class="mt-6 grid gap-5 md:grid-cols-2">
+            <div class="mt-6 grid grid-cols-[minmax(0,1fr)] gap-px border border-[var(--color-rule-inverse)] bg-[var(--color-rule-inverse)] md:grid-cols-2">
               {group.items.map((item) => (
-                <article class="group flex h-full flex-col rounded-[1.5rem] border border-white/15 bg-white/[.06] p-7 transition-colors hover:bg-white/[.1] sm:p-9">
+                <article class="portfolio-card group flex h-full flex-col bg-[var(--color-forest-deep)] p-7 sm:p-9" data-portfolio-item={group.id}>
                   <div class="flex items-start justify-between gap-5">
-                    <span class="text-xs font-bold uppercase tracking-[.12em] text-[#edc986]" data-i18n-id={item.label} data-i18n-en={item.labelEn}>{item.label}</span>
-                    <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#f5e3bd] px-1 text-center font-headline text-lg leading-none text-[#173f32]">{item.accent}</span>
+                    <span class="text-xs font-bold text-[var(--color-accent-soft)]" data-i18n-id={item.label} data-i18n-en={item.labelEn}>{item.label}</span>
+                    <span class="grid h-12 w-12 shrink-0 place-items-center rounded-[var(--radius-md)] bg-[var(--color-accent-pale)] px-1 text-center font-headline text-lg leading-none text-[var(--color-forest)]">{item.accent}</span>
                   </div>
-                  <h4 class="mt-12 text-3xl leading-tight" data-i18n-id={item.title} data-i18n-en={item.titleEn}>{item.title}</h4>
-                  <p class="mt-4 max-w-lg flex-1 text-sm leading-7 text-[#c7d5ce]" data-i18n-id={item.copy} data-i18n-en={item.copyEn}>{item.copy}</p>
-                  <a class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-white" href={item.link} target={item.external ? '_blank' : undefined} rel={item.external ? 'noreferrer' : undefined}><span data-i18n-id={item.action} data-i18n-en={item.actionEn}>{item.action}</span> <span class="transition-transform group-hover:translate-x-1">&rarr;</span></a>
+                  <h4 class="mt-10 text-3xl leading-tight" data-i18n-id={item.title} data-i18n-en={item.titleEn}>{item.title}</h4>
+                  <p class="mt-4 max-w-lg flex-1 text-sm leading-7 text-[var(--color-inverse-muted)]" data-i18n-id={item.copy} data-i18n-en={item.copyEn}>{item.copy}</p>
+                  <a class="portfolio-card-link mt-7 inline-flex items-center gap-2 text-sm font-bold text-[var(--color-inverse)]" href={item.link} target={item.external ? '_blank' : undefined} rel={item.external ? 'noreferrer' : undefined}><span data-i18n-id={item.action} data-i18n-en={item.actionEn}>{item.action}</span><span aria-hidden="true">&rarr;</span></a>
                 </article>
               ))}
             </div>
@@ -511,18 +517,18 @@ const writingAreas = [
   <section id="tulisan" class="shell py-24 lg:py-32">
     <div class="grid gap-12 lg:grid-cols-[.85fr_1.15fr]">
       <div>
-        <p class="eyebrow" data-i18n-id="Tulisan & kontribusi" data-i18n-en="Writing & contributions">Tulisan & kontribusi</p>
+        <p class="section-label" data-i18n-id="Tulisan & kontribusi" data-i18n-en="Writing & contributions">Tulisan & kontribusi</p>
         <h2 class="section-title" data-i18n-id="Menulis untuk memperpanjang percakapan." data-i18n-en="Writing to extend the conversation.">Menulis untuk memperpanjang percakapan.</h2>
         <p class="section-copy" data-i18n-id="Sebagian tulisan pernah hadir di kolom blog lembaga dan ruang kolaboratif. Arsip nama lembaga beserta tautan artikelnya sedang disusun agar setiap rujukan dapat ditampilkan dengan tepat." data-i18n-en="Some writing has appeared in institutional blogs and collaborative spaces. The archive of names and article links is being organized so every reference can be displayed properly.">Sebagian tulisan pernah hadir di kolom blog lembaga dan ruang kolaboratif. Arsip nama lembaga beserta tautan artikelnya sedang disusun agar setiap rujukan dapat ditampilkan dengan tepat.</p>
         <a class="text-link mt-6" href="https://www.linkedin.com/in/yahya-nursidik-499aa653/" target="_blank" rel="noreferrer" data-i18n-id="Ikuti catatan terbaru" data-i18n-en="Follow recent notes">Ikuti catatan terbaru</a>
       </div>
-      <div class="divide-y divide-[#dce3de] border-y border-[#dce3de]">
+      <div class="divide-y divide-[var(--color-rule)] border-y border-[var(--color-rule)]">
         {writingAreas.map((item, index) => (
           <article class="grid gap-3 py-7 sm:grid-cols-[3rem_1fr] sm:gap-5">
-            <span class="font-headline text-2xl text-[#bd8a3e]">0{index + 1}</span>
+            <span class="font-headline text-2xl text-[var(--color-accent)]">0{index + 1}</span>
             <div>
               <h3 class="text-2xl" data-i18n-id={item.title} data-i18n-en={item.titleEn}>{item.title}</h3>
-              <p class="mt-2 text-sm leading-6 text-[#61756d]" data-i18n-id={item.copy} data-i18n-en={item.copyEn}>{item.copy}</p>
+              <p class="mt-2 text-sm leading-6 text-[var(--color-muted)]" data-i18n-id={item.copy} data-i18n-en={item.copyEn}>{item.copy}</p>
             </div>
           </article>
         ))}
@@ -530,27 +536,27 @@ const writingAreas = [
     </div>
   </section>
 
-  <section id="kegiatan" class="border-y border-[#dce3de] bg-[#eef1ec] py-24 lg:py-28">
+  <section id="kegiatan" class="border-y border-[var(--color-rule)] bg-[var(--color-paper-2)] py-20 lg:py-24">
     <div class="shell">
       <div>
-        <p class="eyebrow" data-i18n-id="Kelas & kegiatan" data-i18n-en="Classes & programs">Kelas & kegiatan</p>
+        <p class="section-label" data-i18n-id="Kelas & kegiatan" data-i18n-en="Classes & programs">Kelas & kegiatan</p>
         <h2 class="section-title" data-i18n-id="Ruang belajar yang sedang berjalan." data-i18n-en="Learning spaces currently running.">Ruang belajar yang sedang berjalan.</h2>
       </div>
       {orderedJadwal.length > 0 ? (
         <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {orderedJadwal.map((item) => (
             <article class="card flex h-full flex-col p-6">
-              <div class="flex flex-wrap items-center justify-between gap-3"><span class="tag" data-i18n-id={item.entry.type} data-i18n-en={scheduleEn(item.entry.type, 'type')}>{item.entry.type}</span><span class="text-xs text-[#71837c]" data-i18n-id={item.entry.format} data-i18n-en={scheduleEn(item.entry.format, 'format')}>{item.entry.format}</span></div>
+              <div class="flex flex-wrap items-center justify-between gap-3"><span class="tag" data-i18n-id={item.entry.type} data-i18n-en={scheduleEn(item.entry.type, 'type')}>{item.entry.type}</span><span class="text-xs text-[var(--color-muted-2)]" data-i18n-id={item.entry.format} data-i18n-en={scheduleEn(item.entry.format, 'format')}>{item.entry.format}</span></div>
               <h3 class="mt-6 text-2xl leading-tight" data-i18n-id={item.entry.title} data-i18n-en={scheduleEn(item.entry.title, 'title')}>{item.entry.title}</h3>
-              {item.entry.description && <p class="mt-3 flex-1 text-sm leading-6 text-[#61756d]" data-i18n-id={item.entry.description} data-i18n-en={scheduleEn(item.entry.description, 'description')}>{item.entry.description}</p>}
-              <p class="mt-6 border-t border-[#dce3de] pt-4 text-xs font-semibold text-[#526a61]" data-i18n-id={item.entry.status} data-i18n-en={scheduleEn(item.entry.status, 'status')}>{item.entry.status}</p>
+              {item.entry.description && <p class="mt-3 flex-1 text-sm leading-6 text-[var(--color-muted)]" data-i18n-id={item.entry.description} data-i18n-en={scheduleEn(item.entry.description, 'description')}>{item.entry.description}</p>}
+              <p class="mt-6 border-t border-[var(--color-rule)] pt-4 text-xs font-semibold text-[var(--color-muted)]" data-i18n-id={item.entry.status} data-i18n-en={scheduleEn(item.entry.status, 'status')}>{item.entry.status}</p>
               {item.entry.link && <a class="button button-small mt-5 w-full" href={item.entry.link} target="_blank" rel="noreferrer" data-i18n-id="Lihat informasi" data-i18n-en="View information">Lihat informasi</a>}
             </article>
           ))}
         </div>
       ) : (
         <div class="card mt-10 flex flex-col justify-between gap-6 p-7 sm:flex-row sm:items-center">
-          <div><h3 class="text-2xl" data-i18n-id="Belum ada jadwal publik saat ini." data-i18n-en="No public schedule is available right now.">Belum ada jadwal publik saat ini.</h3><p class="mt-2 text-sm text-[#61756d]" data-i18n-id="Informasi kelas atau seminar berikutnya akan ditampilkan di bagian ini." data-i18n-en="Information about upcoming classes or seminars will appear in this section.">Informasi kelas atau seminar berikutnya akan ditampilkan di bagian ini.</p></div>
+          <div><h3 class="text-2xl" data-i18n-id="Belum ada jadwal publik saat ini." data-i18n-en="No public schedule is available right now.">Belum ada jadwal publik saat ini.</h3><p class="mt-2 text-sm text-[var(--color-muted)]" data-i18n-id="Informasi kelas atau seminar berikutnya akan ditampilkan di bagian ini." data-i18n-en="Information about upcoming classes or seminars will appear in this section.">Informasi kelas atau seminar berikutnya akan ditampilkan di bagian ini.</p></div>
           <a class="button button-secondary shrink-0" href="#kontak" data-i18n-id="Tanyakan kegiatan" data-i18n-en="Ask about programs">Tanyakan kegiatan</a>
         </div>
       )}
@@ -560,164 +566,218 @@ const writingAreas = [
   <section id="tentang" class="shell py-24 lg:py-32">
     <div class="grid gap-12 lg:grid-cols-[.65fr_1.35fr]">
       <div>
-        <p class="eyebrow" data-i18n-id="Tentang" data-i18n-en="About">Tentang</p>
+        <p class="section-label" data-i18n-id="Tentang" data-i18n-en="About">Tentang</p>
         <p class="mt-5 font-headline text-4xl leading-tight" data-i18n-id="Bekerja di antara pendidikan, teknologi, dan pengembangan lembaga." data-i18n-en="Working across education, technology, and institutional development.">Bekerja di antara pendidikan, teknologi, dan pengembangan lembaga.</p>
       </div>
-      <div class="space-y-6 text-base leading-8 text-[#526a61] sm:text-lg">
+      <div class="space-y-6 text-base leading-8 text-[var(--color-muted)] sm:text-lg">
         <p data-i18n-id="Perjalanan saya bermula dari teknologi pendidikan dan teknologi informasi, lalu bertumbuh melalui peran sebagai pengajar, pengembang sistem dan media belajar, serta pendamping sejumlah program pendidikan." data-i18n-en="My journey began in educational technology and information technology, then grew through roles as a teacher, system and learning media developer, and companion for several education programs.">Perjalanan saya bermula dari teknologi pendidikan dan teknologi informasi, lalu bertumbuh melalui peran sebagai pengajar, pengembang sistem dan media belajar, serta pendamping sejumlah program pendidikan.</p>
         <p data-i18n-id="Belakangan, perhatian banyak tertuju pada pendidikan Islam, pembelajaran Al-Qur'an, pendidikan anak, penguatan guru dan orang tua, serta perancangan sistem digital yang lebih sederhana, terarah, dan mudah digunakan." data-i18n-en="Recently, much of my attention has been directed toward Islamic education, Qur'an learning, children's education, strengthening teachers and parents, and designing simpler, more focused, easier-to-use digital systems.">Belakangan, perhatian banyak tertuju pada pendidikan Islam, pembelajaran Al-Qur'an, pendidikan anak, penguatan guru dan orang tua, serta perancangan sistem digital yang lebih sederhana, terarah, dan mudah digunakan.</p>
-        <blockquote class="border-l-2 border-[#bd8a3e] pl-6 font-headline text-2xl leading-relaxed text-[#173f32]" data-i18n-id="Yang dibagikan di sini adalah catatan dari proses, terbuka untuk diperbaiki, diperkaya, dan dipelajari kembali." data-i18n-en="What is shared here is a record of process, open to be improved, enriched, and relearned.">Yang dibagikan di sini adalah catatan dari proses, terbuka untuk diperbaiki, diperkaya, dan dipelajari kembali.</blockquote>
+        <blockquote class="border-l-2 border-[var(--color-accent)] pl-6 font-headline text-2xl leading-relaxed text-[var(--color-forest)]" data-i18n-id="Yang dibagikan di sini adalah catatan dari proses, terbuka untuk diperbaiki, diperkaya, dan dipelajari kembali." data-i18n-en="What is shared here is a record of process, open to be improved, enriched, and relearned.">Yang dibagikan di sini adalah catatan dari proses, terbuka untuk diperbaiki, diperkaya, dan dipelajari kembali.</blockquote>
       </div>
     </div>
   </section>
 
   <section id="kontak" class="shell pb-24 lg:pb-32">
-    <div class="relative overflow-hidden rounded-[2rem] bg-[#e7c98f] p-8 sm:p-12 lg:p-16">
-      <div class="absolute -right-10 -top-20 h-64 w-64 rounded-full border-[40px] border-white/20"></div>
+    <div class="relative overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-accent-soft)] p-8 sm:p-12 lg:p-16">
       <div class="relative max-w-2xl">
-        <p class="text-xs font-bold uppercase tracking-[.14em] text-[#694919]" data-i18n-id="Mari bertukar pikiran" data-i18n-en="Let's exchange ideas">Mari bertukar pikiran</p>
-        <h2 class="mt-4 font-headline text-[clamp(2.5rem,6vw,4.5rem)] leading-[.95] tracking-[-.04em]" data-i18n-id="Ada gagasan yang ingin dibicarakan?" data-i18n-en="Have an idea to discuss?">Ada gagasan yang ingin dibicarakan?</h2>
-        <p class="mt-5 max-w-xl leading-7 text-[#60481f]" data-i18n-id="Silakan menyapa untuk diskusi, kolaborasi pendidikan, pengembangan sistem pembelajaran, atau sekadar bertukar catatan." data-i18n-en="Feel free to reach out for discussion, education collaboration, learning system development, or simply exchanging notes.">Silakan menyapa untuk diskusi, kolaborasi pendidikan, pengembangan sistem pembelajaran, atau sekadar bertukar catatan.</p>
+        <p class="text-xs font-bold text-[var(--color-accent-dark)]" data-i18n-id="Mari bertukar pikiran" data-i18n-en="Let's exchange ideas">Mari bertukar pikiran</p>
+        <h2 class="mt-4 min-w-0 font-headline text-[clamp(2.5rem,6vw,4.5rem)] leading-[.98]" data-i18n-id="Ada gagasan yang ingin dibicarakan?" data-i18n-en="Have an idea to discuss?">Ada gagasan yang ingin dibicarakan?</h2>
+        <p class="mt-5 max-w-xl leading-7 text-[var(--color-accent-dark)]" data-i18n-id="Silakan menyapa untuk diskusi, kolaborasi pendidikan, pengembangan sistem pembelajaran, atau sekadar bertukar catatan." data-i18n-en="Feel free to reach out for discussion, education collaboration, learning system development, or simply exchanging notes.">Silakan menyapa untuk diskusi, kolaborasi pendidikan, pengembangan sistem pembelajaran, atau sekadar bertukar catatan.</p>
         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
           <a class="button" href="https://www.instagram.com/yahyanursidik/" target="_blank" rel="noreferrer" data-i18n-id="Hubungi lewat Instagram" data-i18n-en="Contact via Instagram">Hubungi lewat Instagram</a>
-          <a class="button button-secondary !border-[#80612d]" href="https://www.linkedin.com/in/yahya-nursidik-499aa653/" target="_blank" rel="noreferrer" data-i18n-id="Terhubung di LinkedIn" data-i18n-en="Connect on LinkedIn">Terhubung di LinkedIn</a>
+          <a class="button button-secondary !border-[var(--color-accent-dark)]" href="https://www.linkedin.com/in/yahya-nursidik-499aa653/" target="_blank" rel="noreferrer" data-i18n-id="Terhubung di LinkedIn" data-i18n-en="Connect on LinkedIn">Terhubung di LinkedIn</a>
         </div>
       </div>
     </div>
   </section>
 
+  <script>
+    const filterButtons = document.querySelectorAll('[data-portfolio-filter]');
+    const portfolioGroups = document.querySelectorAll('[data-portfolio-group]');
+    const portfolioCount = document.querySelector('[data-portfolio-count]');
+    let activePortfolioFilter = 'all';
+
+    const updatePortfolioCount = (count: number) => {
+      if (!(portfolioCount instanceof HTMLElement)) return;
+      const english = document.documentElement.lang === 'en';
+      portfolioCount.textContent = english
+        ? `${count} ${count === 1 ? 'work' : 'works'} shown`
+        : `${count} karya ditampilkan`;
+    };
+
+    const setPortfolioFilter = (filter: string | undefined) => {
+      activePortfolioFilter = filter || 'all';
+      let visibleCount = 0;
+
+      portfolioGroups.forEach((group) => {
+        if (!(group instanceof HTMLElement)) return;
+        const visible = activePortfolioFilter === 'all' || group.dataset.portfolioGroup === activePortfolioFilter;
+        group.hidden = !visible;
+        if (visible) visibleCount += group.querySelectorAll('[data-portfolio-item]').length;
+      });
+
+      filterButtons.forEach((button) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        button.setAttribute('aria-pressed', String(button.dataset.portfolioFilter === activePortfolioFilter));
+      });
+
+      updatePortfolioCount(visibleCount);
+    };
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        setPortfolioFilter(button.dataset.portfolioFilter);
+      });
+    });
+
+    window.addEventListener('site-language-change', () => setPortfolioFilter(activePortfolioFilter));
+    setPortfolioFilter('all');
+  </script>
+
   <style>
-    .portfolio-nav {
+    .portfolio-filter {
       display: flex;
-      align-items: baseline;
-      gap: 1.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, .15);
-      padding-bottom: .9rem;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      border-block: var(--rule-hair) solid var(--color-rule-inverse);
+      padding-block: var(--space-md);
     }
-    .portfolio-nav-label {
-      flex: 0 0 auto;
-      color: #bfd0c7;
+    .portfolio-filter-copy {
+      display: grid;
+      gap: var(--space-2xs);
+      color: var(--color-inverse);
       font-size: .75rem;
       font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
     }
-    .portfolio-nav-links {
+    .portfolio-count { color: var(--color-inverse-muted); font-weight: 500; }
+    .portfolio-filter-options {
       display: flex;
-      gap: .25rem 1.2rem;
+      gap: var(--space-xs);
       min-width: 0;
       overflow-x: auto;
-      scrollbar-width: thin;
+      padding-block: var(--space-2xs);
+      scrollbar-width: none;
     }
-    .portfolio-nav-links a {
+    .portfolio-filter-options::-webkit-scrollbar { display: none; }
+    .portfolio-filter-options button {
       display: inline-flex;
       flex: 0 0 auto;
-      align-items: baseline;
-      gap: .45rem;
-      border-bottom: 2px solid transparent;
-      color: #fff;
-      font-size: .9rem;
+      min-height: 40px;
+      align-items: center;
+      border: var(--rule-hair) solid var(--color-rule-inverse);
+      border-radius: var(--radius-pill);
+      color: var(--color-inverse-muted);
+      padding-inline: var(--space-md);
+      font-size: .8rem;
       font-weight: 700;
-      padding: .35rem 0 .55rem;
-      transition: border-color .2s ease, color .2s ease;
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+      white-space: nowrap;
     }
-    .portfolio-nav-links a:hover,
-    .portfolio-nav-links a:focus-visible {
-      border-color: #edc986;
-      color: #edc986;
-      outline: none;
+    .portfolio-filter-options button:hover,
+    .portfolio-filter-options button[aria-pressed="true"] {
+      background: var(--color-accent-pale);
+      color: var(--color-forest);
     }
-    .portfolio-nav-links a > span:first-child {
-      color: #edc986;
-      font-size: .7rem;
-      letter-spacing: .08em;
+    .portfolio-filter-options button:active { transform: translateY(1px); }
+    [data-portfolio-group][hidden] { display: none; }
+    .portfolio-card { transition: background-color var(--dur-short) var(--ease-out); }
+    .portfolio-card:hover, .portfolio-card:focus-within { background: var(--color-surface-inverse-hover); }
+    .portfolio-card-link {
+      width: fit-content;
+      border-bottom: var(--rule-hair) solid var(--color-rule-inverse);
+      padding-bottom: var(--space-2xs);
+      white-space: nowrap;
     }
+    .portfolio-card-link span:last-child {
+      transition: transform var(--dur-short) var(--ease-out);
+    }
+    .portfolio-card-link:hover span:last-child { transform: translateX(4px); }
     .book-cover-frame {
       display: grid;
       aspect-ratio: 3 / 4;
       place-items: center;
       overflow: hidden;
-      background:
-        radial-gradient(circle at 20% 18%, rgba(231, 201, 143, .24), transparent 28%),
-        linear-gradient(145deg, #eef3ef, #f8f3e8);
+      background: var(--color-paper-2);
       padding: .85rem;
     }
     .book-cover-image {
       height: 100%;
       width: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 16px 22px rgba(23, 63, 50, .16));
+      filter: drop-shadow(0 16px 22px var(--color-shadow));
+      transition: transform var(--dur-long) var(--ease-out);
     }
-    .map-card { background: linear-gradient(145deg, rgba(255,255,255,.84), rgba(244,248,243,.74)); }
+    @media (hover: hover) and (pointer: fine) {
+      .group:hover .book-cover-image { transform: scale(1.02); }
+    }
+    .map-card { background: linear-gradient(145deg, var(--color-surface-solid), var(--color-paper-2)); }
     .map-grid {
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(23, 63, 50, .055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(23, 63, 50, .055) 1px, transparent 1px);
+        linear-gradient(color-mix(in oklch, var(--color-forest) 6%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in oklch, var(--color-forest) 6%, transparent) 1px, transparent 1px);
       background-size: 36px 36px;
-      mask-image: radial-gradient(circle at 58% 42%, black, transparent 72%);
       pointer-events: none;
     }
-    .map-menu { min-height: 430px; }
-    .map-route { position: absolute; inset: 0 auto 0 1.1rem; width: 7.5rem; height: 100%; overflow: visible; }
+    .map-menu { min-height: auto; }
+    .map-route { position: absolute; inset: 0 auto 0 1.1rem; display: none; width: 7.5rem; height: 100%; overflow: visible; }
     .map-route-shadow,
     .map-route-line { fill: none; stroke-linecap: round; stroke-width: 7; }
-    .map-route-shadow { stroke: rgba(231, 201, 143, .55); }
+    .map-route-shadow { stroke: var(--color-accent-soft); }
     .map-route-line {
-      stroke: #2f796f;
+      stroke: var(--color-forest-hover);
       stroke-dasharray: 18 14;
       animation: route-drift 1.8s linear infinite;
     }
     .map-traveler {
-      fill: #a66c22;
-      filter: drop-shadow(0 4px 8px rgba(23, 63, 50, .22));
+      fill: var(--color-accent);
+      filter: drop-shadow(0 4px 8px var(--color-shadow));
     }
     .map-stops { position: relative; z-index: 1; display: grid; gap: 1rem; list-style: none; padding: .25rem 0; }
-    .map-stops li { animation: map-stop-in .65s ease both; animation-delay: calc(var(--stop-index, 0) * .11s); }
+    .map-stops li { animation: map-stop-in var(--dur-long) var(--ease-out) both; animation-delay: calc(var(--stop-index, 0) * .11s); }
     .map-stops li:nth-child(1) { --stop-index: 1; }
-    .map-stops li:nth-child(2) { --stop-index: 2; padding-left: 2.6rem; }
-    .map-stops li:nth-child(3) { --stop-index: 3; padding-left: .6rem; }
-    .map-stops li:nth-child(4) { --stop-index: 4; padding-left: 2rem; }
+    .map-stops li:nth-child(2) { --stop-index: 2; }
+    .map-stops li:nth-child(3) { --stop-index: 3; }
+    .map-stops li:nth-child(4) { --stop-index: 4; }
     .map-link {
       display: grid;
-      grid-template-columns: 3.2rem minmax(0, 1fr) auto;
+      grid-template-columns: 2.9rem minmax(0, 1fr) auto;
       align-items: center;
       gap: .85rem;
-      min-height: 82px;
-      border: 1px solid rgba(189, 203, 196, .9);
-      border-radius: 1.25rem;
-      background: rgba(255, 255, 255, .82);
+      min-height: 74px;
+      border: var(--rule-hair) solid var(--color-rule-strong);
+      border-radius: var(--radius-md);
+      background: var(--color-surface-solid);
       padding: .85rem 1rem .85rem .8rem;
-      box-shadow: 0 18px 40px rgba(23, 63, 50, .08);
-      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease;
+      transition: background-color var(--dur-short) var(--ease-out);
     }
     .map-link:hover {
-      transform: translateY(-3px) scale(1.01);
-      border-color: rgba(166, 108, 34, .45);
-      background: #fffaf0;
-      box-shadow: 0 22px 46px rgba(23, 63, 50, .13);
+      background: var(--color-accent-pale);
     }
     .map-pin {
       position: relative;
       display: grid;
-      height: 3.2rem;
-      width: 3.2rem;
+      height: 2.9rem;
+      width: 2.9rem;
       place-items: center;
-      border-radius: 999px 999px 999px 10px;
-      background: #173f32;
-      color: #f7f1df;
-      font-family: 'Newsreader', serif;
+      border-radius: var(--radius-pill) var(--radius-pill) var(--radius-pill) var(--radius-md);
+      background: var(--color-forest);
+      color: var(--color-inverse);
+      font-family: var(--font-display);
       font-weight: 700;
       transform: rotate(-45deg);
-      box-shadow: inset 0 0 0 4px rgba(231, 201, 143, .28), 0 10px 20px rgba(23, 63, 50, .18);
+      box-shadow: inset 0 0 0 4px color-mix(in oklch, var(--color-accent-soft) 40%, transparent);
     }
     .map-pin::before {
       content: '';
       position: absolute;
       inset: .72rem;
-      border-radius: 999px;
-      border: 1px solid rgba(247, 241, 223, .45);
+      border-radius: var(--radius-pill);
+      border: var(--rule-hair) solid color-mix(in oklch, var(--color-inverse) 45%, transparent);
     }
     .map-pin b {
       position: relative;
@@ -725,8 +785,8 @@ const writingAreas = [
       font-size: 1.05rem;
       transform: rotate(45deg);
     }
-    .map-link strong { color: #173f32; font-size: .98rem; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere; }
-    .map-link i { color: #a66c22; font-style: normal; transition: transform .2s ease; }
+    .map-link strong { min-width: 0; color: var(--color-forest); font-size: .98rem; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere; }
+    .map-link i { color: var(--color-accent); font-style: normal; transition: transform var(--dur-short) var(--ease-out); }
     .map-link:hover i { transform: translateX(4px); }
     @keyframes route-drift {
       to { stroke-dashoffset: -32; }
@@ -735,14 +795,15 @@ const writingAreas = [
       from { opacity: 0; transform: translateY(14px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    @media (max-width: 480px) {
-      .portfolio-nav { align-items: flex-start; flex-direction: column; gap: .35rem; }
-      .portfolio-nav-links { width: 100%; }
-      .map-menu { min-height: auto; }
-      .map-route { display: none; }
-      .map-stops li:nth-child(n) { padding-left: 0; }
-      .map-link { grid-template-columns: 2.9rem minmax(0, 1fr) auto; min-height: 74px; }
-      .map-pin { height: 2.9rem; width: 2.9rem; }
+    @media (min-width: 40rem) {
+      .portfolio-filter { flex-direction: row; align-items: flex-end; }
+      .map-menu { min-height: 390px; }
+      .map-route { display: block; }
+      .map-stops li:nth-child(2) { padding-inline-start: 2.6rem; }
+      .map-stops li:nth-child(3) { padding-inline-start: .6rem; }
+      .map-stops li:nth-child(4) { padding-inline-start: 2rem; }
+      .map-link { grid-template-columns: 3.2rem minmax(0, 1fr) auto; min-height: 82px; }
+      .map-pin { height: 3.2rem; width: 3.2rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       .map-traveler { display: none; }

@@ -1,0 +1,14 @@
+{
+  "date": "2026-07-23",
+  "framework": "Astro 7 with React and Tailwind CSS 3",
+  "fontStack": "Newsreader display with DM Sans body",
+  "palette": "Warm paper, forest green, and ochre accent",
+  "motion": "CSS motion only; no motion library",
+  "spacing": "4px semantic token scale",
+  "preserve": [
+    "Newsreader and DM Sans pairing",
+    "forest and ochre brand palette",
+    "bilingual content",
+    "map-based hero navigation"
+  ]
+}

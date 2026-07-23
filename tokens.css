@@ -1,0 +1,65 @@
+:root {
+  --color-paper: oklch(97.5% 0.01 96);
+  --color-paper-2: oklch(95% 0.014 145);
+  --color-paper-3: oklch(91.5% 0.022 145);
+  --color-paper-warm: oklch(96% 0.022 82);
+  --color-surface: oklch(99% 0.006 96 / 0.82);
+  --color-surface-solid: oklch(99% 0.006 96);
+  --color-surface-inverse: oklch(100% 0 0 / 0.06);
+  --color-surface-inverse-hover: oklch(100% 0 0 / 0.1);
+  --color-ink: oklch(29% 0.045 158);
+  --color-forest: oklch(34% 0.065 158);
+  --color-forest-hover: oklch(42% 0.066 158);
+  --color-forest-deep: oklch(28% 0.055 158);
+  --color-muted: oklch(48% 0.03 165);
+  --color-muted-2: oklch(56% 0.025 165);
+  --color-rule: oklch(87% 0.016 150);
+  --color-rule-strong: oklch(78% 0.022 150);
+  --color-rule-inverse: oklch(100% 0 0 / 0.16);
+  --color-accent: oklch(54% 0.1 75);
+  --color-accent-ink: var(--color-forest-deep);
+  --color-accent-dark: oklch(43% 0.085 75);
+  --color-accent-soft: oklch(84% 0.075 82);
+  --color-accent-pale: oklch(93% 0.035 82);
+  --color-inverse: oklch(98% 0.008 96);
+  --color-inverse-muted: oklch(80% 0.026 155);
+  --color-focus: oklch(68% 0.16 73);
+  --color-selection: oklch(90% 0.035 150);
+  --color-shadow: oklch(29% 0.045 158 / 0.14);
+  --color-shadow-soft: oklch(29% 0.045 158 / 0.08);
+
+  --font-display: "Newsreader", ui-serif, serif;
+  --font-body: "DM Sans", ui-sans-serif, sans-serif;
+
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.5rem;
+  --text-display-s: clamp(3rem, 7vw, 5.5rem);
+  --text-display: clamp(3.5rem, 7vw, 5.75rem);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-instant: 100ms;
+  --dur-short: 180ms;
+  --dur-medium: 280ms;
+  --dur-long: 450ms;
+
+  --rule-hair: 1px;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-pill: 999px;
+}
