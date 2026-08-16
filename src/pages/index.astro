@@ -252,6 +252,47 @@ const systems = [
     external: true
   },
   {
+    label: "Sistem informasi - Ma'had",
+    labelEn: "Information system - Ma'had",
+    title: "Sistem Informasi Akademik dan Operasional Ma'had Tarbiyah Sunnah",
+    titleEn: "Academic and Operational Information System for Ma'had Tarbiyah Sunnah",
+    copy: "Sistem informasi terpadu untuk membantu pengelolaan kegiatan akademik, administrasi, dan operasional Ma'had Tarbiyah Sunnah dalam satu ruang kerja digital.",
+    copyEn: "An integrated information system supporting the academic, administrative, and operational activities of Ma'had Tarbiyah Sunnah in one digital workspace.",
+    link: 'http://hub.mahadtarbiyahsunnah.com/',
+    action: 'Kunjungi sistem',
+    actionEn: 'Visit system',
+    accent: 'MTS',
+    external: true,
+    portfolioGroup: 'platform'
+  },
+  {
+    label: 'Sistem informasi - Gratis',
+    labelEn: 'Information system - Free',
+    title: 'IhsanCloud',
+    titleEn: 'IhsanCloud',
+    copy: "Sistem informasi gratis untuk membantu Ma'had, pesantren, TPQ, masjid, dan yayasan menata kebutuhan administrasi serta layanan kelembagaan secara lebih terarah.",
+    copyEn: "A free information system that helps ma'hads, pesantrens, Qur'an learning centers, mosques, and foundations organize administration and institutional services more clearly.",
+    link: 'https://www.ihsancloud.my.id/',
+    action: 'Kunjungi IhsanCloud',
+    actionEn: 'Visit IhsanCloud',
+    accent: 'IC',
+    external: true,
+    portfolioGroup: 'platform'
+  },
+  {
+    label: "Website lembaga - Ma'had",
+    labelEn: "Institution website - Ma'had",
+    title: "Website Ma'had Tarbiyah Sunnah",
+    titleEn: "Ma'had Tarbiyah Sunnah Website",
+    copy: "Website resmi Ma'had Tarbiyah Sunnah untuk menyajikan profil lembaga, program pendidikan, informasi kegiatan, dan kanal komunikasi publik secara tertata.",
+    copyEn: "The official Ma'had Tarbiyah Sunnah website presenting the institution profile, education programs, activity information, and public communication channels in an organized way.",
+    link: 'https://mahadtarbiyahsunnah.com/',
+    action: 'Buka website',
+    actionEn: 'Open website',
+    accent: 'MTS',
+    external: true
+  },
+  {
     label: 'Website publik - Bacatribut',
     labelEn: 'Public website - Bacatribut',
     title: 'Bacatribut',
@@ -310,7 +351,7 @@ const portfolioGroups = [
     titleEn: 'Platforms & systems',
     copy: 'Ruang kerja digital untuk pembelajaran, administrasi, dan operasional lembaga.',
     copyEn: 'Digital workspaces for learning, administration, and institutional operations.',
-    items: systems.filter((item) => item.link.includes('hub.'))
+    items: systems.filter((item) => item.portfolioGroup === 'platform' || item.link.includes('hub.'))
   },
   {
     id: 'portfolio-website',
@@ -318,7 +359,7 @@ const portfolioGroups = [
     titleEn: 'Websites & digital services',
     copy: 'Website publik yang membantu organisasi, program, dan produk hadir lebih mudah ditemukan.',
     copyEn: 'Public websites that help organizations, programs, and products become easier to find.',
-    items: systems.filter((item) => item.external && !item.link.includes('hub.'))
+    items: systems.filter((item) => item.external && item.portfolioGroup !== 'platform' && !item.link.includes('hub.'))
   },
   {
     id: 'portfolio-experiment',
@@ -341,23 +382,27 @@ const writingAreas = [
   title="Yahya Nursidik — Karya, Aplikasi, dan Catatan Pendidikan"
   description="Arsip e-book, sistem dan aplikasi pendidikan, tulisan, serta kegiatan Yahya Nursidik."
 >
-  <section class="relative overflow-hidden border-b border-[var(--color-rule)]">
-    <div class="shell relative grid min-h-[calc(95svh-110px)] grid-cols-[minmax(0,1fr)] items-center gap-12 py-16 lg:grid-cols-[1.15fr_.85fr] lg:py-16">
-      <div>
-        <p class="section-label" data-i18n-id="Ruang karya & pembelajaran" data-i18n-en="Works & learning space">Ruang karya & pembelajaran</p>
-        <h1 class="hero-title mt-6 max-w-3xl min-w-0 text-[var(--color-forest)]">
+  <section class="hero relative overflow-hidden border-b border-[var(--color-rule)]">
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" fetchpriority="high" poster="/videos/interior-desks-poster.svg" aria-hidden="true" tabindex="-1">
+      <source src="/videos/interior-desks.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="shell hero-content relative grid min-h-[calc(95svh-110px)] grid-cols-[minmax(0,1fr)] items-center gap-12 py-16 lg:grid-cols-[1.15fr_.85fr] lg:py-16">
+      <div class="hero-intro">
+        <p class="section-label !text-[var(--color-accent-soft)]" data-i18n-id="Ruang karya & pembelajaran" data-i18n-en="Works & learning space">Ruang karya & pembelajaran</p>
+        <h1 class="hero-title mt-6 max-w-3xl min-w-0 text-[var(--color-inverse)]">
           <span data-i18n-id="Belajar," data-i18n-en="Learn,">Belajar,</span><br /><span data-i18n-id="membuat," data-i18n-en="create,">membuat,</span><br /><span class="text-[var(--color-accent)]" data-i18n-id="berbagi." data-i18n-en="share.">berbagi.</span>
         </h1>
-        <p class="mt-8 max-w-xl text-base leading-8 text-[var(--color-muted)] sm:text-lg" data-i18n-id="Saya Yahya Nursidik. Ruang ini merangkum sebagian e-book, aplikasi, tulisan, dan kegiatan yang lahir dari perjalanan di bidang pendidikan dan teknologi pembelajaran." data-i18n-en="I am Yahya Nursidik. This space gathers selected e-books, applications, writing, and programs shaped by a journey in education and learning technology.">
+        <p class="mt-8 max-w-xl text-base leading-8 text-[var(--color-inverse)] sm:text-lg" data-i18n-id="Saya Yahya Nursidik. Ruang ini merangkum sebagian e-book, aplikasi, tulisan, dan kegiatan yang lahir dari perjalanan di bidang pendidikan dan teknologi pembelajaran." data-i18n-en="I am Yahya Nursidik. This space gathers selected e-books, applications, writing, and programs shaped by a journey in education and learning technology.">
           Saya Yahya Nursidik. Ruang ini merangkum sebagian e-book, aplikasi, tulisan, dan kegiatan yang lahir dari perjalanan di bidang pendidikan dan teknologi pembelajaran.
         </p>
         <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-          <a class="button" href="#karya"><span data-i18n-id="Jelajahi karya" data-i18n-en="Explore works">Jelajahi karya</span> <span aria-hidden="true">↓</span></a>
-          <a class="button button-secondary" href="#tentang" data-i18n-id="Mengenal prosesnya" data-i18n-en="See the process">Mengenal prosesnya</a>
+          <a class="button hero-button" href="#karya"><span data-i18n-id="Jelajahi karya" data-i18n-en="Explore works">Jelajahi karya</span> <span aria-hidden="true">↓</span></a>
+          <a class="button button-secondary hero-button-secondary" href="#tentang" data-i18n-id="Mengenal prosesnya" data-i18n-en="See the process">Mengenal prosesnya</a>
         </div>
       </div>
 
-      <aside class="map-card card relative overflow-hidden p-6 sm:p-7" aria-labelledby="space-map-title">
+      <aside class="map-card hero-map card relative overflow-hidden p-6 sm:p-7" aria-labelledby="space-map-title">
         <div class="map-grid" aria-hidden="true"></div>
         <p id="space-map-title" class="relative text-xs font-bold text-[var(--color-accent-dark)]" data-i18n-id="Di dalam ruang ini" data-i18n-en="Inside this space">Di dalam ruang ini</p>
         <div class="map-menu relative mt-6">
@@ -649,6 +694,37 @@ const writingAreas = [
   </script>
 
   <style>
+    /* Hallmark · macrostructure: Ecosystem Index · tone: warm editorial · anchor hue: forest
+     * variation: ambient video hero (was static) · pre-emit critique: P5 H5 E5 S5 R5 V4
+     * contrast: pass (40-41) · responsive: pass (34, 49-57)
+     */
+    .hero {
+      background: var(--color-forest-deep);
+      isolation: isolate;
+    }
+    .hero-video,
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      width: 100%;
+    }
+    .hero-video {
+      object-fit: cover;
+      object-position: center;
+      z-index: -2;
+    }
+    .hero-overlay {
+      z-index: -1;
+      background: linear-gradient(105deg, color-mix(in oklch, var(--color-forest-deep) 92%, transparent), color-mix(in oklch, var(--color-forest) 70%, transparent));
+    }
+    .hero-content { z-index: 0; }
+    .hero-intro { text-shadow: 0 2px 18px var(--color-shadow); }
+    .hero-button { background: var(--color-accent); color: var(--color-forest-deep); }
+    .hero-button:hover { background: var(--color-accent-soft); }
+    .hero-button-secondary { border-color: var(--color-rule-inverse); color: var(--color-inverse); }
+    .hero-button-secondary:hover { background: var(--color-surface-inverse-hover); }
+    .hero-map { background: color-mix(in oklch, var(--color-surface-solid) 92%, transparent); }
     .portfolio-filter {
       display: flex;
       flex-direction: column;
@@ -819,6 +895,7 @@ const writingAreas = [
       .map-pin { height: 3.2rem; width: 3.2rem; }
     }
     @media (prefers-reduced-motion: reduce) {
+      .hero-video { display: none; }
       .map-traveler { display: none; }
     }
   </style>

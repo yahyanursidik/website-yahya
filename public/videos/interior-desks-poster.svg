@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="Static fallback for the interior workspace video">
+  <rect width="1280" height="720" fill="#234e46"/>
+  <rect y="480" width="1280" height="240" fill="#193d37"/>
+  <path d="M0 520h1280M0 590h1280M0 660h1280" stroke="#b89549" stroke-opacity=".22" stroke-width="2"/>
+  <path d="M130 190h1020v248H130z" fill="#f5e8bf" fill-opacity=".12"/>
+  <path d="M250 438h780l-54 84H304z" fill="#b89549" fill-opacity=".3"/>
+  <path d="M448 304h384v136H448z" fill="#f5e8bf" fill-opacity=".2"/>
+</svg>
