@@ -215,7 +215,10 @@ const systems: PortfolioItem[] = [
     action: 'Kunjungi portal',
     actionEn: 'Visit portal',
     accent: 'TSL',
-    external: true
+    external: true,
+    imageUrl: '/images/portfolio/sistem-informasi-tsl-lab-school.png',
+    imageAlt: 'Tampilan pusat kendali Sistem Informasi Akademik dan Operasional Tarbiyah Sunnah Lab School',
+    imageAltEn: 'Control center for the Academic and Operational Information System of Tarbiyah Sunnah Lab School'
   },
   {
     label: 'Learning management system - Yayasan',
@@ -254,7 +257,10 @@ const systems: PortfolioItem[] = [
     action: 'Buka website',
     actionEn: 'Open website',
     accent: 'BK',
-    external: true
+    external: true,
+    imageUrl: '/images/portfolio/books-by-ibu-kakang.png',
+    imageAlt: 'Halaman beranda Books by Ibunya Kakang',
+    imageAltEn: 'Books by Ibunya Kakang homepage'
   },
   {
     label: 'Website lembaga - Pendidikan',
@@ -299,6 +305,23 @@ const systems: PortfolioItem[] = [
     accent: 'IC',
     external: true,
     portfolioGroup: 'platform'
+  },
+  {
+    label: 'Sistem informasi - Komunitas',
+    labelEn: 'Information system - Community',
+    title: 'WargaHub',
+    titleEn: 'WargaHub',
+    copy: 'Sistem informasi untuk membantu pengelolaan komplek, perumahan, RT, dan RW; mencakup data warga, hunian, iuran, pembayaran, hingga komunikasi layanan warga dalam satu pusat kendali.',
+    copyEn: 'An information system for managing residential communities, housing complexes, neighborhood associations, and community units, covering residents, homes, fees, payments, and resident services from one control center.',
+    link: 'https://wrghub.vercel.app/',
+    action: 'Kunjungi WargaHub',
+    actionEn: 'Visit WargaHub',
+    accent: 'WH',
+    external: true,
+    portfolioGroup: 'platform',
+    imageUrl: '/images/portfolio/wargahub.png',
+    imageAlt: 'Dashboard eksekutif WargaHub untuk pengelolaan komplek dan layanan warga',
+    imageAltEn: 'WargaHub executive dashboard for residential community management and resident services'
   },
   {
     label: "Website lembaga - Ma'had",
@@ -404,7 +427,7 @@ const writingAreas = [
   description="Arsip e-book, sistem dan aplikasi pendidikan, tulisan, serta kegiatan Yahya Nursidik."
 >
   <section class="hero relative overflow-hidden border-b border-[var(--color-rule)]">
-    <video class="hero-video" autoplay muted loop playsinline preload="metadata" fetchpriority="high" poster="/videos/interior-desks-poster.svg" aria-hidden="true" tabindex="-1">
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/videos/interior-desks-poster.svg" aria-hidden="true" tabindex="-1">
       <source src="/videos/interior-desks.mp4" type="video/mp4" />
     </video>
     <div class="hero-overlay" aria-hidden="true"></div>
@@ -852,13 +875,13 @@ const writingAreas = [
     }
     .portfolio-card-link:hover span:last-child { transform: translateX(4px); }
     .portfolio-preview {
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 25 / 12;
       background: var(--color-surface-inverse);
     }
     .portfolio-preview img {
       height: 100%;
       width: 100%;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center;
     }
     .portfolio-more-wrap {
