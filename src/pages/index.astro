@@ -159,7 +159,25 @@ const educationBooks = [
   }
 ];
 
-const systems = [
+interface PortfolioItem {
+  label: string;
+  labelEn: string;
+  title: string;
+  titleEn: string;
+  copy: string;
+  copyEn: string;
+  link: string;
+  action: string;
+  actionEn: string;
+  accent: string;
+  external?: boolean;
+  portfolioGroup?: 'platform';
+  imageUrl?: string;
+  imageAlt?: string;
+  imageAltEn?: string;
+}
+
+const systems: PortfolioItem[] = [
   {
     label: 'Website lembaga - Sekolah',
     labelEn: 'Institution website - School',
@@ -263,7 +281,10 @@ const systems = [
     actionEn: 'Visit system',
     accent: 'MTS',
     external: true,
-    portfolioGroup: 'platform'
+    portfolioGroup: 'platform',
+    imageUrl: '/images/portfolio/sistem-informasi-mahad-tarbiyah-sunnah.png',
+    imageAlt: "Tampilan pilihan portal Sistem Informasi Akademik dan Operasional Ma'had Tarbiyah Sunnah",
+    imageAltEn: "Portal selection screen for the Academic and Operational Information System of Ma'had Tarbiyah Sunnah"
   },
   {
     label: 'Sistem informasi - Gratis',
@@ -554,8 +575,13 @@ const writingAreas = [
               <p class="text-sm leading-6 text-[var(--color-inverse-muted)]" data-i18n-id={group.copy} data-i18n-en={group.copyEn}>{group.copy}</p>
             </div>
             <div class="mt-6 grid grid-cols-[minmax(0,1fr)] gap-px border border-[var(--color-rule-inverse)] bg-[var(--color-rule-inverse)] md:grid-cols-2">
-              {group.items.map((item) => (
-                <article class="portfolio-card group flex h-full flex-col bg-[var(--color-forest-deep)] p-7 sm:p-9" data-portfolio-item={group.id}>
+              {group.items.map((item, itemIndex) => (
+                <article class="portfolio-card group flex h-full flex-col bg-[var(--color-forest-deep)] p-7 sm:p-9" data-portfolio-item={group.id} data-portfolio-index={itemIndex}>
+                  {item.imageUrl && (
+                    <figure class="portfolio-preview -mx-7 -mt-7 mb-7 overflow-hidden border-b border-[var(--color-rule-inverse)] sm:-mx-9 sm:-mt-9 sm:mb-9">
+                      <img src={item.imageUrl} alt={item.imageAlt || ''} width="1900" height="912" loading="lazy" data-portfolio-preview data-alt-id={item.imageAlt} data-alt-en={item.imageAltEn} />
+                    </figure>
+                  )}
                   <div class="flex items-start justify-between gap-5">
                     <span class="text-xs font-bold text-[var(--color-accent-soft)]" data-i18n-id={item.label} data-i18n-en={item.labelEn}>{item.label}</span>
                     <span class="grid h-12 w-12 shrink-0 place-items-center rounded-[var(--radius-md)] bg-[var(--color-accent-pale)] px-1 text-center font-headline text-lg leading-none text-[var(--color-forest)]">{item.accent}</span>
@@ -566,6 +592,11 @@ const writingAreas = [
                 </article>
               ))}
             </div>
+            {group.items.length > 4 && (
+              <div class="portfolio-more-wrap">
+                <button type="button" class="portfolio-more" data-portfolio-more={group.id} data-i18n-id="Lihat karya lainnya" data-i18n-en="Show more work">Lihat karya lainnya <span aria-hidden="true">↓</span></button>
+              </div>
+            )}
           </section>
         ))}
       </div>
@@ -653,7 +684,21 @@ const writingAreas = [
     const filterButtons = document.querySelectorAll('[data-portfolio-filter]');
     const portfolioGroups = document.querySelectorAll('[data-portfolio-group]');
     const portfolioCount = document.querySelector('[data-portfolio-count]');
+    const portfolioMoreButtons = document.querySelectorAll('[data-portfolio-more]');
+    const portfolioPreviewImages = document.querySelectorAll<HTMLImageElement>('[data-portfolio-preview]');
+    const portfolioPageSize = 4;
     let activePortfolioFilter = 'all';
+
+    const updateGroupItems = (group: HTMLElement) => {
+      const total = group.querySelectorAll<HTMLElement>('[data-portfolio-item]').length;
+      const visibleLimit = Number(group.dataset.portfolioVisible || portfolioPageSize);
+      group.querySelectorAll<HTMLElement>('[data-portfolio-item]').forEach((item) => {
+        item.hidden = Number(item.dataset.portfolioIndex) >= visibleLimit;
+      });
+
+      const moreButton = document.querySelector<HTMLButtonElement>(`[data-portfolio-more="${group.dataset.portfolioGroup}"]`);
+      if (moreButton) moreButton.hidden = visibleLimit >= total;
+    };
 
     const updatePortfolioCount = (count: number) => {
       if (!(portfolioCount instanceof HTMLElement)) return;
@@ -661,6 +706,13 @@ const writingAreas = [
       portfolioCount.textContent = english
         ? `${count} ${count === 1 ? 'work' : 'works'} shown`
         : `${count} karya ditampilkan`;
+    };
+
+    const updatePortfolioPreviewAlt = () => {
+      const english = document.documentElement.lang === 'en';
+      portfolioPreviewImages.forEach((image) => {
+        image.alt = image.dataset[english ? 'altEn' : 'altId'] || '';
+      });
     };
 
     const setPortfolioFilter = (filter: string | undefined) => {
@@ -671,7 +723,8 @@ const writingAreas = [
         if (!(group instanceof HTMLElement)) return;
         const visible = activePortfolioFilter === 'all' || group.dataset.portfolioGroup === activePortfolioFilter;
         group.hidden = !visible;
-        if (visible) visibleCount += group.querySelectorAll('[data-portfolio-item]').length;
+        updateGroupItems(group);
+        if (visible) visibleCount += group.querySelectorAll<HTMLElement>('[data-portfolio-item]:not([hidden])').length;
       });
 
       filterButtons.forEach((button) => {
@@ -689,13 +742,27 @@ const writingAreas = [
       });
     });
 
-    window.addEventListener('site-language-change', () => setPortfolioFilter(activePortfolioFilter));
+    portfolioMoreButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        const group = document.querySelector<HTMLElement>(`[data-portfolio-group="${button.dataset.portfolioMore}"]`);
+        if (!group) return;
+        group.dataset.portfolioVisible = String(Number(group.dataset.portfolioVisible || portfolioPageSize) + portfolioPageSize);
+        setPortfolioFilter(activePortfolioFilter);
+      });
+    });
+
+    window.addEventListener('site-language-change', () => {
+      updatePortfolioPreviewAlt();
+      setPortfolioFilter(activePortfolioFilter);
+    });
+    updatePortfolioPreviewAlt();
     setPortfolioFilter('all');
   </script>
 
   <style>
     /* Hallmark · macrostructure: Ecosystem Index · tone: warm editorial · anchor hue: forest
-     * variation: ambient video hero (was static) · pre-emit critique: P5 H5 E5 S5 R5 V4
+     * variation: ambient video hero + progressive portfolio index · pre-emit critique: P5 H5 E5 S5 R5 V4
      * contrast: pass (40-41) · responsive: pass (34, 49-57)
      */
     .hero {
@@ -784,6 +851,38 @@ const writingAreas = [
       transition: transform var(--dur-short) var(--ease-out);
     }
     .portfolio-card-link:hover span:last-child { transform: translateX(4px); }
+    .portfolio-preview {
+      aspect-ratio: 16 / 9;
+      background: var(--color-surface-inverse);
+    }
+    .portfolio-preview img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .portfolio-more-wrap {
+      display: flex;
+      justify-content: center;
+      padding-top: var(--space-lg);
+    }
+    .portfolio-more {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      border: var(--rule-hair) solid var(--color-rule-inverse);
+      border-radius: var(--radius-pill);
+      color: var(--color-inverse);
+      padding-inline: var(--space-lg);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), transform var(--dur-instant) var(--ease-out);
+      white-space: nowrap;
+    }
+    .portfolio-more:hover { background: var(--color-accent-pale); color: var(--color-forest); }
+    .portfolio-more:active { transform: translateY(1px); }
     .book-cover-frame {
       display: grid;
       aspect-ratio: 3 / 4;
