@@ -492,6 +492,23 @@ const systems: PortfolioItem[] = [
     imageUrl: '/images/portfolio/hafalku.webp',
     imageAlt: "Tampilan Hafalku dengan pilihan surah An-Naba', Al-Ikhlas, Al-Falaq, dan An-Nas untuk memulai hafalan",
     imageAltEn: "Hafalku with An-Naba', Al-Ikhlas, Al-Falaq, and An-Nas surah choices for starting memorization"
+  },
+  {
+    label: 'Aplikasi pembelajaran - Doa harian',
+    labelEn: 'Learning app - Daily supplications',
+    title: 'Doaku — Hafalku Doa',
+    titleEn: 'Doaku — Hafalku Doa',
+    copy: 'Aplikasi belajar dan menghafal doa harian bersama orang tua atau guru. Pilih doa, baca teks Arab, Latin, dan artinya, lalu ikuti latihan hafalan dan pengulangan secara bertahap.',
+    copyEn: 'An app for learning and memorizing daily supplications with parents or teachers. Choose a supplication, read its Arabic text, transliteration, and meaning, then practice memorization and repetition step by step.',
+    link: 'https://doaku.yahyanursidik.my.id/',
+    action: 'Buka Doaku',
+    actionEn: 'Open Doaku',
+    accent: 'DOA',
+    external: true,
+    portfolioGroup: 'experiment',
+    imageUrl: '/images/portfolio/doaku.webp',
+    imageAlt: 'Halaman beranda Hafalku Doa dengan ajakan Satu doa hari ini dan tombol Mulai doa pertama',
+    imageAltEn: 'Hafalku Doa homepage inviting learners to memorize one daily supplication'
   }
 ];
 
@@ -566,12 +583,14 @@ const writingAreas = [
           </svg>
           <ol class="map-stops">
             <li><a class="map-link" href="#karya"><span class="map-pin"><b>01</b></span><strong data-i18n-id="E-book & panduan" data-i18n-en="E-books & guides">E-book & panduan</strong><i>&rarr;</i></a></li>
-            <li><a class="map-link" href="#sistem"><span class="map-pin"><b>02</b></span><strong data-i18n-id="Sistem & aplikasi" data-i18n-en="Systems & apps">Sistem & aplikasi</strong><i>&rarr;</i></a></li>
-            <li><a class="map-link" href="#tulisan"><span class="map-pin"><b>03</b></span><strong data-i18n-id="Tulisan di berbagai ruang" data-i18n-en="Writing across spaces">Tulisan di berbagai ruang</strong><i>&rarr;</i></a></li>
-            <li><a class="map-link" href="#kegiatan"><span class="map-pin"><b>04</b></span><strong data-i18n-id="Kelas & kegiatan" data-i18n-en="Classes & programs">Kelas & kegiatan</strong><i>&rarr;</i></a></li>
+            {portfolioGroups.map((group, groupIndex) => (
+              <li><a class="map-link" href={`#${group.id}`} data-portfolio-shortcut={group.id}><span class="map-pin"><b>{String(groupIndex + 2).padStart(2, '0')}</b></span><strong data-i18n-id={group.title} data-i18n-en={group.titleEn}>{group.title}</strong><i aria-hidden="true">&rarr;</i></a></li>
+            ))}
+            <li><a class="map-link" href="#tulisan"><span class="map-pin"><b>05</b></span><strong data-i18n-id="Tulisan di berbagai ruang" data-i18n-en="Writing across spaces">Tulisan di berbagai ruang</strong><i>&rarr;</i></a></li>
+            <li><a class="map-link" href="#kegiatan"><span class="map-pin"><b>06</b></span><strong data-i18n-id="Kelas & kegiatan" data-i18n-en="Classes & programs">Kelas & kegiatan</strong><i>&rarr;</i></a></li>
           </ol>
         </div>
-        <p class="relative mt-5 text-xs leading-5 text-[var(--color-muted-2)]" data-i18n-id="Empat jalur utama untuk membaca karya, mencoba aplikasi, mengikuti tulisan, dan melihat kegiatan." data-i18n-en="Four main paths to read works, try applications, follow writing, and view programs.">Empat jalur utama untuk membaca karya, mencoba aplikasi, mengikuti tulisan, dan melihat kegiatan.</p>
+        <p class="relative mt-5 text-xs leading-5 text-[var(--color-muted-2)]" data-i18n-id="Enam jalur untuk membaca e-book, menjelajahi platform dan website, mencoba aplikasi pembelajaran, mengikuti tulisan, dan melihat kegiatan." data-i18n-en="Six paths to read e-books, explore platforms and websites, try learning apps, follow writing, and view programs.">Enam jalur untuk membaca e-book, menjelajahi platform dan website, mencoba aplikasi pembelajaran, mengikuti tulisan, dan melihat kegiatan.</p>
       </aside>
     </div>
   </section>
@@ -823,6 +842,7 @@ const writingAreas = [
     const portfolioCount = document.querySelector('[data-portfolio-count]');
     const portfolioMoreButtons = document.querySelectorAll('[data-portfolio-more]');
     const portfolioPreviewImages = document.querySelectorAll<HTMLImageElement>('[data-portfolio-preview]');
+    const portfolioShortcuts = document.querySelectorAll<HTMLAnchorElement>('[data-portfolio-shortcut]');
     const portfolioPageSize = 4;
     let activePortfolioFilter = 'all';
 
@@ -876,6 +896,25 @@ const writingAreas = [
       updatePortfolioCount(visibleCount, totalCount);
     };
 
+    const syncPortfolioHash = () => {
+      const target = document.getElementById(window.location.hash.slice(1));
+      if (target instanceof HTMLElement && target.dataset.portfolioGroup) {
+        setPortfolioFilter(target.dataset.portfolioGroup);
+        target.scrollIntoView({ block: 'start', behavior: 'instant' });
+      } else if (target?.id === 'sistem') {
+        setPortfolioFilter('all');
+      }
+    };
+
+    portfolioShortcuts.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        // Reveal the target before the browser follows its anchor, even if the hash is unchanged.
+        setPortfolioFilter(link.dataset.portfolioShortcut);
+      });
+    });
+    window.addEventListener('hashchange', syncPortfolioHash);
+
     filterButtons.forEach((button) => {
       button.addEventListener('click', () => {
         if (!(button instanceof HTMLButtonElement)) return;
@@ -899,6 +938,7 @@ const writingAreas = [
     });
     updatePortfolioPreviewAlt();
     setPortfolioFilter('all');
+    syncPortfolioHash();
   </script>
 
   <style>
@@ -1096,6 +1136,8 @@ const writingAreas = [
     .map-stops li:nth-child(2) { --stop-index: 2; }
     .map-stops li:nth-child(3) { --stop-index: 3; }
     .map-stops li:nth-child(4) { --stop-index: 4; }
+    .map-stops li:nth-child(5) { --stop-index: 5; }
+    .map-stops li:nth-child(6) { --stop-index: 6; }
     .map-link {
       display: grid;
       grid-template-columns: 2.9rem minmax(0, 1fr) auto;
@@ -1111,6 +1153,7 @@ const writingAreas = [
     .map-link:hover {
       background: var(--color-accent-pale);
     }
+    .hero-map .map-link { min-height: 64px; }
     .map-pin {
       position: relative;
       display: grid;
