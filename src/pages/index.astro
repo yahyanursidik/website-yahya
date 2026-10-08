@@ -171,13 +171,29 @@ interface PortfolioItem {
   actionEn: string;
   accent: string;
   external?: boolean;
-  portfolioGroup?: 'platform';
+  portfolioGroup?: 'platform' | 'experiment';
   imageUrl?: string;
   imageAlt?: string;
   imageAltEn?: string;
 }
 
 const systems: PortfolioItem[] = [
+  {
+    label: 'Website lembaga - Sekolah',
+    labelEn: 'Institution website - School',
+    title: 'Website SDTQ Fajar Sunnah',
+    titleEn: 'SDTQ Fajar Sunnah Website',
+    copy: "Website sekolah dasar Islam di Lembang untuk memperkenalkan program tahfidz Al-Qur'an, kurikulum terpadu, informasi SPMB, dan kanal komunikasi calon orang tua.",
+    copyEn: "An Islamic elementary school website in Lembang presenting Qur'an memorization programs, an integrated curriculum, admissions information, and communication channels for prospective parents.",
+    link: 'https://www.fajarsunnah.id/',
+    action: 'Buka website',
+    actionEn: 'Open website',
+    accent: 'FS',
+    external: true,
+    imageUrl: '/images/portfolio/website-fajar-sunnah.webp',
+    imageAlt: 'Halaman beranda SDTQ Fajar Sunnah dengan informasi sekolah dan penerimaan murid baru',
+    imageAltEn: 'SDTQ Fajar Sunnah homepage with school and admissions information'
+  },
   {
     label: 'Website lembaga - Sekolah',
     labelEn: 'Institution website - School',
@@ -189,7 +205,10 @@ const systems: PortfolioItem[] = [
     action: 'Buka website',
     actionEn: 'Open website',
     accent: 'WEB',
-    external: true
+    external: true,
+    imageUrl: '/images/portfolio/website-tsl-lab-school.webp',
+    imageAlt: 'Halaman beranda Tarbiyah Sunnah Lab School dengan pesan Merawat Fitrah, Membangun Generasi Rabbani',
+    imageAltEn: 'Tarbiyah Sunnah Lab School homepage presenting its educational approach'
   },
   {
     label: 'Landing page - Informasi',
@@ -441,28 +460,38 @@ const systems: PortfolioItem[] = [
     imageAltEn: 'PT Saribunga Indonesia homepage with its natural herbal living tagline'
   },
   {
-    label: 'Aplikasi web - Publik',
-    labelEn: 'Public web app',
-    title: 'Bermain Hijaiyah',
-    titleEn: 'Hijaiyah Play',
-    copy: 'Teman belajar huruf Hijaiyah dasar melalui aktivitas dengar, pilih, dan kenali. Aplikasi ini dirancang sebagai alat bantu, bukan pengganti talaqqi bersama guru atau orang tua.',
-    copyEn: 'A companion for learning basic Hijaiyah letters through listening, choosing, and recognizing activities. It is designed as a support tool, not a replacement for talaqqi with teachers or parents.',
-    link: '/hijaiyah',
-    action: 'Buka aplikasi',
-    actionEn: 'Open app',
-    accent: 'أ'
+    label: 'Aplikasi pembelajaran - Matematika SD',
+    labelEn: 'Learning app - Elementary mathematics',
+    title: 'PahamHitung — Belajar Matematika SD',
+    titleEn: 'PahamHitung — Elementary Mathematics',
+    copy: 'Website belajar matematika untuk anak SD kelas 1–6. Anak mengeksplorasi konsep melalui benda, gambar, simbol, dan aktivitas interaktif, dengan panduan bagi orang tua atau pendamping.',
+    copyEn: 'A mathematics learning website for grades 1–6. Children explore concepts through objects, pictures, symbols, and interactive activities, with guidance for parents and learning companions.',
+    link: 'https://hitung.yahyanursidik.my.id/',
+    action: 'Coba belajar matematika',
+    actionEn: 'Try learning mathematics',
+    accent: '1+2',
+    external: true,
+    portfolioGroup: 'experiment',
+    imageUrl: '/images/portfolio/paham-hitung.webp',
+    imageAlt: 'Halaman beranda PahamHitung dengan model penjumlahan visual dan pilihan kelas SD',
+    imageAltEn: 'PahamHitung homepage with a visual addition model and elementary grade selection'
   },
   {
-    label: 'Eksperimen - Pendidikan',
-    labelEn: 'Education experiment',
-    title: 'Permainan Edukasi',
-    titleEn: 'Educational Games',
-    copy: 'Kumpulan prototipe permainan sederhana untuk membuat sesi belajar terasa lebih aktif dan ramah bagi anak.',
-    copyEn: 'A collection of simple game prototypes that make learning sessions feel more active and child-friendly.',
-    link: '/permainan',
-    action: 'Lihat kumpulan',
-    actionEn: 'View collection',
-    accent: '✦'
+    label: "Aplikasi pembelajaran - Hafalan Al-Qur'an",
+    labelEn: "Learning app - Qur'an memorization",
+    title: 'Hafalku',
+    titleEn: 'Hafalku',
+    copy: "Teman belajar hafalan Al-Qur'an dari Juz Amma. Pilih surah dan ayat, dengarkan audio bacaannya, lalu atur pengulangan untuk berlatih secara bertahap, termasuk mulai dari surah-surah pendek.",
+    copyEn: "A Qur'an memorization companion starting with Juz Amma. Choose a surah and verse, listen to the recitation, and adjust repetition to practice gradually, including starting with short surahs.",
+    link: 'https://hafalku.yahyanursidik.my.id/',
+    action: 'Buka Hafalku',
+    actionEn: 'Open Hafalku',
+    accent: 'HQ',
+    external: true,
+    portfolioGroup: 'experiment',
+    imageUrl: '/images/portfolio/hafalku.webp',
+    imageAlt: "Tampilan Hafalku dengan pilihan surah An-Naba', Al-Ikhlas, Al-Falaq, dan An-Nas untuk memulai hafalan",
+    imageAltEn: "Hafalku with An-Naba', Al-Ikhlas, Al-Falaq, and An-Nas surah choices for starting memorization"
   }
 ];
 
@@ -481,15 +510,15 @@ const portfolioGroups = [
     titleEn: 'Websites & digital services',
     copy: 'Website publik yang membantu organisasi, program, dan produk hadir lebih mudah ditemukan.',
     copyEn: 'Public websites that help organizations, programs, and products become easier to find.',
-    items: systems.filter((item) => item.external && item.portfolioGroup !== 'platform' && !item.link.includes('hub.'))
+    items: systems.filter((item) => item.external && !item.portfolioGroup && !item.link.includes('hub.'))
   },
   {
     id: 'portfolio-experiment',
-    title: 'Aplikasi & eksperimen',
-    titleEn: 'Apps & experiments',
+    title: 'Aplikasi pembelajaran & eksperimen',
+    titleEn: 'Learning apps & experiments',
     copy: 'Prototipe interaktif untuk membuka cara belajar yang lebih aktif dan menyenangkan.',
     copyEn: 'Interactive prototypes that open more active and enjoyable ways to learn.',
-    items: systems.filter((item) => !item.external)
+    items: systems.filter((item) => item.portfolioGroup === 'experiment' || !item.external)
   }
 ];
 
@@ -670,32 +699,39 @@ const writingAreas = [
 
       <div class="mt-14 space-y-16 lg:space-y-20">
         {portfolioGroups.map((group) => (
-          <section id={group.id} class="scroll-mt-24" aria-labelledby={`${group.id}-title`} data-portfolio-group={group.id}>
+          <section id={group.id} class="scroll-mt-36" aria-labelledby={`${group.id}-title`} data-portfolio-group={group.id}>
             <div class="grid gap-4 border-b border-[var(--color-rule-inverse)] pb-6 sm:grid-cols-[minmax(0,1fr)_minmax(16rem,.55fr)] sm:items-end">
               <h3 id={`${group.id}-title`} class="min-w-0 font-headline text-[clamp(2rem,4vw,3rem)] leading-none text-[var(--color-accent-pale)]" data-i18n-id={group.title} data-i18n-en={group.titleEn}>{group.title}</h3>
               <p class="text-sm leading-6 text-[var(--color-inverse-muted)]" data-i18n-id={group.copy} data-i18n-en={group.copyEn}>{group.copy}</p>
             </div>
-            <div class="mt-6 grid grid-cols-[minmax(0,1fr)] gap-px border border-[var(--color-rule-inverse)] bg-[var(--color-rule-inverse)] md:grid-cols-2">
+            <div id={`${group.id}-grid`} class="portfolio-grid mt-6 grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-2">
               {group.items.map((item, itemIndex) => (
-                <article class="portfolio-card group flex h-full flex-col bg-[var(--color-forest-deep)] p-7 sm:p-9" data-portfolio-item={group.id} data-portfolio-index={itemIndex}>
-                  {item.imageUrl && (
-                    <figure class="portfolio-preview -mx-7 -mt-7 mb-7 overflow-hidden border-b border-[var(--color-rule-inverse)] sm:-mx-9 sm:-mt-9 sm:mb-9">
-                      <img src={item.imageUrl} alt={item.imageAlt || ''} width="1900" height="912" loading="lazy" data-portfolio-preview data-alt-id={item.imageAlt} data-alt-en={item.imageAltEn} />
-                    </figure>
-                  )}
+                <article class="portfolio-card group flex h-full min-w-0 flex-col p-6 sm:p-7" data-portfolio-item={group.id} data-portfolio-index={itemIndex}>
+                  <figure class="portfolio-preview -mx-6 -mt-6 mb-6 overflow-hidden border-b border-[var(--color-rule-inverse)] sm:-mx-7 sm:-mt-7">
+                    {item.imageUrl ? (
+                      <img src={item.imageUrl} alt={item.imageAlt || ''} width="1900" height="912" loading="lazy" decoding="async" data-portfolio-preview data-alt-id={item.imageAlt} data-alt-en={item.imageAltEn} />
+                    ) : (
+                      <div class="portfolio-placeholder" aria-hidden="true"><span>{item.accent}</span></div>
+                    )}
+                  </figure>
                   <div class="flex items-start justify-between gap-5">
                     <span class="text-xs font-bold text-[var(--color-accent-soft)]" data-i18n-id={item.label} data-i18n-en={item.labelEn}>{item.label}</span>
-                    <span class="grid h-12 w-12 shrink-0 place-items-center rounded-[var(--radius-md)] bg-[var(--color-accent-pale)] px-1 text-center font-headline text-lg leading-none text-[var(--color-forest)]">{item.accent}</span>
                   </div>
-                  <h4 class="mt-10 text-3xl leading-tight" data-i18n-id={item.title} data-i18n-en={item.titleEn}>{item.title}</h4>
-                  <p class="mt-4 max-w-lg flex-1 text-sm leading-7 text-[var(--color-inverse-muted)]" data-i18n-id={item.copy} data-i18n-en={item.copyEn}>{item.copy}</p>
-                  <a class="portfolio-card-link mt-7 inline-flex items-center gap-2 text-sm font-bold text-[var(--color-inverse)]" href={item.link} target={item.external ? '_blank' : undefined} rel={item.external ? 'noreferrer' : undefined}><span data-i18n-id={item.action} data-i18n-en={item.actionEn}>{item.action}</span><span aria-hidden="true">&rarr;</span></a>
+                  <h4 id={`${group.id}-project-${itemIndex}`} class="mt-4 text-2xl leading-tight" data-i18n-id={item.title} data-i18n-en={item.titleEn}>{item.title}</h4>
+                  <p class="mt-3 max-w-lg flex-1 text-sm leading-7 text-[var(--color-inverse-muted)]" data-i18n-id={item.copy} data-i18n-en={item.copyEn}>{item.copy}</p>
+                  <div class="portfolio-card-footer mt-6">
+                    <a class="portfolio-card-link inline-flex items-center gap-2 text-sm font-bold text-[var(--color-inverse)]" href={item.link} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener noreferrer' : undefined} aria-labelledby={`${group.id}-project-${itemIndex} ${group.id}-action-${itemIndex}`} aria-describedby={item.external ? `${group.id}-external-${itemIndex}` : undefined}>
+                      <span id={`${group.id}-action-${itemIndex}`} data-i18n-id={item.action} data-i18n-en={item.actionEn}>{item.action}</span><span aria-hidden="true">{item.external ? '↗' : '→'}</span>
+                      {item.external && <span id={`${group.id}-external-${itemIndex}`} class="sr-only" data-i18n-id="(tab baru)" data-i18n-en="(new tab)">(tab baru)</span>}
+                    </a>
+                    <span class="portfolio-domain">{item.external ? new URL(item.link).hostname.replace(/^www\./, '') : 'yahyanursidik.my.id'}</span>
+                  </div>
                 </article>
               ))}
             </div>
             {group.items.length > 4 && (
               <div class="portfolio-more-wrap">
-                <button type="button" class="portfolio-more" data-portfolio-more={group.id} data-i18n-id="Lihat karya lainnya" data-i18n-en="Show more work">Lihat karya lainnya <span aria-hidden="true">↓</span></button>
+                <button type="button" class="portfolio-more" data-portfolio-more={group.id} aria-controls={`${group.id}-grid`} data-i18n-id="Lihat karya lainnya" data-i18n-en="Show more work">Lihat karya lainnya <span aria-hidden="true">↓</span></button>
               </div>
             )}
           </section>
@@ -801,12 +837,12 @@ const writingAreas = [
       if (moreButton) moreButton.hidden = visibleLimit >= total;
     };
 
-    const updatePortfolioCount = (count: number) => {
+    const updatePortfolioCount = (count: number, total: number) => {
       if (!(portfolioCount instanceof HTMLElement)) return;
       const english = document.documentElement.lang === 'en';
       portfolioCount.textContent = english
-        ? `${count} ${count === 1 ? 'work' : 'works'} shown`
-        : `${count} karya ditampilkan`;
+        ? `${count} of ${total} works shown`
+        : `${count} dari ${total} karya ditampilkan`;
     };
 
     const updatePortfolioPreviewAlt = () => {
@@ -819,13 +855,17 @@ const writingAreas = [
     const setPortfolioFilter = (filter: string | undefined) => {
       activePortfolioFilter = filter || 'all';
       let visibleCount = 0;
+      let totalCount = 0;
 
       portfolioGroups.forEach((group) => {
         if (!(group instanceof HTMLElement)) return;
         const visible = activePortfolioFilter === 'all' || group.dataset.portfolioGroup === activePortfolioFilter;
         group.hidden = !visible;
         updateGroupItems(group);
-        if (visible) visibleCount += group.querySelectorAll<HTMLElement>('[data-portfolio-item]:not([hidden])').length;
+        if (visible) {
+          visibleCount += group.querySelectorAll<HTMLElement>('[data-portfolio-item]:not([hidden])').length;
+          totalCount += group.querySelectorAll<HTMLElement>('[data-portfolio-item]').length;
+        }
       });
 
       filterButtons.forEach((button) => {
@@ -833,7 +873,7 @@ const writingAreas = [
         button.setAttribute('aria-pressed', String(button.dataset.portfolioFilter === activePortfolioFilter));
       });
 
-      updatePortfolioCount(visibleCount);
+      updatePortfolioCount(visibleCount, totalCount);
     };
 
     filterButtons.forEach((button) => {
@@ -894,6 +934,7 @@ const writingAreas = [
     .hero-button-secondary:hover { background: var(--color-surface-inverse-hover); }
     .hero-map { background: color-mix(in oklch, var(--color-surface-solid) 92%, transparent); }
     .portfolio-filter {
+      scroll-margin-top: 9rem;
       display: flex;
       flex-direction: column;
       align-items: stretch;
@@ -912,9 +953,9 @@ const writingAreas = [
     .portfolio-count { color: var(--color-inverse-muted); font-weight: 500; }
     .portfolio-filter-options {
       display: flex;
+      flex-wrap: wrap;
       gap: var(--space-xs);
       min-width: 0;
-      overflow-x: auto;
       padding-block: var(--space-2xs);
       scrollbar-width: none;
     }
@@ -922,7 +963,7 @@ const writingAreas = [
     .portfolio-filter-options button {
       display: inline-flex;
       flex: 0 0 auto;
-      min-height: 40px;
+      min-height: 44px;
       align-items: center;
       border: var(--rule-hair) solid var(--color-rule-inverse);
       border-radius: var(--radius-pill);
@@ -939,19 +980,34 @@ const writingAreas = [
       color: var(--color-forest);
     }
     .portfolio-filter-options button:active { transform: translateY(1px); }
-    [data-portfolio-group][hidden] { display: none; }
-    .portfolio-card { transition: background-color var(--dur-short) var(--ease-out); }
+    [data-portfolio-group][hidden], .portfolio-card[hidden], .portfolio-more[hidden] { display: none; }
+    .portfolio-card {
+      position: relative;
+      overflow: hidden;
+      border: var(--rule-hair) solid var(--color-rule-inverse);
+      border-radius: var(--radius-md);
+      background: var(--color-forest-deep);
+      transition: background-color var(--dur-short) var(--ease-out);
+    }
+    .portfolio-card h4 { overflow-wrap: anywhere; }
     .portfolio-card:hover, .portfolio-card:focus-within { background: var(--color-surface-inverse-hover); }
+    .portfolio-card:has(a:focus-visible), .portfolio-filter-options button:focus-visible, .portfolio-more:focus-visible {
+      outline: 2px solid var(--color-accent-soft);
+      outline-offset: 4px;
+    }
+    .portfolio-card-footer { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; justify-content: space-between; }
+    .portfolio-domain { min-width: 0; color: var(--color-inverse-muted); font-size: .75rem; overflow-wrap: anywhere; }
     .portfolio-card-link {
       width: fit-content;
       border-bottom: var(--rule-hair) solid var(--color-rule-inverse);
       padding-bottom: var(--space-2xs);
       white-space: nowrap;
     }
-    .portfolio-card-link span:last-child {
+    .portfolio-card-link::after { content: ''; position: absolute; inset: 0; }
+    .portfolio-card-link > span[aria-hidden] {
       transition: transform var(--dur-short) var(--ease-out);
     }
-    .portfolio-card-link:hover span:last-child { transform: translateX(4px); }
+    .portfolio-card:hover .portfolio-card-link > span[aria-hidden] { transform: translate(2px, -2px); }
     .portfolio-preview {
       aspect-ratio: 25 / 12;
       background: var(--color-surface-inverse);
@@ -962,6 +1018,14 @@ const writingAreas = [
       object-fit: contain;
       object-position: center;
     }
+    .portfolio-placeholder {
+      display: grid;
+      height: 100%;
+      place-items: center;
+      background: radial-gradient(ellipse at center, var(--color-surface-inverse-hover), transparent);
+      color: var(--color-accent-pale);
+    }
+    .portfolio-placeholder span { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 5rem); }
     .portfolio-more-wrap {
       display: flex;
       justify-content: center;
