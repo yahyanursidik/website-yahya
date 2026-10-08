@@ -6,6 +6,20 @@ Gunakan PATCH untuk perbaikan, MINOR untuk penambahan fitur yang kompatibel,
 dan MAJOR untuk perubahan yang tidak kompatibel. Selama versi `0.x`, aplikasi
 masih dalam tahap pengembangan awal.
 
+## [0.2.0] - 2026-10-08
+
+### Ditambahkan
+- **Doaku — Hafalku Doa** di kategori Aplikasi pembelajaran & eksperimen,
+  dengan tautan, deskripsi bilingual, dan preview WebP.
+- Tautan langsung menu hero ke Platform & sistem, Website & layanan digital,
+  serta Aplikasi pembelajaran & eksperimen.
+
+### Diperbaiki
+- Tautan kategori membuka filter yang sesuai sebelum berpindah ke bagian tujuan,
+  termasuk saat kategori sebelumnya tersembunyi atau hash URL tidak berubah.
+- Akses kategori melalui URL ber-hash dan navigasi kembali/maju browser.
+- Penomoran dan deskripsi menu hero disesuaikan menjadi enam jalur navigasi.
+
 ## [0.1.0] - 2026-10-08
 
 ### Ditambahkan
@@ -31,3 +45,4 @@ masih dalam tahap pengembangan awal.
   Halaman aplikasi yang sudah ada tidak dihapus.
 
 [0.1.0]: https://github.com/yahyanursidik/website-yahya/tree/v0.1.0
+[0.2.0]: https://github.com/yahyanursidik/website-yahya/compare/v0.1.0...v0.2.0
