@@ -1,5 +1,6 @@
 ---
 import '../index.css';
+import { isLanguage, languages, metadata } from '../i18n';
 
 interface Props {
   title: string;
@@ -11,38 +12,55 @@ const {
   description = 'Ruang untuk mengenal karya, aplikasi pendidikan, tulisan, dan kegiatan Yahya Nursidik.'
 } = Astro.props;
 const year = new Date().getFullYear();
+const requestedLanguage = Astro.url.searchParams.get('lang');
+const language = isLanguage(requestedLanguage) ? requestedLanguage : 'id';
+const pageTitle = language === 'id' ? title : metadata[language].title;
+const pageDescription = language === 'id' ? description : metadata[language].description;
 ---
 
 <!doctype html>
-<html lang="id">
+<html lang={language} dir={language === 'ar' ? 'rtl' : 'ltr'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="description" content={description} />
+    <meta name="description" content={pageDescription} />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
+    <title>{pageTitle}</title>
+    {languages.map((locale) => <link rel="alternate" hreflang={locale} href={new URL(`/?lang=${locale}`, Astro.site)} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script is:inline>
+      // Set direction before paint; URL selection takes precedence over saved preferences.
+      const requested = new URL(location.href).searchParams.get('lang');
+      let saved;
+      try { saved = localStorage.getItem('site-language'); } catch {}
+      const language = ['id', 'en', 'ar'].includes(requested) ? requested
+        : ['id', 'en', 'ar'].includes(saved) ? saved : 'id';
+      document.documentElement.lang = language;
+      document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+    </script>
   </head>
   <body class="min-h-screen antialiased">
     <a class="skip-link" href="#konten" data-i18n-id="Lewati ke konten utama" data-i18n-en="Skip to main content">Lewati ke konten utama</a>
 
     <header class="site-header" data-header>
       <div class="masthead-main shell flex items-center justify-between gap-6">
-        <a href="/" class="group flex items-center gap-3" aria-label="Yahya Nursidik, beranda">
+        <a href="/" class="group flex items-center gap-3" aria-label="Yahya Nursidik, beranda" data-label-id="Yahya Nursidik, beranda" data-label-en="Yahya Nursidik, home" data-label-ar="يحيى نورصديق، الصفحة الرئيسية">
           <span class="grid h-10 w-10 place-items-center rounded-[var(--radius-md)] bg-[var(--color-forest)] font-headline text-lg text-[var(--color-inverse)]">YN</span>
           <span class="leading-tight">
-            <strong class="block text-sm font-semibold">Yahya Nursidik</strong>
+            <strong class="block text-sm font-semibold" data-i18n-id="Yahya Nursidik" data-i18n-en="Yahya Nursidik" data-i18n-ar="يحيى نورصديق">Yahya Nursidik</strong>
             <span class="block text-[11px] text-[var(--color-muted)]" data-i18n-id="Catatan karya & pembelajaran" data-i18n-en="Works & learning notes">Catatan karya & pembelajaran</span>
           </span>
         </a>
 
         <div class="flex items-center gap-2">
-          <div class="language-switch" aria-label="Pilihan bahasa">
-            <button type="button" data-lang-button="id" aria-pressed="true">ID</button>
-            <button type="button" data-lang-button="en" aria-pressed="false">EN</button>
+          <div class="language-switch" role="group" aria-label="Pilihan bahasa" data-label-id="Pilihan bahasa" data-label-en="Choose language" data-label-ar="اختر اللغة" dir="ltr">
+            <button type="button" data-lang-button="id" aria-pressed="true" lang="id" aria-label="Bahasa Indonesia">ID</button>
+            <button type="button" data-lang-button="en" aria-pressed="false" lang="en" aria-label="English">EN</button>
+            <button type="button" data-lang-button="ar" aria-pressed="false" lang="ar" aria-label="العربية">العربية</button>
           </div>
           <button class="menu-button lg:hidden" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
             <span class="sr-only" data-i18n-id="Buka menu" data-i18n-en="Open menu">Buka menu</span>
@@ -52,24 +70,24 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="masthead-nav hidden lg:block">
-        <nav class="masthead-nav-inner shell text-sm" aria-label="Navigasi utama">
+        <nav class="masthead-nav-inner shell text-sm" aria-label="Navigasi utama" data-label-id="Navigasi utama" data-label-en="Main navigation" data-label-ar="التنقّل الرئيسي">
           <div class="flex items-center gap-8">
             <a class="nav-link" href="/#karya" data-section-link="karya" data-i18n-id="E-book" data-i18n-en="E-books">E-book</a>
             <a class="nav-link" href="/#sistem" data-section-link="sistem" data-i18n-id="Portofolio digital" data-i18n-en="Digital portfolio">Portofolio digital</a>
             <a class="nav-link" href="/#tulisan" data-section-link="tulisan" data-i18n-id="Tulisan" data-i18n-en="Writing">Tulisan</a>
-            <a class="nav-link" href="/#kegiatan" data-section-link="kegiatan" data-i18n-id="Kelas & program" data-i18n-en="Classes & programs">Kelas & program</a>
+            <a class="nav-link" href="/#kegiatan" data-section-link="kegiatan" data-i18n-id="Kelas & kegiatan" data-i18n-en="Classes & programs">Kelas & kegiatan</a>
             <a class="nav-link" href="/#tentang" data-section-link="tentang" data-i18n-id="Tentang" data-i18n-en="About">Tentang</a>
           </div>
           <a class="text-link" href="/#kontak" data-i18n-id="Mulai percakapan" data-i18n-en="Start a conversation">Mulai percakapan</a>
         </nav>
       </div>
 
-      <nav id="mobile-menu" class="mobile-menu lg:hidden" aria-label="Navigasi seluler" data-mobile-menu hidden>
+      <nav id="mobile-menu" class="mobile-menu lg:hidden" aria-label="Navigasi seluler" data-label-id="Navigasi seluler" data-label-en="Mobile navigation" data-label-ar="قائمة التنقّل للجوال" data-mobile-menu hidden>
         <div class="shell grid gap-1 py-3">
           <a href="/#karya" data-i18n-id="E-book" data-i18n-en="E-books">E-book</a>
           <a href="/#sistem" data-i18n-id="Sistem & aplikasi" data-i18n-en="Systems & apps">Sistem & aplikasi</a>
           <a href="/#tulisan" data-i18n-id="Tulisan" data-i18n-en="Writing">Tulisan</a>
-          <a href="/#kegiatan" data-i18n-id="Kegiatan" data-i18n-en="Programs">Kegiatan</a>
+          <a href="/#kegiatan" data-i18n-id="Kelas & kegiatan" data-i18n-en="Classes & programs">Kelas & kegiatan</a>
           <a href="/#tentang" data-i18n-id="Tentang" data-i18n-en="About">Tentang</a>
           <a href="/#kontak" data-i18n-id="Hubungi" data-i18n-en="Contact">Hubungi</a>
         </div>
@@ -90,14 +108,15 @@ const year = new Date().getFullYear();
             <a class="footer-link" href="https://www.instagram.com/yahyanursidik/" target="_blank" rel="noreferrer">Instagram</a>
             <a class="footer-link" href="https://www.linkedin.com/in/yahya-nursidik-499aa653/" target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
-          <p>© {year} Yahya Nursidik</p>
+          <p>© {year} <span data-i18n-id="Yahya Nursidik" data-i18n-en="Yahya Nursidik" data-i18n-ar="يحيى نورصديق">Yahya Nursidik</span></p>
         </div>
       </div>
     </footer>
 
-    <button class="back-to-top" type="button" data-back-to-top aria-label="Kembali ke atas" title="Kembali ke atas">↑</button>
+    <button class="back-to-top" type="button" data-back-to-top aria-label="Kembali ke atas" title="Kembali ke atas" data-label-id="Kembali ke atas" data-label-en="Back to top" data-label-ar="العودة إلى الأعلى">↑</button>
 
     <script>
+      import { hasArabicTranslation, isLanguage, metadata, translate } from '../i18n';
       const button = document.querySelector('[data-menu-button]');
       const menu = document.querySelector('[data-mobile-menu]');
 
@@ -122,11 +141,27 @@ const year = new Date().getFullYear();
       const languageButtons = document.querySelectorAll('[data-lang-button]');
       const translatableNodes = document.querySelectorAll('[data-i18n-id][data-i18n-en]');
       const setLanguage = (language: string | undefined) => {
-        const nextLanguage = language === 'en' ? 'en' : 'id';
+        const nextLanguage = isLanguage(language) ? language : 'id';
         document.documentElement.lang = nextLanguage;
+        document.documentElement.dir = nextLanguage === 'ar' ? 'rtl' : 'ltr';
+        document.title = metadata[nextLanguage].title;
+        document.querySelector('meta[name="description"]')?.setAttribute('content', metadata[nextLanguage].description);
         translatableNodes.forEach((node) => {
           if (!(node instanceof HTMLElement)) return;
-          node.textContent = node.dataset[nextLanguage === 'en' ? 'i18nEn' : 'i18nId'] || '';
+          node.textContent = translate(node.dataset.i18nId || '', node.dataset.i18nEn || '', nextLanguage, node.dataset.i18nAr);
+          // Untranslated CMS additions retain their original language and reading direction.
+          const fallback = nextLanguage === 'ar' && !hasArabicTranslation(node.dataset.i18nEn || '', node.dataset.i18nAr);
+          node.lang = fallback ? 'id' : nextLanguage;
+          node.dir = fallback ? 'ltr' : (nextLanguage === 'ar' ? 'rtl' : 'ltr');
+        });
+        document.querySelectorAll<HTMLElement>('[data-label-id]').forEach((node) => {
+          const label = node.getAttribute(`data-label-${nextLanguage}`) || node.dataset.labelId || '';
+          node.setAttribute('aria-label', label);
+          if (node.hasAttribute('title')) node.title = label;
+        });
+        document.querySelectorAll<HTMLImageElement>('[data-cover-title-id]').forEach((image) => {
+          const bookTitle = translate(image.dataset.coverTitleId || '', image.dataset.coverTitleEn || '', nextLanguage, image.dataset.coverTitleAr);
+          image.alt = nextLanguage === 'ar' ? `غلاف كتاب ${bookTitle}` : nextLanguage === 'en' ? `Book cover: ${bookTitle}` : `Sampul buku ${bookTitle}`;
         });
         languageButtons.forEach((node) => {
           if (!(node instanceof HTMLButtonElement)) return;
@@ -142,11 +177,13 @@ const year = new Date().getFullYear();
         node.addEventListener('click', () => {
           if (!(node instanceof HTMLButtonElement)) return;
           setLanguage(node.dataset.langButton);
+          const url = new URL(window.location.href);
+          url.searchParams.set('lang', document.documentElement.lang);
+          window.history.replaceState(null, '', url);
         });
       });
 
-      let savedLanguage = 'id';
-      try { savedLanguage = window.localStorage.getItem('site-language') || 'id'; } catch {}
+      const savedLanguage = document.documentElement.lang;
       setLanguage(savedLanguage);
 
       const progress = document.querySelector('[data-reading-progress]');
