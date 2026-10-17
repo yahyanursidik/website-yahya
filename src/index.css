@@ -66,3 +66,33 @@
   :root { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* Arabic typography needs room for joined letters and diacritics. */
+html[lang="ar"] {
+  --font-body: 'Noto Sans Arabic', sans-serif;
+  --font-display: 'Noto Sans Arabic', sans-serif;
+}
+html[lang="ar"] :is(h1, h2, h3, h4, .font-headline) { line-height: 1.6; overflow-wrap: normal; }
+html[lang="ar"] :is(p, .map-link strong) { line-height: 1.9; }
+html[lang="ar"] .tag { letter-spacing: normal; }
+html[dir="rtl"] .reading-progress { transform-origin: right; }
+html[dir="rtl"] .text-link::after { content: '←'; }
+html[dir="rtl"] .text-link:hover::after { transform: translateX(-4px); }
+html[dir="rtl"] .map-link i { transform: scaleX(-1); }
+html[dir="rtl"] .map-route { left: auto; right: 1.1rem; transform: scaleX(-1); }
+html[dir="rtl"] blockquote { border-left: 0; border-right: 2px solid var(--color-accent); padding-left: 0; padding-right: 1.5rem; }
+html[dir="rtl"] .back-to-top { right: auto; left: max(1rem, env(safe-area-inset-left)); }
+.portfolio-domain { direction: ltr; unicode-bidi: isolate; }
+.language-switch { flex-shrink: 0; }
+.language-switch button[lang="ar"] { padding-inline: .5rem; font-family: 'Noto Sans Arabic', sans-serif; }
+@media (min-width: 640px) {
+  html[dir="rtl"] footer .sm\:text-right { text-align: left; }
+}
+@media (max-width: 420px) {
+  .masthead-main { gap: .5rem; }
+  .masthead-main > a { gap: .4rem; }
+  .masthead-main > a > span:first-child { width: 2rem; height: 2rem; }
+  .masthead-main strong { font-size: .75rem; }
+  .masthead-main a span.text-\[11px\] { max-width: 7rem; }
+  .language-switch button { min-width: 1.9rem; }
+}

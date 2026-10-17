@@ -54,7 +54,9 @@ export default config({
       format: { data: 'json' },
       schema: {
         title: fields.slug({ name: { label: 'Judul Kelas / Seminar' } }),
+        titleAr: fields.text({ label: 'Judul (Arab, opsional)' }),
         description: fields.text({ label: 'Deskripsi Singkat', multiline: true }),
+        descriptionAr: fields.text({ label: 'Deskripsi (Arab, opsional)', multiline: true }),
         type: fields.select({
           label: 'Jenis',
           options: [
@@ -65,7 +67,9 @@ export default config({
           defaultValue: 'Pelatihan',
         }),
         format: fields.text({ label: 'Format (Contoh: Online, LMS Daring, Offline)' }),
+        formatAr: fields.text({ label: 'Format (Arab, opsional)' }),
         status: fields.text({ label: 'Status / Keterangan Waktu (Contoh: Kuota Terbatas, Segera Hadir)' }),
+        statusAr: fields.text({ label: 'Status (Arab, opsional)' }),
         link: fields.url({ label: 'Link Pendaftaran' }),
       },
     }),
@@ -76,7 +80,9 @@ export default config({
       format: { data: 'json' },
       schema: {
         title: fields.slug({ name: { label: 'Judul Buku' } }),
+        titleAr: fields.text({ label: 'Judul (Arab, opsional)' }),
         description: fields.text({ label: 'Deskripsi Singkat', multiline: true }),
+        descriptionAr: fields.text({ label: 'Deskripsi (Arab, opsional)', multiline: true }),
         coverUrl: fields.url({ label: 'URL Gambar Cover' }),
         link: fields.url({ label: 'Link Detail/Beli (Opsional)' }),
       },
