@@ -144,7 +144,7 @@ const educationBooks = [
     subtitleEn: 'A Practical Approach to Educational Technology and ICT',
     description: 'Buku bersama Prof. Dr. Deni Darmawan, S.Pd., M.Si., MCE., dengan anggota Yahya Nursidik, S.Pd., M.T., dan Dr. Dadi Mulyadi, S.Pd., M.T., tentang pengelolaan laboratorium virtual dalam konteks teknologi pendidikan dan TIK.',
     descriptionEn: 'A collaborative book with Prof. Dr. Deni Darmawan, Yahya Nursidik, and Dr. Dadi Mulyadi on managing virtual laboratories in educational technology and ICT contexts.',
-    coverUrl: '/images/books/pengelolaan-pengembangan-laboratorium-virtual.png',
+    coverUrl: '/images/books/pengelolaan-pengembangan-laboratorium-virtual.jpg',
     downloadUrl: ''
   },
   {
@@ -178,6 +178,23 @@ interface PortfolioItem {
 }
 
 const systems: PortfolioItem[] = [
+  {
+    label: 'Website & sistem informasi - Lembaga beladiri',
+    labelEn: 'Website & information system - Martial arts institution',
+    title: 'Tsufuk Indonesia — Website & Sistem Informasi Beladiri',
+    titleEn: 'Tsufuk Indonesia — Martial Arts Website & Information System',
+    copy: 'Website dan sistem informasi lembaga beladiri Tsufuk Indonesia untuk profil, program, keanggotaan, dan pengelolaan pembinaan. Mencakup event organizer untuk kegiatan dan ekshibisi, serta learning progress untuk memantau latihan, kehadiran, penguasaan jurus, dan kenaikan tingkat. Platform dalam tahap pengembangan dan uji coba.',
+    copyEn: 'A website and information system for Tsufuk Indonesia, covering its profile, programs, membership, and training administration. Includes event organization for activities and exhibitions, plus learning progress tracking for training, attendance, technique mastery, and grading. The platform is under development and testing.',
+    link: 'https://tsufuk.web.id/',
+    action: 'Kunjungi Tsufuk Indonesia',
+    actionEn: 'Visit Tsufuk Indonesia',
+    accent: 'TSI',
+    external: true,
+    portfolioGroup: 'platform',
+    imageUrl: '/images/portfolio/tsufuk-indonesia.jpg',
+    imageAlt: 'Halaman beranda Tsufuk Indonesia dengan profil beladiri, foto latihan tanding, dan akses masuk portal pembinaan',
+    imageAltEn: 'Tsufuk Indonesia homepage with its martial arts profile, a sparring photograph, and access to the training portal'
+  },
   {
     label: 'Website lembaga - Sekolah',
     labelEn: 'Institution website - School',
@@ -509,6 +526,23 @@ const systems: PortfolioItem[] = [
     imageUrl: '/images/portfolio/doaku.webp',
     imageAlt: 'Halaman beranda Hafalku Doa dengan ajakan Satu doa hari ini dan tombol Mulai doa pertama',
     imageAltEn: 'Hafalku Doa homepage inviting learners to memorize one daily supplication'
+  },
+  {
+    label: 'Aplikasi dokumen - PDF ke EPUB',
+    labelEn: 'Document app - PDF to EPUB',
+    title: 'ArabicReflow — Konversi PDF ke EPUB',
+    titleEn: 'ArabicReflow — PDF to EPUB Converter',
+    copy: 'Aplikasi konversi dokumen PDF yang mengandung teks Arab dan Latin menjadi EPUB yang menyesuaikan ukuran layar. Unggah PDF, konversi dokumen, tinjau teks dengan membandingkannya terhadap sumber, lalu unduh hasil EPUB untuk pengalaman membaca yang lebih nyaman.',
+    copyEn: 'An app for converting PDF documents containing Arabic and Latin text into EPUB books that adapt to the screen. Upload a PDF, convert the document, review the text against the source, then download the EPUB for a more comfortable reading experience.',
+    link: '',
+    action: 'Segera hadir',
+    actionEn: 'Coming soon',
+    accent: 'AR',
+    external: false,
+    portfolioGroup: 'experiment',
+    imageUrl: '/images/portfolio/arabic-reflow.jpg',
+    imageAlt: 'Tampilan ArabicReflow dengan alur unggah PDF, konversi, tinjau hasil, dan unduh EPUB untuk dokumen Arab dan Latin',
+    imageAltEn: 'ArabicReflow interface with PDF upload, conversion, review, and EPUB download steps for Arabic and Latin documents'
   }
 ];
 
@@ -740,11 +774,17 @@ const writingAreas = [
                   <h4 id={`${group.id}-project-${itemIndex}`} class="mt-4 text-2xl leading-tight" data-i18n-id={item.title} data-i18n-en={item.titleEn}>{item.title}</h4>
                   <p class="mt-3 max-w-lg flex-1 text-sm leading-7 text-[var(--color-inverse-muted)]" data-i18n-id={item.copy} data-i18n-en={item.copyEn}>{item.copy}</p>
                   <div class="portfolio-card-footer mt-6">
-                    <a class="portfolio-card-link inline-flex items-center gap-2 text-sm font-bold text-[var(--color-inverse)]" href={item.link} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener noreferrer' : undefined} aria-labelledby={`${group.id}-project-${itemIndex} ${group.id}-action-${itemIndex}`} aria-describedby={item.external ? `${group.id}-external-${itemIndex}` : undefined}>
-                      <span id={`${group.id}-action-${itemIndex}`} data-i18n-id={item.action} data-i18n-en={item.actionEn}>{item.action}</span><span aria-hidden="true">{item.external ? '↗' : '→'}</span>
-                      {item.external && <span id={`${group.id}-external-${itemIndex}`} class="sr-only" data-i18n-id="(tab baru)" data-i18n-en="(new tab)">(tab baru)</span>}
-                    </a>
-                    <span class="portfolio-domain">{item.external ? new URL(item.link).hostname.replace(/^www\./, '') : 'yahyanursidik.my.id'}</span>
+                    {item.link ? (
+                      <>
+                        <a class="portfolio-card-link inline-flex items-center gap-2 text-sm font-bold text-[var(--color-inverse)]" href={item.link} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener noreferrer' : undefined} aria-labelledby={`${group.id}-project-${itemIndex} ${group.id}-action-${itemIndex}`} aria-describedby={item.external ? `${group.id}-external-${itemIndex}` : undefined}>
+                          <span id={`${group.id}-action-${itemIndex}`} data-i18n-id={item.action} data-i18n-en={item.actionEn}>{item.action}</span><span aria-hidden="true">{item.external ? '↗' : '→'}</span>
+                          {item.external && <span id={`${group.id}-external-${itemIndex}`} class="sr-only" data-i18n-id="(tab baru)" data-i18n-en="(new tab)">(tab baru)</span>}
+                        </a>
+                        <span class="portfolio-domain">{item.external ? new URL(item.link).hostname.replace(/^www\./, '') : 'yahyanursidik.my.id'}</span>
+                      </>
+                    ) : (
+                      <span class="inline-flex rounded-full border border-[var(--color-rule-inverse)] px-4 py-2 text-sm font-semibold text-[var(--color-accent-soft)]" data-i18n-id={item.action} data-i18n-en={item.actionEn}>{item.action}</span>
+                    )}
                   </div>
                 </article>
               ))}
