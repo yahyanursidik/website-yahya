@@ -1,5 +1,15 @@
 /** Arabic translations keyed by the existing English copy. Keep product names intact. */
 export const arabic: Record<string, string> = {
+  'Website & information system - Martial arts institution': 'موقع ونظام معلومات — مؤسّسة فنون قتالية',
+  'Tsufuk Indonesia — Martial Arts Website & Information System': 'تسوفوك إندونيسيا — موقع ونظام معلومات للفنون القتالية',
+  'A website and information system for Tsufuk Indonesia, covering its profile, programs, membership, and training administration. Includes event organization for activities and exhibitions, plus learning progress tracking for training, attendance, technique mastery, and grading. The platform is under development and testing.': 'موقع ونظام معلومات لمؤسّسة تسوفوك إندونيسيا، يشمل التعريف بها وبرامجها والعضوية وإدارة التدريب. يضمّ تنظيم الأنشطة والعروض، ومتابعة تقدّم التعلّم في التدريب والحضور وإتقان الحركات والترقّي في المستويات. المنصّة قيد التطوير والتجربة.',
+  'Visit Tsufuk Indonesia': 'زيارة تسوفوك إندونيسيا',
+  'Tsufuk Indonesia homepage with its martial arts profile, a sparring photograph, and access to the training portal': 'الصفحة الرئيسية لتسوفوك إندونيسيا مع تعريف بالفنون القتالية وصورة لتدريب النزال ورابط بوابة التدريب',
+  'Document app - PDF to EPUB': 'تطبيق مستندات — تحويل PDF إلى EPUB',
+  'ArabicReflow — PDF to EPUB Converter': 'ArabicReflow — تحويل PDF إلى EPUB',
+  'An app for converting PDF documents containing Arabic and Latin text into EPUB books that adapt to the screen. Upload a PDF, convert the document, review the text against the source, then download the EPUB for a more comfortable reading experience.': 'تطبيق لتحويل مستندات PDF التي تحتوي على نصوص عربية ولاتينية إلى كتب EPUB تتكيّف مع حجم الشاشة. ارفع ملف PDF، وحوّل المستند، وراجع النص بمقارنته بالمصدر، ثم نزّل كتاب EPUB لتجربة قراءة أكثر راحة.',
+  'Coming soon': 'متاح قريبًا',
+  'ArabicReflow interface with PDF upload, conversion, review, and EPUB download steps for Arabic and Latin documents': 'واجهة ArabicReflow مع خطوات رفع PDF والتحويل ومراجعة النتيجة وتنزيل EPUB للمستندات العربية واللاتينية',
   'Works & learning space': 'مساحة الأعمال والتعلّم',
   'Learn,': 'نتعلّم،',
   'create,': 'نبدع،',
