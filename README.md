@@ -56,4 +56,22 @@ Setelah variable tersimpan, jalankan deploy ulang. Panel dapat diakses melalui `
 ```bash
 npm run astro -- check
 npm run build
+npm test
 ```
+
+## Pilihan bahasa halaman utama
+
+Halaman utama mendukung Indonesia (ID), Inggris (EN), dan Arab (العربية).
+Pilihan disimpan di browser. Tautan `/?lang=ar` membuka versi Arab secara
+langsung dan mengutamakan bahasa di URL daripada preferensi tersimpan.
+Pergantian bahasa mempertahankan bagian halaman yang sedang dibuka.
+
+- Kamus Arab: `src/i18n/ar.ts`, menggunakan teks Inggris yang sudah ada sebagai kunci.
+- Utilitas bahasa, metadata, dan format angka: `src/i18n/index.ts`.
+- Bahasa Arab memakai arah kanan-ke-kiri (RTL), font Noto Sans Arabic, dan penyesuaian navigasi serta aksesibilitas.
+- Di Keystatic, buku dan jadwal memiliki kolom terjemahan Arab opsional. Terjemahan yang diisi pengelola diutamakan; jadwal bawaan memakai kamus. Konten baru tanpa terjemahan tetap memakai teks aslinya.
+- Terjemahan antarmuka mengikuti mekanisme JavaScript yang sudah digunakan website. Sampul buku dan tangkapan layar tetap berupa gambar asli; label serta teks alternatifnya diterjemahkan. Ini bukan terjemahan isi berkas PDF atau website eksternal.
+- Modul terpisah `/hijaiyah` belum menggunakan sistem bahasa halaman utama ini.
+
+`npm test` memeriksa kelengkapan kamus untuk teks antarmuka, katalog,
+portofolio, jadwal, serta format penghitung karya.
