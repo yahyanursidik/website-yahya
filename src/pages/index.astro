@@ -655,17 +655,27 @@ const writingAreas = [
       <p class="section-copy lg:max-w-sm" data-i18n-id="Bukan jawaban yang serba selesai, melainkan teman berpikir bagi orang tua, guru, dan pengelola pendidikan." data-i18n-en="Not finished answers, but thinking companions for parents, teachers, and education managers.">Bukan jawaban yang serba selesai, melainkan teman berpikir bagi orang tua, guru, dan pengelola pendidikan.</p>
     </div>
 
-    <div class="mt-12">
+    <div class="mt-12" data-book-carousel>
       <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <span class="tag" data-i18n-id="Keluarga & anak" data-i18n-en="Family & children">Keluarga & anak</span>
-          <h3 class="mt-4 text-3xl leading-tight text-[var(--color-forest)]" data-i18n-id="Bacaan sederhana untuk menemani keluarga bertumbuh." data-i18n-en="Simple reading to accompany families as they grow.">Bacaan sederhana untuk menemani keluarga bertumbuh.</h3>
+          <h3 id="family-books-title" class="mt-4 text-3xl leading-tight text-[var(--color-forest)]" data-i18n-id="Bacaan sederhana untuk menemani keluarga bertumbuh." data-i18n-en="Simple reading to accompany families as they grow.">Bacaan sederhana untuk menemani keluarga bertumbuh.</h3>
         </div>
         <p class="max-w-md text-sm leading-6 text-[var(--color-muted-2)]" data-i18n-id="Daftar ini merangkum bacaan keluarga, buku anak, dan panduan rumah yang sedang disiapkan untuk dibagikan secara bertahap." data-i18n-en="This list gathers family readings, children's books, and home guides being prepared for gradual sharing.">Daftar ini merangkum bacaan keluarga, buku anak, dan panduan rumah yang sedang disiapkan untuk dibagikan secara bertahap.</p>
       </div>
-      <div class="mt-7 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div class="book-carousel-toolbar mt-5 md:hidden">
+        <div>
+          <p id="family-books-help" class="text-sm text-[var(--color-muted)]" data-i18n-id="Geser untuk menjelajahi buku." data-i18n-en="Swipe to explore the books.">Geser untuk menjelajahi buku.</p>
+          <p class="mt-1 text-xs font-semibold text-[var(--color-muted-2)]" role="status" aria-live="polite" aria-atomic="true"><span data-i18n-id="Buku" data-i18n-en="Book">Buku</span> <span data-book-current>1</span> / <span data-book-total>{childrenBooks.length}</span></p>
+        </div>
+        <div class="flex shrink-0 gap-2">
+          <button type="button" class="book-carousel-button" data-book-previous aria-controls="family-books-track" disabled><span aria-hidden="true">←</span><span class="sr-only" data-i18n-id="Buku sebelumnya" data-i18n-en="Previous book">Buku sebelumnya</span></button>
+          <button type="button" class="book-carousel-button" data-book-next aria-controls="family-books-track"><span aria-hidden="true">→</span><span class="sr-only" data-i18n-id="Buku berikutnya" data-i18n-en="Next book">Buku berikutnya</span></button>
+        </div>
+      </div>
+      <div id="family-books-track" class="family-books-track mt-5 md:mt-7" data-book-track role="region" aria-labelledby="family-books-title" aria-describedby="family-books-help" tabindex="0">
         {childrenBooks.map((item) => (
-          <article class="card group flex h-full flex-col overflow-hidden">
+          <article class="card group flex h-full min-w-0 flex-col overflow-hidden" data-book-slide>
             <div class="book-cover-frame">
               <img src={item.coverUrl} alt={`Sampul buku ${item.title}`} data-cover-title-id={item.title} data-cover-title-en={item.titleEn} class="book-cover-image" loading="lazy" data-book-cover />
               <p class="px-6 text-center text-sm text-[var(--color-muted)]" data-book-cover-fallback hidden data-i18n-id="Sampul segera tersedia" data-i18n-en="Cover coming soon">Sampul segera tersedia</p>
@@ -896,6 +906,7 @@ const writingAreas = [
 
   <script>
     import { isLanguage, portfolioCount as formatPortfolioCount, translate } from '../i18n';
+    import { initializeBookCarousel } from '../components/book-carousel';
 
     document.querySelectorAll<HTMLImageElement>('[data-book-cover]').forEach((image) => {
       const showFallback = () => {
@@ -1008,6 +1019,8 @@ const writingAreas = [
     updatePortfolioPreviewAlt();
     setPortfolioFilter('all');
     syncPortfolioHash();
+
+    document.querySelectorAll<HTMLElement>('[data-book-carousel]').forEach(initializeBookCarousel);
   </script>
 
   <style>
@@ -1157,8 +1170,46 @@ const writingAreas = [
     }
     .portfolio-more:hover { background: var(--color-accent-pale); color: var(--color-forest); }
     .portfolio-more:active { transform: translateY(1px); }
+    .book-carousel-toolbar { align-items: center; justify-content: space-between; gap: 1rem; }
+    .book-carousel-button {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      border: var(--rule-hair) solid var(--color-rule-strong);
+      border-radius: var(--radius-pill);
+      background: var(--color-surface-solid);
+      color: var(--color-forest);
+      font-size: 1.25rem;
+    }
+    .book-carousel-button:hover:not(:disabled) { background: var(--color-accent-pale); }
+    :global([dir="rtl"]) .book-carousel-button > span[aria-hidden] { transform: scaleX(-1); }
+    .family-books-track { display: grid; gap: 1.5rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 47.999rem) {
+      .book-carousel-toolbar { display: flex; }
+      .family-books-track {
+        grid-template-columns: none;
+        grid-auto-flow: column;
+        grid-auto-columns: min(86%, 22rem);
+        gap: 1rem;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-rule-strong) transparent;
+        padding: .25rem .25rem .85rem;
+        scroll-padding-inline: .25rem;
+      }
+      .family-books-track > article { scroll-snap-align: start; scroll-snap-stop: always; }
+      .family-books-track .book-cover-frame { height: 17rem; aspect-ratio: auto; }
+      .family-books-track h4 { font-size: 1.25rem; }
+    }
+    @media (min-width: 64rem) {
+      .family-books-track { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
     .book-cover-frame {
       display: grid;
+      grid-template-rows: minmax(0, 1fr);
       aspect-ratio: 3 / 4;
       place-items: center;
       overflow: hidden;
