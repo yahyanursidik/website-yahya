@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { runInNewContext } from 'node:vm';
 import ts from 'typescript';
@@ -19,7 +19,20 @@ test('the two new family books appear first, in the supplied order', () => {
   for (const book of books.slice(0, 2)) {
     assert.ok(book.titleEn && book.description && book.descriptionEn);
     assert.equal(book.downloadUrl, '', 'Do not publish a PDF link before it is available');
+    assert.ok(existsSync(new URL(`../public${book.coverUrl}`, import.meta.url)), 'The supplied cover must be shipped with the book');
   }
+});
+
+test('the mobile book carousel is user-controlled and keyboard accessible', () => {
+  const carousel = readFileSync(new URL('../src/components/book-carousel.ts', import.meta.url), 'utf8');
+  assert.match(home, /data-book-track role="region" aria-labelledby="family-books-title"/);
+  assert.match(home, /data-book-previous aria-controls="family-books-track"/);
+  assert.match(home, /data-book-next aria-controls="family-books-track"/);
+  assert.match(home, /scroll-snap-type: x mandatory/);
+  assert.match(carousel, /prefers-reduced-motion/);
+  assert.match(carousel, /event\.key === 'Home'/);
+  assert.match(carousel, /event\.key === 'End'/);
+  assert.doesNotMatch(carousel, /setInterval|setTimeout/, 'Books must not advance automatically while being read');
 });
 
 test('book covers retain localized alternative text and an initially hidden fallback', () => {

@@ -1,5 +1,9 @@
 /** Arabic translations keyed by the existing English copy. Keep product names intact. */
 export const arabic: Record<string, string> = {
+  'Swipe to explore the books.': 'اسحب لاستعراض الكتب.',
+  'Book': 'الكتاب',
+  'Previous book': 'الكتاب السابق',
+  'Next book': 'الكتاب التالي',
   "Let's Find Out Together!": 'هيا نكتشف معًا!',
   "A joyful guide to help parents answer children's why and how questions about natural phenomena while inviting families to observe, discuss, and learn together.": 'دليل ممتع يساعد الوالدين على الإجابة عن أسئلة الأطفال حول أسباب الظواهر الطبيعية وكيفية حدوثها، ويدعو الأسرة إلى الملاحظة والحوار والتعلّم معًا.',
   'Reading Together, Growing Closer': 'نقرأ معًا فتتقارب القلوب',
