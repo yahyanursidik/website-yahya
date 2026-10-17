@@ -1,5 +1,9 @@
 /** Arabic translations keyed by the existing English copy. Keep product names intact. */
 export const arabic: Record<string, string> = {
+  'More books': 'المزيد من الكتب',
+  'Swipe or use the arrow buttons to explore.': 'اسحب أو استخدم أزرار الأسهم للاستكشاف.',
+  'Previous slide': 'الشريحة السابقة',
+  'Next slide': 'الشريحة التالية',
   'Swipe to explore the books.': 'اسحب لاستعراض الكتب.',
   'Book': 'الكتاب',
   'Previous book': 'الكتاب السابق',

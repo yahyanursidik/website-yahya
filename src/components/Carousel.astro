@@ -1,0 +1,49 @@
+---
+interface Props {
+  id: string;
+  labelledby: string;
+  total: number;
+  variant?: 'books' | 'portfolio';
+}
+const { id, labelledby, total, variant = 'books' } = Astro.props;
+---
+
+<div class:list={['carousel', `carousel--${variant}`]} style={`--carousel-columns: ${Math.min(total, variant === 'books' ? 3 : 2)}; --carousel-tablet-columns: ${Math.min(total, 2)}`} data-carousel>
+  <div class="carousel-toolbar">
+    <div>
+      <p class="carousel-help" id={`${id}-help`} data-i18n-id="Geser atau gunakan tombol panah untuk menjelajahi." data-i18n-en="Swipe or use the arrow buttons to explore." data-i18n-ar="اسحب أو استخدم أزرار الأسهم للاستكشاف.">Geser atau gunakan tombol panah untuk menjelajahi.</p>
+      <p class="carousel-position" role="status" aria-live="polite" aria-atomic="true"><span data-carousel-current>1</span> / <span data-carousel-total>{total}</span></p>
+    </div>
+    <div class="carousel-actions">
+      <button type="button" class="carousel-button" data-carousel-previous aria-controls={id} disabled><span aria-hidden="true">←</span><span class="sr-only" data-i18n-id="Slide sebelumnya" data-i18n-en="Previous slide" data-i18n-ar="الشريحة السابقة">Slide sebelumnya</span></button>
+      <button type="button" class="carousel-button" data-carousel-next aria-controls={id}><span aria-hidden="true">→</span><span class="sr-only" data-i18n-id="Slide berikutnya" data-i18n-en="Next slide" data-i18n-ar="الشريحة التالية">Slide berikutnya</span></button>
+    </div>
+  </div>
+  <div id={id} class="carousel-track" data-carousel-track role="region" aria-roledescription="carousel" aria-labelledby={labelledby} aria-describedby={`${id}-help`} tabindex="0"><slot /></div>
+</div>
+
+<script>
+  import { initializeCarousel } from './book-carousel';
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(initializeCarousel);
+</script>
+
+<style is:global>
+  .carousel { min-width: 0; margin-top: 1.5rem; }
+  .carousel-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+  .carousel-help { color: var(--color-muted); font-size: .8rem; line-height: 1.6; }
+  .carousel-position { margin-top: .25rem; color: var(--color-forest); font-size: .8rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .carousel-actions { display: flex; flex-shrink: 0; gap: .5rem; }
+  .carousel-button { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--color-rule-strong); border-radius: 50%; background: var(--color-surface-solid); color: var(--color-forest); font-size: 1.25rem; }
+  .carousel-button:hover:not(:disabled) { background: var(--color-accent-pale); }
+  [dir="rtl"] .carousel-button > span[aria-hidden] { transform: scaleX(-1); }
+  .carousel-track { display: grid; grid-auto-flow: column; grid-auto-columns: 88%; gap: 1rem; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: .25rem; padding: .25rem .25rem 1rem; scrollbar-width: thin; scrollbar-color: var(--color-rule-strong) transparent; }
+  .carousel-track > article { min-width: 0; scroll-snap-align: start; }
+  .carousel--books .book-cover-frame { height: 18rem; aspect-ratio: auto; }
+  .carousel--portfolio .carousel-help { color: var(--color-inverse-muted); }
+  .carousel--portfolio .carousel-position { color: var(--color-accent-pale); }
+  .carousel--portfolio .carousel-button { background: transparent; border-color: var(--color-rule-inverse); color: var(--color-inverse); }
+  .carousel--portfolio .carousel-button:hover:not(:disabled) { color: var(--color-forest); }
+  .carousel--portfolio .carousel-track { scrollbar-color: var(--color-accent-soft) transparent; }
+  @media (min-width: 48rem) { .carousel-track { grid-auto-columns: calc((100% - (var(--carousel-tablet-columns) - 1) * 1.5rem) / var(--carousel-tablet-columns)); gap: 1.5rem; } }
+  @media (min-width: 64rem) { .carousel--books .carousel-track { grid-auto-columns: calc((100% - (var(--carousel-columns) - 1) * 1.5rem) / var(--carousel-columns)); } }
+</style>
