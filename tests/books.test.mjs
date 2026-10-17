@@ -23,12 +23,20 @@ test('the two new family books appear first, in the supplied order', () => {
   }
 });
 
-test('the mobile book carousel is user-controlled and keyboard accessible', () => {
+test('all book and portfolio carousels are responsive, user-controlled and keyboard accessible', () => {
   const carousel = readFileSync(new URL('../src/components/book-carousel.ts', import.meta.url), 'utf8');
-  assert.match(home, /data-book-track role="region" aria-labelledby="family-books-title"/);
-  assert.match(home, /data-book-previous aria-controls="family-books-track"/);
-  assert.match(home, /data-book-next aria-controls="family-books-track"/);
-  assert.match(home, /scroll-snap-type: x mandatory/);
+  const component = readFileSync(new URL('../src/components/Carousel.astro', import.meta.url), 'utf8');
+  for (const id of ['family-books-track', 'catalog-books-track', 'education-books-track']) {
+    assert.ok(home.includes(`<Carousel id="${id}"`));
+  }
+  assert.match(home, /<Carousel[^>]+variant="portfolio"/);
+  assert.doesNotMatch(home, /portfolioPageSize|data-portfolio-more/);
+  assert.match(component, /data-carousel-track role="region"/);
+  assert.match(component, /data-carousel-previous aria-controls=\{id\}/);
+  assert.match(component, /data-carousel-next aria-controls=\{id\}/);
+  assert.match(component, /scroll-snap-type: x mandatory/);
+  assert.match(component, /@media \(min-width: 64rem\)/);
+  assert.doesNotMatch(carousel, /mobile\.matches/);
   assert.match(carousel, /prefers-reduced-motion/);
   assert.match(carousel, /event\.key === 'Home'/);
   assert.match(carousel, /event\.key === 'End'/);
