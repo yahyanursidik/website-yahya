@@ -1,5 +1,10 @@
 /** Arabic translations keyed by the existing English copy. Keep product names intact. */
 export const arabic: Record<string, string> = {
+  "Let's Find Out Together!": 'هيا نكتشف معًا!',
+  "A joyful guide to help parents answer children's why and how questions about natural phenomena while inviting families to observe, discuss, and learn together.": 'دليل ممتع يساعد الوالدين على الإجابة عن أسئلة الأطفال حول أسباب الظواهر الطبيعية وكيفية حدوثها، ويدعو الأسرة إلى الملاحظة والحوار والتعلّم معًا.',
+  'Reading Together, Growing Closer': 'نقرأ معًا فتتقارب القلوب',
+  'An engaging guide to read-aloud and shared reading at home that helps parents build a family reading habit, spark conversations, and strengthen their bond with children.': 'دليل مشوّق للقراءة الجهرية والمشتركة في المنزل، يساعد الوالدين على بناء عادة القراءة الأسرية وإثراء الحوار وتعزيز العلاقة مع الأطفال.',
+  'Cover coming soon': 'الغلاف متاح قريبًا',
   'Website & information system - Martial arts institution': 'موقع ونظام معلومات — مؤسّسة فنون قتالية',
   'Tsufuk Indonesia — Martial Arts Website & Information System': 'تسوفوك إندونيسيا — موقع ونظام معلومات للفنون القتالية',
   'A website and information system for Tsufuk Indonesia, covering its profile, programs, membership, and training administration. Includes event organization for activities and exhibitions, plus learning progress tracking for training, attendance, technique mastery, and grading. The platform is under development and testing.': 'موقع ونظام معلومات لمؤسّسة تسوفوك إندونيسيا، يشمل التعريف بها وبرامجها والعضوية وإدارة التدريب. يضمّ تنظيم الأنشطة والعروض، ومتابعة تقدّم التعلّم في التدريب والحضور وإتقان الحركات والترقّي في المستويات. المنصّة قيد التطوير والتجربة.',

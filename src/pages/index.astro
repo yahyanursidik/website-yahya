@@ -47,6 +47,22 @@ const themes = [
 
 const childrenBooks = [
   {
+    title: 'Ayo, Cari Tahu Bersama!',
+    titleEn: "Let's Find Out Together!",
+    description: 'Panduan gembira untuk membantu orang tua menjawab pertanyaan kenapa dan bagaimana dari anak tentang fenomena alam, sambil mengajak keluarga mengamati, berdiskusi, dan belajar bersama.',
+    descriptionEn: "A joyful guide to help parents answer children's why and how questions about natural phenomena while inviting families to observe, discuss, and learn together.",
+    coverUrl: '/images/books/ayo-cari-tahu-bersama.png',
+    downloadUrl: ''
+  },
+  {
+    title: 'Membaca Bersama, Mendekatkan Hati',
+    titleEn: 'Reading Together, Growing Closer',
+    description: 'Panduan seru read-aloud dan shared reading di rumah untuk membantu orang tua membangun kebiasaan membaca bersama, menghidupkan percakapan, dan mempererat kedekatan dengan anak.',
+    descriptionEn: 'An engaging guide to read-aloud and shared reading at home that helps parents build a family reading habit, spark conversations, and strengthen their bond with children.',
+    coverUrl: '/images/books/membaca-bersama-mendekatkan-hati.png',
+    downloadUrl: ''
+  },
+  {
     title: 'Menjadi Orang Tua yang Bertumbuh Dengan Design Thinking',
     titleEn: 'Becoming a Growing Parent with Design Thinking',
     description: 'E-book pengasuhan untuk membantu orang tua merefleksikan proses mendampingi anak melalui empati, ideasi, uji coba, dan perbaikan berkelanjutan di rumah.',
@@ -651,7 +667,8 @@ const writingAreas = [
         {childrenBooks.map((item) => (
           <article class="card group flex h-full flex-col overflow-hidden">
             <div class="book-cover-frame">
-              <img src={item.coverUrl} alt={`Sampul buku ${item.title}`} data-cover-title-id={item.title} data-cover-title-en={item.titleEn} class="book-cover-image" loading="lazy" />
+              <img src={item.coverUrl} alt={`Sampul buku ${item.title}`} data-cover-title-id={item.title} data-cover-title-en={item.titleEn} class="book-cover-image" loading="lazy" data-book-cover />
+              <p class="px-6 text-center text-sm text-[var(--color-muted)]" data-book-cover-fallback hidden data-i18n-id="Sampul segera tersedia" data-i18n-en="Cover coming soon">Sampul segera tersedia</p>
             </div>
             <div class="flex flex-1 flex-col p-6">
               <span class="tag" data-i18n-id="E-book keluarga" data-i18n-en="Family e-book">E-book keluarga</span>
@@ -879,6 +896,18 @@ const writingAreas = [
 
   <script>
     import { isLanguage, portfolioCount as formatPortfolioCount, translate } from '../i18n';
+
+    document.querySelectorAll<HTMLImageElement>('[data-book-cover]').forEach((image) => {
+      const showFallback = () => {
+        const fallback = image.nextElementSibling;
+        if (!(fallback instanceof HTMLElement) || !fallback.hasAttribute('data-book-cover-fallback')) return;
+        image.hidden = true;
+        fallback.hidden = false;
+      };
+      image.addEventListener('error', showFallback, { once: true });
+      if (image.complete && image.naturalWidth === 0) showFallback();
+    });
+
     const filterButtons = document.querySelectorAll('[data-portfolio-filter]');
     const portfolioGroups = document.querySelectorAll('[data-portfolio-group]');
     const portfolioCount = document.querySelector('[data-portfolio-count]');
